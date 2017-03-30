@@ -1,0 +1,12 @@
+  1 [core]
+  2         repositoryformatversion = 0
+  3         filemode = true
+  4         bare = false
+  5         logallrefupdates = true
+  6 [remote "origin"]
+  7         #url = https://github.com/wuliming/Linux-study.git
+  8         url = https://username:password@github.com/wuliming/Linux-study.git
+  9         fetch = +refs/heads/*:refs/remotes/origin/*
+ 10 [branch "master"]
+ 11         remote = origin
+ 12         merge = refs/heads/master
