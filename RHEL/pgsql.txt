@@ -1,0 +1,10 @@
+install step
+1) # su - postgres
+2) # initdb -D /var/lib/pgsql/data/
+3) # pg_ctl -D /var/lib/pgsql/data -l logfile start
+4) # postgres -D /usr/local/pgsql/data >logfile 2>&1 &
+5) # ps -A | grep postgres
+6) # createdb test
+7) # createuser testuser
+8) # psql -d test -U testuser
+9) # psql -U postgres < /home/wulm/I_trouble/pgsql/createsubschema.sql

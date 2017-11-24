@@ -1,0 +1,96 @@
+1) how to check the version
+# cat /etc/SUSE-brand
+SLE
+VERSION = 15
+2) how to set local repo
+# zypper ar file:///mnt/iso local-sles
+3) how to get machine type
+# dmidecode  | grep "Product Name"
+        Product Name: PRIMERGY TX120 S3
+        Product Name: D3049-A1
+
+4) how to get ethernet info
+# lspci | grep -i ethernet
+30:00.0 Ethernet controller: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection (rev 01)
+30:00.1 Ethernet controller: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection (rev 01)
+
+# ethtool  ens2f1
+Settings for ens2f1:
+        Supported ports: [ FIBRE ]
+        Supported link modes:   10000baseT/Full
+        Supported pause frame use: No
+        Supports auto-negotiation: No
+        Advertised link modes:  10000baseT/Full
+        Advertised pause frame use: No
+        Advertised auto-negotiation: No
+        Speed: 10000Mb/s
+        Duplex: Full
+        Port: FIBRE
+        PHYAD: 0
+        Transceiver: external
+        Auto-negotiation: off
+        Supports Wake-on: umbg
+        Wake-on: g
+        Current message level: 0x00000007 (7)
+                               drv probe link
+        Link detected: yes
+4) how to see memory type
+# dmidecode -t memory
+Getting SMBIOS data from sysfs.
+SMBIOS 2.7 present.
+
+Handle 0x0024, DMI type 16, 23 bytes
+Physical Memory Array
+        Location: System Board Or Motherboard
+        Use: System Memory
+        Error Correction Type: Multi-bit ECC
+        Maximum Capacity: 32 GB
+        Error Information Handle: No Error
+        Number Of Devices: 4
+
+Handle 0x0027, DMI type 17, 34 bytes
+Memory Device
+        Array Handle: 0x0024
+        Error Information Handle: No Error
+        Total Width: 72 bits
+        Data Width: 64 bits
+        Size: No Module Installed
+        Form Factor: DIMM
+        Set: None
+        Locator: DIMM-2A
+        Bank Locator: n/a
+        Type: Unknown
+        Type Detail: Synchronous
+        Speed: Unknown
+        Manufacturer: A1_Manufacturer0
+        Serial Number: A1_SerNum0
+        Asset Tag: A1_AssetTagNum0
+        Part Number: Array1_PartNumber0
+        Rank: Unknown
+        Configured Clock Speed: Unknown
+
+Handle 0x002A, DMI type 17, 34 bytes
+Memory Device
+        Array Handle: 0x0024
+        Error Information Handle: No Error
+        Total Width: 72 bits
+        Data Width: 64 bits
+        Size: 2048 MB
+        Form Factor: DIMM
+        Set: None
+        Locator: DIMM-1A
+        Bank Locator: n/a
+        Type: DDR3
+        Type Detail: Synchronous
+        Speed: 1333 MT/s
+        Manufacturer: Samsung
+        Serial Number: 83AF1248
+        Asset Tag: A1_AssetTagNum1
+        Part Number: M391B5773DH0-YH9
+        Rank: 1
+        Configured Clock Speed: 32768 MT/s
+
+Handle 0x002D, DMI type 17, 34 bytes
+5) how to set login whitout psd
+#  ssh-copy-id 10.124.196.105
+

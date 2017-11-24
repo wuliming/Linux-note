@@ -1,0 +1,9 @@
+1) how to see thread infomation of process
+# ps -T -p 3171
+  PID  SPID TTY          TIME CMD
+ 3171  3171 pts/0    00:00:50 iperf3
+#  pstree -p 2
+kthreadd(2)-+-ata_sff(295)
+            |-bioset(82)
+            |-bioset(92)
+

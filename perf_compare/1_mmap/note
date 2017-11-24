@@ -1,0 +1,1 @@
+insted of reade/write system call(userspace->kernel space), mmap can map disk file into memory. 
