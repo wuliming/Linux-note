@@ -10,3 +10,8 @@
  10 [branch "master"]
  11         remote = origin
  12         merge = refs/heads/master
+
+1) how to remove file
+# git rm $file
+2) how to remove directory
+# git rm -rf $dir
