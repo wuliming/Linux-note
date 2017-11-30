@@ -1,0 +1,108 @@
+
+Memory metrics:
+1) Free memory
+Compared to most other operating systems, the free memory value in Linux should not be a cause for concern.“The Linux kernel allocates most unused memory as file system cache, so subtract the amount
+of buffers and cache from the used memory to determine (effectively) free memory.
+
+
+2) Swap usage
+This value depicts the amount of swap space used. swap usage only tells you that Linux manages memory really efficiently.
+Swap In/Out is a reliable means of identifying a memory bottleneck. Values above 200 to 300 pages per second for a sustained period of timeexpress a likely memory bottleneck.
+
+3)Buffer and cache
+
+Cache allocated as file system and block device cache.
+
+4) Slabs
+Depicts the kernel usage of memory. Note that kernel pagescannot be paged out to disk
+
+5.Active versus inactive memory
+Provides you with information about the active use of the system memory. Inactive memory is a likely candidate to be swapped out to diskby the kswapd daemon. 
+
+
+Memory bottlenecks :
+1.memory available:
+
+If, after you start your application,
+this value has decreased significantly, you might have a memory leak. Check the application that
+is causing it and make the necessary adjustments. Use free -l -t -o for additional information
+
+2.Page faults:
+sar -B command can provide page faults information.
+theres is major and minor page faults. using \time $command can get the information.
+# \time ls
+0.00user 0.00system 0:00.00elapsed 0%CPU (0avgtext+0avgdata 988maxresident)k
+0inputs+0outputs (0major+309minor)pagefaults 0swaps
+
+There are two types of page faults: soft page faults, when the page is found in memory, andhard
+page faults, when the page is not found in memory and must be fetched from disk. Accessing
+the disk will slow your application considerably. The sar -B command can provide useful
+information for analyzing page faults, specifically columns pgpgin/s and pgpgout/s.
+
+
+3.File system cache：
+
+This is the common memory space used by the file system cache. Use the free -l -t -o
+command for additional information
+
+
+
+4.Private memory for process:
+
+This represents the memory used by each process running on the server. You can use the pmap
+command to see how much memory is allocated to a specific process.
+
+
+Swapping can have one of two causes:
+
+
+ 1. A process enters sleep mode. This usually happens because the process depends on
+interactive action and editors, shells, and data entry applications spend most of their time
+waiting for user input. During this time, they are inactive .
+
+
+2.A process behaves poorly. Paging can be a serious performance problem when the
+amount of free memory pages falls below the minimum amount specified, because the
+paging mechanism is not able to handle the requests for physical memory pages and the
+swap mechanism is called to free more pages. This significantly increases I/O to disk and
+will quickly degrade a server’s performance.
+
+
+Tunnig the vm subsystem:
+
+If you do choose to modify the virtual memory parameters (in/proc/sys/vm),we recommend that you change
+only one parameter at a time and monitor how the server performs
+
+setting kernel swap and pdflush behavior
+
+It states that Linux moves memory pages that have not been
+accessed for some time to the swap space even if there is enough free memory available.
+By changing the percentage in /proc/sys/vm/swappinessyou can control that behavior,
+depending on the system configuration. If swapping is not desired,
+/proc/sys/vm/swappinessshould have low values
+
+sysctl -w vm.swappiness = 100
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+From ：when to use swap  to solve server perfomance  problems
+Insufficient memory to load applications
+
+A server that doesn't have enough memory to load applications suffers from a general shortage of memory. The server will show a relatively limited amount of memory in buffers and cache, and relatively heavy use of swap space. One easy fix is to add more memory. But optimizing Linux memory swap also can improve performance. Make sure inactive memory pages are swapped out sooner to make room for memory pages that are necessary.
+
+To tell the server to start swapping sooner, use this command: echo 80 > /proc/sys/vm/swappiness. Also write the parameter to the /etc/systcl.conf file, using the following syntax: vm.swappiness = 80. If this doesn't give you more memory to load applications, then resort to adding more physical memory to the server.
+Insufficient memory to cache files
+
+If you suspect there is insufficient memory to cache files, follow this simple calculation: If the available cache and buffer memory is less than 30% of total RAM, your server might suffer from insufficient memory. Next, check the contents of /proc/meminfo. If the amount of inactive (file) memory is significantly higher than the amount of cache, your server doesn't have enough available memory to cache files. Before you can free up more cache, pinpoint what's causing the shortage.
+
+If the programs that Linux loads are requesting too much memory, you don't have many options other than to add more physical RAM. However, other parts of the system using memory could also cause the cache shortage. For instance, it might take too long to commit changed files to disk. If this is the case, you will see a relatively high wa (waiting for I/O) parameter in the top program, and in /proc/meminfo you will see a relatively high value for the Dirty parameter. If this is the case, fixing disk performance is the key to better memory performance.
+Memory swap is used too heavily
+
+If swap is used too heavily, the vmstat monitoring tool will show high si and so (swap in and swap out) activity; the swap space will be mostly filled, and the server will have a low amount of free memory.
+
+To optimize Linux memory conditions, first investigate the root cause of heavy swapping. In general, if only inactive (anonymous) memory is in swap, it shouldn't be under stress. In /proc/meminfo, see if the amount of swap used is much higher than the amount of inactive (anonymous) memory. If so, active memory pages are being swapped as well, even though the Linux kernel needs to access active memory pages frequently. The system needs more physical memory.
+
+If swap is under stress and a large amount of cache is allocated, you can ease the memory load on the server by increasing the swappiness parameter, as described earlier. Higher swappiness value makes the kernel drop memory pages to disk sooner, relieving the stress from cache and making more memory available for active (anonymous) memory.
+
+A higher swappiness parameter actually reduces disk thrashing caused by pages moving in and out of swap too frequently: Increasing swappiness just ensures that pages are moved to swap that should be there, calming down the swap activity on your server. To make this work, you might have to add some more swap to your server as well.
+
+

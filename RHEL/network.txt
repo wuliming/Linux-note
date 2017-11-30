@@ -1,0 +1,84 @@
+1) # chkconfig NetworkManager off
+2) # chkconfig network on
+3) # systemctl stop NetworkManager
+4) # vim ifcfg-br0
+DEVICE=br0
+TYPE=Bridge
+BOOTPROTO=static
+ONBOOT=yes
+IPADDR=10.167.226.99
+NETMASK=255.255.255.0
+GATEWAY=10.167.226.1
+DEFROUTE=yes
+DELAY=0
+5) # vim ifcfg-enp2s0
+TYPE=Ethernet
+NAME=enp2s0
+DEVICE=enp2s0
+BOOTPROTO=dhcp
+ONBOOT=yes
+BRIDGE=br0
+
+--------------knowhow------------------
+1) NAT network(G: guest H:host) 
+G	->	H  O
+G	->	G  X
+H	-> 	G  X
+*the vnet0 of host mapping to guest's eth0. (see *the mac address)
+# the setting of xml
+   <interface type='network'>
+      <mac address='52:54:00:a6:a8:fa'/>
+      <source network='default'/>
+      <model type='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+    </interface>
+# virsh net-dumpxml default
+<network connections='2'>
+  <name>default</name>
+  <uuid>e96f7189-1c8e-4ae8-8149-647f10e8994a</uuid>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='virbr0' stp='on' delay='0'/>
+  <mac address='52:54:00:af:ac:44'/>
+  <ip address='192.168.122.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.122.2' end='192.168.122.254'/>
+    </dhcp>
+  </ip>
+</network>
+
+
+2) Bridge Adapter
+G	->	H  O
+G	->	G  X
+H	-> 	G  O
+# cat /etc/sysconfig/network-scripts/ifcfg-br0
+DEVICE=br0
+TYPE=Bridge
+BOOTPROTO=static
+ONBOOT=yes
+IPADDR=10.167.225.99
+NETMASK=255.255.255.0
+GATEWAY=10.167.225.1
+NM_CONTROLLER=no
+DELAY=0
+# cat /etc/sysconfig/network-scripts/ifcfg-enp2s0 
+TYPE=Ethernet
+BOOTPROTO=none
+NAME=enp2s0
+DEVICE=enp2s0
+NM_CONTROLLER=no
+ONBOOT=yes
+BRIDGE=br0
+# virsh edit rhel7.3_1
+....
+   <interface type='bridge'>
+      <mac address='52:54:00:c2:d6:74'/>
+      <source bridge='br0'/>
+      <model type='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x09' function='0x0'/>
+    </interface>
+
