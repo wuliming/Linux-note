@@ -1,0 +1,4 @@
+1) about  sed command
+* change
+# sed -i  "s/226\.87/225\.87/" /etc/hosts
+

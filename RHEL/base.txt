@@ -20,9 +20,9 @@ To free pagecache, dentries and inodes:
 * intger calculation
 $(( 3 * 5 ))
 * float calculation
-# echo "2 * 2.6" | bc
+# echo "scale=3; 2 * 2.6" | bc
 * radication calculation
 # echo "sqrt(10.000)" | bc
 # awk "BEGIN { x=sqrt(10); print x }"
 * sum calculation
-cat num.txt | awk "{ sum += $1 } END { print sum }"
+cat num.txt | awk "{ sum += $1 } END { printf "%.2f\n",sum }"
