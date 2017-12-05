@@ -34,13 +34,18 @@ theres is major and minor page faults. using \time $command can get the informat
 0.00user 0.00system 0:00.00elapsed 0%CPU (0avgtext+0avgdata 988maxresident)k
 0inputs+0outputs (0major+309minor)pagefaults 0swaps
 
-There are two types of page faults: soft page faults, when the page is found in memory, andhard
-page faults, when the page is not found in memory and must be fetched from disk. Accessing
-the disk will slow your application considerably. The sar -B command can provide useful
-information for analyzing page faults, specifically columns pgpgin/s and pgpgout/s.
+There are two types of page faults: 
+1) soft page faults(minor page fault), when the page is not found in virtual memory but in  the physic memory. Using MMU can access the memory address.
+2) hard page faults(major page fault), when the page is not found in the physic memory and must be fetched from disk.
+   Accessing the disk will slow your application considerably. The sar -B command can provide useful information for analyzing page faults, specifically columns pgpgin/s and pgpgout/s.
+3) invalid(segment fault): the memory address of process want to access is not in the range of virtual memory. out of range.
 
+* Dirty Page
+that has been modified pages in virtual memory. is not mapping the actual data.
+these pages will be synchronismed to the disk by pdflush. in the case of absencing memory,
+using kswapd and pdflush write the date back to disk and release memory.
 
-3.File system cache：
+3.File system cached
 
 This is the common memory space used by the file system cache. Use the free -l -t -o
 command for additional information
