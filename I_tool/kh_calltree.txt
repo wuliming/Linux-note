@@ -1,0 +1,40 @@
+1) download the calltree
+# wget https://sourceforge.net/projects/schilytools/files/calltree/calltree-2.3.tar.bz2/download 
+# tar -jxvf calltree-2.3.tar.bz2
+2) resolve the error of compile
+   # find . -name "*.[c|h]" |xargs sed -i -e "s/getline/getline_calltree/"
+   # find . -name "*.[c|h]" |xargs sed -i -e "s/fexecve/fexecve_calltree/"
+3)resolve the error "/bin/sh: incs/x86_64-linux-cc/Inull: No such file or directory"
+# cp RULES/i686-linux-cc.rul RULES/x86_64-linux-cc.rul
+4)# make
+5)# cp  -rp calltree/OBJ/x86_64-linux-cc/calltree /usr/bin/
+6)# yum install graphviz
+
+EX:
+# calltree -np   list="hash_search_with_hash_value" -m `find ./ -name "*.[c|h]"`  >  hash_search_with_hash_value.log
+# /usr/bin/calltree -gb -np -m *.c -dot > test.dot
+# /usr/bin/dot -Tjpg test.dot -o calltree.jpg
+
+Usage:  calltree [calltree_options] [cpp_options] file1..filen
+        -b              Print a vertial Bar at each tab stop.
+        -f              Flattened (cumulative) tree.
+        -g              Print file names past procedure names.
+        -m              Call structure for main only.
+        -p              Use C Preprocessor (default).
+        -np             Don't use C Preprocessor.
+        -u              List all functions not called via 'main'.
+        -e              List all functions not called.
+        -x              List all external functions.
+        -xvcg           Format output for xvcg.
+        -dot            Format output for graphviz.
+        -v              Be verbose.
+        -help           Print this help.
+        -version        Print version number.
+        igorefile=file  Don't list functions found in 'file'.
+        listfile=file   List only functions found in 'file'.
+        list=name       Produce call graph only for function 'name'.
+        depth=#         Set the maximum printed nesting depth to #.
+        s=#             Set indentation to #.
+ignorefile=, listfile= and depth= may be abbreviated by first letter.
+list= may be abbreviated by lf=.
+

@@ -1,4 +1,34 @@
 1) about  sed command
 * change
 # sed -i  "s/226\.87/225\.87/" /etc/hosts
+2) don't let  error message ouput
+# tar -zxf 171006090033.tar.gz 2>/dev/null
+2) let error message ouput as normal message
+#  tar -zxf 171006090033.tar.gz > /dev/null 2>&1
+3) how to cancel "set -x"
+#  set +x
+4) get the date time string
+DATE=`date +%m%d%H%M%S`
+ROT_DATE=`date +%Y%m%d%H%M%S`
+5) the meaning character of $ 
+# ./test 1 2 3
+$*	"1 2 3"
+$@	"1" "2" "3"
+$#	3 (the no. of parameter)
+$?	suc or fale (0 or 1)
+6) how to build and execute command lines from standard input
+# find . -name "*.[c|h]" |xargs sed -i -e "s/getline/getline_calltree/"
+7) loop
+1. no. loop
+# for x in `seq 0 12`; do echo $x; done  ( 0 means the begin no.)
+# for((i=1;i<=10;i++)); do xxx; done 
+2. file loop
+# for file in /proc/*
+# for file in $(ls *.sh)  
 
+7) the effect of #!/bin/sh
+if add this line you can show the process whit the name of shell using ps.
+otherwise it will show as the name "-bash"
+# ps -ef | grep $scriptname  
+
+ 

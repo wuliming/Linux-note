@@ -88,7 +88,7 @@ libnfsidmap-0.25-15.el7.x86_64
 2. # cat /etc/exports
 /sda6/wulm 10.167.225.0/24(rw) 10.167.226.0/24(rw,sync,no_root_squash,no_subtree_check)
 
-3. # systemctl status nfs
+3. # systemctl start nfs-server.service
 4. # exportfs
 /sda6/home      10.167.225.0/24
 5. # iptables -F
