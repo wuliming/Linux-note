@@ -1,0 +1,30 @@
+
+calculate the memory threshhold 
+
+THRESHOLD=(MIN(DMA_FREE, DMA_LOW + DMA_PROTECTION) + (MIN(DMA32_FREE, DMA32_LOW + DMA32_PROTECTION) +  SUM(NORMAL_LOW)) * 4  [KB]
+                  |         |		  |                   |		   |		  |			|
+                  1)        2)		  3)                  4)	   5)		  6)		      	7)
+
+using grep to get 1) ~ 7)
+
+# grep "pages free" /proc/zoneinfo
+	 pages free     3827 ----- Line1 -------------> .1 DMA_FREE	     
+ 	 pages free     83627 ---- Line2 -------------> .4 DMA32_FREE
+  	 pages free     64547
+
+# grep low /proc/zoneinfo
+	 low      86 ------------- Line1 -------------> .2 DMA_LOW
+	 low      15643 ---------- Line2 -------------> .5 DMA32_LOW
+ 	 low      5387 ----------- Line3 & later -----> .7 NORMAL_LOW.(Line3 & later:3.....low.....NORMAL_LOW....)
+
+# grep protection /proc/zoneinfo
+        protection: (0, 2782, 3741, 3741)
+			       |---- Line1 ----------> .3 DMA_PROTECTION
+     
+        protection: (0, 0, 958, 958)
+			    |------- Line2 ----------> .6 DMA32_PROTECTION
+     
+        protection: (0, 0, 0, 0)
+
+
+ 

@@ -1,0 +1,56 @@
+Base information test
+1. seted by Bios
+1) HT			->	off
+2) Enhanced Speed Step	->	off
+3) Turbo Mode		->	off  
+4) disk-acess		->	RW
+5) dist-Read		->	Ahead
+6) disk-DiskCach	->	Enable
+7) disk-DisableBGI	->	No.
+8) disk-Default Write	->	Always Write Back
+9) disk-Current Write	->	Write Back
+
+2. os setting
+1) intel_idle.max_cstate	->	0  # can forbid the intel_idle
+   note: vm is 9
+   step1. vim /boot/grub2/grub.cfg  add "intel_idle.max_cstat=0" into kernel line.
+   step2. reboot machine
+   step3. check the setting effective
+	# cat /sys/module/intel_idle/parameters/max_cstate
+   *note1: default ACPI idle driver   intel idle driver
+		C1			C1
+		C2			C3
+		C3			C6
+   *note2: if want to forbid the ACPI and intel idle driver,
+           you should add the "idle=poll" into the grub config file.
+ 
+2) runlevel			->	3
+   step1.# ll /etc/systemd/system/default.target
+	lrwxrwxrwx. 1 root root 36 Nov 23 16:56 /etc/systemd/system/default.target -> /lib/systemd/system/graphical.target
+   step2. # ll /lib/systemd/system/runlevel3.target
+	lrwxrwxrwx. 1 root root 17 Nov 23 16:36 /lib/systemd/system/runlevel3.target -> multi-user.target
+   step3. # rm -rf /etc/systemd/system/default.target
+   step4. # ln -s /lib/systemd/system/runlevel3.target /etc/systemd/system/default.target 
+3) selinux			->	Enabled
+   # selinuxenable
+4) copy benchmark list
+5) ./set_env.sh
+6) ./check.sh
+7) auditd			->	on
+  # systemctl start auditd.service
+8) trace			->	on
+  # ./frecord.sh
+9) iptables			->	off
+  # iptables -F
+10)ksm				->	off
+  # systemctl stop ksm
+  # systemclt disable ksm
+11)ksmtuned			->	off
+  # systemctl stop ksmtuned
+  # systemclt disable ksmtuned
+12)thp				->	never
+  # echo never > /sys/kernel/mm/transparent_hugepage/enabled
+  # echo never > /sys/kernel/mm/transparent_hugepage/defrag
+13)schedule			->	deadline
+  # echo deadline > /sys/block/sda/queue/scheduler
+

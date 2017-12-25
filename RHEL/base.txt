@@ -26,3 +26,7 @@ $(( 3 * 5 ))
 # awk "BEGIN { x=sqrt(10); print x }"
 * sum calculation
 cat num.txt | awk "{ sum += $1 } END { printf "%.2f\n",sum }"
+
+4) how to install package specifying the repolist
+# yum --disablerepo="*" --enablerepo="rhel7.3" install kernel-devel
+

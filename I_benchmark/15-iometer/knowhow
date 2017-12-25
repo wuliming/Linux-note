@@ -1,0 +1,82 @@
+step
+
+1.summary
+1) there are iometer(win) and Dynamo(Linux) 2 parts
+   iometer: GUI control program
+   Dynamo : load generate tool
+
+
+
+centos7.3 + win2008 r2
+--------server---------------------------------------
+1)install the needed package (expect & samba & telnet)
+ # yum install expect
+ # rpm -qa |grep expect
+   expect-5.45-14.el7_1.x86_64
+ # rpm -qa |grep samba
+   samba-common-libs-4.4.4-9.el7.x86_64
+   samba-libs-4.4.4-9.el7.x86_64
+   samba-4.4.4-9.el7.x86_64
+   samba-common-4.4.4-9.el7.noarch
+   samba-client-4.4.4-9.el7.x86_64
+   samba-client-libs-4.4.4-9.el7.x86_64
+   samba-common-tools-4.4.4-9.el7.x86_64
+ # yum install telnet
+ # rpm -qa | grep telnet
+   telnet-0.17-64.el7.x86_64
+2) set the samba setting,to share the dir.
+ # vim /etc/samba/smb.conf
+[uers]
+        comment = All users
+        path = /home/wulm/Benchmarks_20171108/15-iometer
+        read only = No
+        inherit acls = Yes
+        veto files = /aquota.user/groups/shares/
+  # smbpasswd -a root
+	New SMB password:root
+	Retype new SMB password:root
+	Added user root.
+  # systemctl start smb
+3) os setting
+ # vim /boot/grub2/grub.cfg
+   linux16 /vmlinuz-3.10.0-514.el7.x86_64 root=UUID=e303873a-391e-4058-9b87-9550a8ecc14c ro crashkernel=auto rhgb quiet LANG=en_US.UTF-8 intel_idle.max_cstate=0 idle=po
+ # reboot
+4) set static ip address
+5) edit the common.sh
+# cd /home/wulm/Benchmarks_20171108/15-iometer/
+# cat common.sh
+TEST_FLAG="native"                     ## native | guest
+SERVER_IP="192.168.10.10"
+CLIENT_IP="192.168.10.11"
+CLIENT_USER="Administrator" 
+CLIENT_PASSWORD="Fnst.1234"
+DISK="sdf"                             # can't support multi disk
+
+note1: test time
+
+TEST_TOTAL_SIZE="32"                   # GB
+MODE="blockio ext3 ext4 xfs btrfs"            ## blockio ext3 ext4 xfs btrfs
+MOUNT_DIR="/home/iotest"
+
+
+-----------client-----------------------
+windows setting
+1) enable the remote access 
+2) disable the firefox
+3) enable the Telnet server and Telnet client function(programing & feture)
+4) controlpanel -> manager tool -> compute manager -> local user&group
+   add the TelnetClient to the Administrator group
+5) controlpanel -> manager tool -> services -> Telnet -> property ->
+   slect the auto.
+6) in powershell run # control userpasswords2 set nopassword log on the compute.
+7) access the server smp  and copy WS_iomete to the desktop
+
+
+
+
+
+
+
+
+
+

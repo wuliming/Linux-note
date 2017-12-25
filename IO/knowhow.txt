@@ -6,4 +6,18 @@
   3. modify the bad blocks
   # badblocks -s -w /dev/sda END START
   # fsck -a /dev/sda
+2) dilatancy the raw and qcow2 img
+  --------raw-------------------
+  1. # virsh shutdown vm1
+  1. # dd if=/dev/zero bs=1024k count=5000 >> /sda6/wulm/I_img/rhel7.4_clone_1.img
+  2. # qemu-img info /sda6/wulm/I_img/rhel7.4_clone_1.img
+  3. # virsh start vm1
+  4. # fdisk /dev/vda
+  5. # mkfs.xfs /dev/vda4
+  -------qcow2-----------------
+  1. # virsh shutdown vm1
+  2. # qemu-img resize rhel74.qcow2 +6G
+  3. # virsh start vm1
+  4. # fdisk /dev/vda
+  5. # mkfs.xfs /dev/vda4
 
