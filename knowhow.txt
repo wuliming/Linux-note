@@ -72,3 +72,10 @@ if can't situation:
 11) how to decompress the src package
 # rpm2cpio kernel-3.10.0-514.el7.src.rpm | cpio -iv
 # tar -xf procps-ng-3.3.10.tar.xz
+
+12) how to compare two files
+   -1 suppress column 1 those lines unique to File1 ( get the File2's unique lines)
+   # comm -13 File1 File2
+   -2 suppress column 2 those lines unique to File2 ( get the File1's unique lines)
+   # comm -23 File1 File2
+   -3 suppress column 3 thoose lines appear in both files

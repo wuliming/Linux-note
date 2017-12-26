@@ -1,0 +1,80 @@
+summary
+- option
+- 
+
+1) option
+ - if    read from instead of stdin (usually set /dev/zero)
+ - of    write to instead of stdout (usually set /dev/null to test the disk performance)
+ - bs    block size
+ - count block count
+ - conv  sync / fsync / fdatasync
+ - iflag sync / dsync / direct / cio / nocache / nonblock
+ - oflag sync / dsync / direct / cio / nocache / nonblock
+ 
+ note1: dsync vs sync vs fsync
+   fsync > dsync > sync ( if want write data to disk ,you can add conv=fsync)
+ 1. dsync (kw. each write) 
+  # dd if=/dev/zero of=test_file bs=1k count=10 oflag=dsync
+    10240 bytes (10 kB) copied, 0.118226 s, 86.6 kB/s
+
+  Use synchronized I/O for data. For the output file, 
+  this forces a physical write of output data on each write. 
+  For the input file, this flag can matter when reading 
+  from a remote file that has been written to synchronously by some other process. 
+  Metadata (e.g., last-access and last-modified time) is not necessarily synchronized. 
+ 2. sync (kw. like dsync + metadata)
+  # dd if=/dev/zero of=test_file bs=1k count=10 oflag=sync
+    10240 bytes (10 kB) copied, 0.123513 s, 82.9 kB/s
+
+  likewise, but also for metadata
+ 3. fsync (kw. sync at the end time)
+  # dd if=/dev/zero of=test_file bs=1k count=10 conv=fsync
+   10240 bytes (10 kB) copied, 0.0146487 s, 699 kB/s
+
+  Synchronize output data and metadata just before finishing. 
+  This forces a physical write of output data and metadata
+
+ note 2: other iflag/oflag
+ 1. nocache
+  Request to discard the system data cache for a file.
+  When count=0 all cached data for the file is specified,
+  otherwise the cache is dropped for the processed portion of the file.
+  Also when count=0, failure to discard the cache is
+  diagnosed and reflected in the exit status.
+
+  Note data that is not already persisted to storage
+  will not be discarded from cache, so note the use of the sync options
+  in the examples below, which are used to maximize the effectiveness of the nocache flag.
+
+  Here are some usage examples:
+
+  # Advise to drop cache for whole file
+  dd if=ifile iflag=nocache count=0
+  
+  # Ensure drop cache for the whole file
+  dd of=ofile oflag=nocache conv=notrunc,fdatasync count=0
+  
+  # Drop cache for part of file
+  dd if=ifile iflag=nocache skip=10 count=10 of=/dev/null
+
+ 2. append
+  Write in append mode, so that even if some other process is writing to this file,
+  every dd write will append to the current contents of the file. 
+  This flag makes sense only for output. If you combine this flag with the of=file operand,
+  you should also specify conv=notrunc unless you want the output file to be 
+  truncated before being appended to.
+
+ 3. cio
+  Use concurrent I/O mode for data. This mode performs direct I/O 
+  and drops the POSIX requirement to serialize all I/O to the same file.
+  A file cannot be opened in CIO mode and with a standard open at the same time.
+
+ 4. direct
+  Use direct I/O for data, avoiding the buffer cache.
+  Note that the kernel may impose restrictions on read or write buffer sizes.
+  For example, with an ext4 destination file system and a Linux-based kernel, 
+  using oflag=direct  will cause writes to fail with EINVAL if the output
+  buffer size is not a multiple of 512.
+
+ 5. nonblock
+  Use non-blocking I/O.
