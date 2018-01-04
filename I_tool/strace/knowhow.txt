@@ -1,0 +1,20 @@
+1) get the strace output
+  # strace -T -ttt -f -o strace.log $app
+  # strace -r -f -o strace.log $app   (relative time)
+
+2) example
+ 1. trace one event 
+ # strace -e open ls
+
+ 2. trace multiple events
+ # strace -e trace=open,read ls
+
+ 3. trace one process
+ # strace -p $pid -o strace.log
+
+ 3. print the relative time
+ # strace -r ls
+
+ 4. generate statics report of system calls
+ # strace -c ls
+ 

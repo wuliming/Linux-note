@@ -31,12 +31,17 @@ do
 		parted -s /dev/$F mkpart primary ext2 $START $END
 		START=END
 		END=START+DISK_SIZE00
+
+		# clear the dir_index feture
+		/sbin/tune2fs -O ^dir_index /dev/${F}${COUNT}
+
 		COUNT=COUNT+1
 	done
 
 	# tell kernel's notice, request os to reload partion information
 	# -s can display the summary of partion # partprobe -s
-	partprobe /dev/${F}   
+	partprobe /dev/${F}  
+ 
 done
 
 exit 0

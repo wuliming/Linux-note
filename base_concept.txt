@@ -4,8 +4,12 @@
  - MSDOS:	the disk partion mode of BIOS+MBR
 		suppot the 2TB at the most
 		4 primary | (3 primary + 1 extended) & countless logic
+
+  tool  :  fdisk
 2) EFI + GPT 
  - EFI	:	extensible Firmware Interface
  - GPT	:	GUID Partion Table
 		support 18EB(1024PB=1048576TB)
 		partion count has no limit
+
+  tool  :  sgdisk

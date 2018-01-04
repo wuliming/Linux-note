@@ -10,7 +10,10 @@ summary
  - conv  sync / fsync / fdatasync
  - iflag sync / dsync / direct / cio / nocache / nonblock
  - oflag sync / dsync / direct / cio / nocache / nonblock
- 
+
+ * reference:
+ http://www.gnu.org/software/coreutils/manual/html_node/dd-invocation.html 
+
  note1: dsync vs sync vs fsync
    fsync > dsync > sync ( if want write data to disk ,you can add conv=fsync)
  1. dsync (kw. each write) 
@@ -69,7 +72,7 @@ summary
   and drops the POSIX requirement to serialize all I/O to the same file.
   A file cannot be opened in CIO mode and with a standard open at the same time.
 
- 4. direct
+ 4. direct (kw: multiple of 512Byte)
   Use direct I/O for data, avoiding the buffer cache.
   Note that the kernel may impose restrictions on read or write buffer sizes.
   For example, with an ext4 destination file system and a Linux-based kernel, 

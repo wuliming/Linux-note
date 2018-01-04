@@ -1,0 +1,10 @@
+1- top
+
+1) monitor the usage of all child process
+  # top -p $(pgrep -P 2069 -d,)
+  or
+  # top -p $(ps -eo pid,ppid |awk '($2==2069){printf "%s%s",delim,$1; delim=","}')
+  
+  if want to add parent process
+  # top -p $(pgrep -P 2069 -d,),2069
+

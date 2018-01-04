@@ -1,0 +1,93 @@
+From 34bf6f8245e8fea68d7ad603389e26c2a45c7111 Mon Sep 17 00:00:00 2001
+From: wulm <wulm.fnst@cn.fujitsu.com>
+Date: Thu, 4 Jan 2018 13:28:05 +0800
+Subject: [PATCH] fix the issue of getting ttyname
+
+---
+ src/pmdas/linux_proc/getinfo.c | 30 ++++++++++++++++++++----------
+ src/pmdas/linux_proc/getinfo.h |  2 +-
+ src/pmdas/linux_proc/pmda.c    |  2 +-
+ 3 files changed, 22 insertions(+), 12 deletions(-)
+
+diff --git a/src/pmdas/linux_proc/getinfo.c b/src/pmdas/linux_proc/getinfo.c
+index 289be76..394d91b 100644
+--- a/src/pmdas/linux_proc/getinfo.c
++++ b/src/pmdas/linux_proc/getinfo.c
+@@ -40,14 +40,17 @@ get_encoded_dev(const char *devnum)
+  * as poor form).
+  *
+  * Returns a pointer into a static buffer, so no free'ing needed.
++ *
++ * fix the issue that can't get ttyname correctly.  
++ * by wulm.fnst@cn.fujitsu.com at 2018/1/4
+  */
+ char *
+-get_ttyname_info(int pid, dev_t dev)
++get_ttyname_info(int pid, dev_t dev, char *devpath)
+ {
+     struct stat statbuf;
+     char fullpath[MAXPATHLEN];
+     static char ttyname[MAXPATHLEN];
+-    char *path, *devpath = "/dev/";
++    char *path;
+     struct dirent *drp;
+     DIR *rundir;
+ 
+@@ -58,15 +61,22 @@ get_ttyname_info(int pid, dev_t dev)
+     while ((drp = readdir(rundir)) != NULL) {
+ 	if (*(path = &drp->d_name[0]) == '.')
+ 	    continue;
+-	pmsprintf(fullpath, sizeof(fullpath), "%s%s", devpath, path);
++	pmsprintf(fullpath, sizeof(fullpath), "%s/%s", devpath, path);
+ 	fullpath[sizeof(fullpath)-1] = '\0';
+-	if (!stat(fullpath, &statbuf))
+-	    continue;
+-	if (S_ISCHR(statbuf.st_mode) && dev == statbuf.st_rdev) {
+-	    strncpy(ttyname, &fullpath[5], sizeof(ttyname));
+-	    ttyname[sizeof(ttyname)-1] = '\0';
+-	    break;
+-	}
++        if (drp->d_type == DT_DIR) {
++	    if(strcmp(get_ttyname_info(pid, dev, fullpath), "?") != 0)
++                return ttyname;
++        }else {
++	    if(!stat(fullpath, &statbuf)) {
++                fprintf(stderr, "fail to get stat of path : %s\n", fullpath);
++            }
++	    if (S_ISCHR(statbuf.st_mode) && drp->d_type != DT_LNK 
++                && dev == statbuf.st_rdev) {
++	        strncpy(ttyname, &fullpath[5], sizeof(ttyname));
++	        ttyname[sizeof(ttyname)-1] = '\0';
++	        break;
++	    }
++        }
+     }
+     closedir(rundir);
+     return ttyname;
+diff --git a/src/pmdas/linux_proc/getinfo.h b/src/pmdas/linux_proc/getinfo.h
+index e3aeb7c..4649aec 100644
+--- a/src/pmdas/linux_proc/getinfo.h
++++ b/src/pmdas/linux_proc/getinfo.h
+@@ -14,5 +14,5 @@
+  */
+ 
+ extern dev_t get_encoded_dev(const char *);
+-extern char *get_ttyname_info(int, dev_t);
++extern char *get_ttyname_info(int, dev_t, char *);
+ 
+diff --git a/src/pmdas/linux_proc/pmda.c b/src/pmdas/linux_proc/pmda.c
+index 3a1f8a9..a95117e 100644
+--- a/src/pmdas/linux_proc/pmda.c
++++ b/src/pmdas/linux_proc/pmda.c
+@@ -1930,7 +1930,7 @@ proc_fetchCallBack(pmdaMetric *mdesc, unsigned int inst, pmAtomValue *atom)
+ 		    atom->cp = "?";
+ 		else {
+ 		    dev_t dev = get_encoded_dev(f);
+-		    atom->cp = get_ttyname_info(inst, dev);
++		    atom->cp = get_ttyname_info(inst, dev, "/dev");
+ 		}
+ 		break;
+ 
+-- 
+1.8.3.1
+

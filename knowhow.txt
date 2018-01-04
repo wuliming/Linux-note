@@ -1,23 +1,49 @@
+- sed
+- message output
+- set +x
+- ROT_DATE=`date +%Y%m%d%H%M%S`
+- $ and so on
+- xargs
+- loop
+- #!/bin/sh
+- "This account is currently not available."
+- threshhold
+- csv2excel
+- decompress the src package
+- comm  
+- calculation
+- yum repolist
+-
 1) about  sed command
 * change
 # sed -i  "s/226\.87/225\.87/g" /etc/hosts  ("g" will change the every mark, othewise change only one)
-2) don't let  error message ouput
-# tar -zxf 171006090033.tar.gz 2>/dev/null
-2) let error message ouput as normal message
-#  tar -zxf 171006090033.tar.gz > /dev/null 2>&1
+
+2) error message output
+  1. don't let  error message ouput
+  # tar -zxf 171006090033.tar.gz 2>/dev/null
+  2. let error message ouput as normal message
+  #  tar -zxf 171006090033.tar.gz > /dev/null 2>&1
+  
+  3. redirect the strace output to a file
+  # strace ls &>strace.txt
+
 3) how to cancel "set -x"
 #  set +x
+
 4) get the date time string
 DATE=`date +%m%d%H%M%S`
 ROT_DATE=`date +%Y%m%d%H%M%S`
+
 5) the meaning character of $ 
 # ./test 1 2 3
 $*	"1 2 3"
 $@	"1" "2" "3"
 $#	3 (the no. of parameter)
 $?	suc or fale (0 or 1)
+
 6) how to build and execute command lines from standard input
-# find . -name "*.[c|h]" |xargs sed -i -e "s/getline/getline_calltree/"
+  # find . -name "*.[c|h]" |xargs sed -i -e "s/getline/getline_calltree/"
+
 7) loop
 1. no. loop
 # for x in `seq 0 12`; do echo $x; done  ( 0 means the begin no.)
@@ -26,13 +52,14 @@ $?	suc or fale (0 or 1)
 # for file in /proc/*
 # for file in $(ls *.sh)  
 
-7) the effect of #!/bin/sh
+8) the effect of #!/bin/sh
 if add this line you can show the process whit the name of shell using ps.
 otherwise it will show as the name "-bash"
-# ps -ef | grep $scriptname  
+
+ # ps -ef | grep $scriptname  
 
 8) how to solve "This account is currently not available."
-# usermod -s /bin/bash pcp
+ # usermod -s /bin/bash pcp
  
 9) threshhold 
 
@@ -79,3 +106,41 @@ if can't situation:
    -2 suppress column 2 those lines unique to File2 ( get the File1's unique lines)
    # comm -23 File1 File2
    -3 suppress column 3 thoose lines appear in both files
+
+13) how to calculation
+  - intger calculation
+  $(( 3 * 5 ))
+
+  - float calculation
+  # echo "scale=3; 2 * 2.6" | bc
+
+  - radication calculation
+  # echo "sqrt(10.000)" | bc
+  # awk "BEGIN { x=sqrt(10); print x }"
+
+  - sum calculation
+  # cat num.txt | awk "{ sum += $1 } END { printf "%.2f\n",sum }"
+
+14) how to install package specifying the repolist
+  # yum --disablerepo="*" --enablerepo="rhel7.3" install kernel-devel
+
+15) how to see thread infomation of process
+  # ps -T -p 3171
+  PID  SPID TTY          TIME CMD
+  3171  3171 pts/0    00:00:50 iperf3
+  #  pstree -p 2
+  kthreadd(2)-+-ata_sff(295)
+            |-bioset(82)
+            |-bioset(92)
+
+16) vim
+ - tab windows
+ :tabe $filename
+ :tabn -> next file
+ :tabp -> previos file
+
+ - vertical split
+ :vsp $filename
+ 
+ - horizontal
+ :sp $filename

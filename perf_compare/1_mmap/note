@@ -1,1 +1,26 @@
-insted of reade/write system call(userspace->kernel space), mmap can map disk file into memory. 
+mmap 
+    map or unmap files or device into memory
+1) insted of reade/write system call(userspace->kernel space),
+    mmap can map disk file into memory. 
+2) when mmap allocate memory, it will align at 4k. but malloc
+   's start address is not fixed. 
+3) mmap mapping zone must the mutiple page_size.(in general, 4KB)	-> mmap_4k.c
+4) size_t write(int fd, const void *buf, size_t count);			-> mmap_4k.c
+   details as follows:
+
+   uint32_t  wLen = (pos + 511) & ~511U;
+   write(fd, buffer, wLen);
+
+   * write file when us write function with O_DIRECT. count must be mutiple 512.
+   # strace -f -T -ttt -o dd1.out dd if=/dev/zero of=test_file2 bs=100 count=10 oflag=direct
+   dd: error writing 'test_file2': Invalid argument
+   1+0 records in
+   0+0 records out
+   0 bytes (0 B) copied, 0.000576036 s, 0.0 kB/s
+
+   # strace -f -T -ttt -o dd1.out dd if=/dev/zero of=test_file2 bs=512 count=10 oflag=direct
+   10+0 records in
+   10+0 records out
+   5120 bytes (5.1 kB) copied, 0.00371215 s, 1.4 MB/s
+
+

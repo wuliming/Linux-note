@@ -2,13 +2,16 @@
 #include <stdlib.h>
 #include <sys/mman.h>
 #include <sys/types.h>
+#define _GNU_SOURCE
+#define __USE_GNU 1
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/time.h>
 #include <time.h>
 #include <string.h>
+
  
-#define SIZE 10*1024*1024
+#define SIZE 10*1024*1024 // 1024*1024 = 1024*1024 Byte = 1024KB = 1M
 int main(int argc, char** argv)
 {
          FILE *fp;
@@ -37,12 +40,17 @@ int main(int argc, char** argv)
          fclose(fp);
  
          printf("write size: %dMB\n", SIZE/1024/1024);
-         fd = open("disk_file1",  O_RDWR|O_EXCL|O_TRUNC);
+         //fd = open("disk_file1",  O_RDWR|O_DIRECT|O_TRUNC|O_CREAT);
+         fd = open("disk_file1",  O_DIRECT|O_CREAT|O_RDWR|O_TRUNC,  S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH);
          gettimeofday(&t1, NULL);
          for(i = 0; i < SIZE; i++)
          {
-		if((write(fd, &c, 1)) <= 0)  printf("write error\n");
+		if((write(fd, &c, 1)) <= 0) {
+			printf("write error\n");
+			exit(1);
+		}
          }
+	 truncate("disk_file1", SIZE);
          gettimeofday(&t2, NULL);
          spend_us = 1000000 * (t2.tv_sec - t1.tv_sec) + (t2.tv_usec - t1.tv_usec);
          printf("write disk file,spend time:%ld us\n", spend_us);

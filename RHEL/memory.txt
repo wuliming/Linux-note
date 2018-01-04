@@ -1,4 +1,17 @@
 
+1) how to free cached memory
+ - before free had better to do sync
+ # sync
+
+ - To free pagecache:
+ # echo 1 > /proc/sys/vm/drop_caches
+
+ - To free dentries and inodes:
+ # echo 2 > /proc/sys/vm/drop_caches
+
+ - To free pagecache, dentries and inodes:
+ # echo 3 > /proc/sys/vm/drop_cachesTo free pagecache:
+
 Memory metrics:
 1) Free memory
 Compared to most other operating systems, the free memory value in Linux should not be a cause for concern.“The Linux kernel allocates most unused memory as file system cache, so subtract the amount

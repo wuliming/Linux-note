@@ -1,4 +1,11 @@
-1) check an modify the bad blocks
+1- check and modify the bad blocks
+1- dilatancy the raw and qcow2 img
+2- tune2fs
+3- du
+4- stat -f .  # get the blocks information
+5- sg_vpd
+
+1) check and modify the bad blocks
   1. how to check the bad blocks of disk
   # badblocks -s -v  -o /home/cdrom.log /dev/cdrom
   2. how to quckly check the bad blocks
@@ -20,4 +27,45 @@
   3. # virsh start vm1
   4. # fdisk /dev/vda
   5. # mkfs.xfs /dev/vda4
+3) tune2fs 
+  - adjust tunable filesystem parameters on ext2/ext3/ext4 filesystems
+  1. clear the feature of partion
+  -O :		Set or clear the indicated filesystem features (options) in the filesystem.
+  ^dir_index:	will clear the indeicated features with ^.
+  
+  # /sbin/tune2fs -O ^dir_index /dev/sda1
+
+  2. get the blocksize of partion, in general, 4096 byte.
+
+  #/sbin/tune2fs -l /dev/sda1|grep "Block size" 
+ 
+4) du
+  1. get directory total size
+   # du -csh
+  
+  2. get every directory size
+   # du -lh
+  
+  3. get every file size
+   # du -ah
+
+5) how to see the hard info of disk
+ #yum --disablerepo="*" --enablerepo="rhel7.3" install sg3_utils
+
+ 1. get the rotation rate of disk 
+ # sg_vpd /dev/sda --page=bdc
+  Block device characteristics VPD page (SBC):
+  Nominal rotation rate: 7200 rpm
+  Product type: Not specified
+
+ 2. get the ata information
+ # sg_vpd /dev/sda --page=ai
+  ATA information VPD page:
+  SAT Vendor identification: linux
+  SAT Product identification: libata
+  SAT Product revision level: 3.00
+  ATA command IDENTIFY DEVICE response summary:
+    model: Hitachi HDP725050GLA360
+    serial number:       GEC534RF240MVE
+    firmware revision: GM4OA5CA
 

@@ -13,5 +13,10 @@
 
 1) how to remove file
 # git rm $file
+
 2) how to remove directory
 # git rm -rf $dir
+
+3) retrieval one file to same with master
+#  git checkout HEAD -- /home/rally/rally/plugins/openstack/cleanup/resources.py
+ 
