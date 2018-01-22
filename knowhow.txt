@@ -23,6 +23,18 @@
 # sed -n 's/test/TEST/p' file
 - print from 7 to 15 lines
 # sed -n '7,15p' file
+- delete
+*1 delete first line	# sed -i '1d' file
+*2 delete last line	# sed -i '$d' file
+*3 delete space of line	# sed -i 's/[ ]*//g' file
+*4 delete blank line	# sed -i '/^$/d' file
+*5 delete 1 and 2 line	# sed -i '1,2d' file
+*6 delete line with 'love'	# sed -i '/love/d' file
+- insert
+*1 insert a line before the specified line with some KW.	
+# sed -i '/CFLAGS="DSMALL"/i\wlm' common.sh
+*2 insert a line after the specified line with some KW.		
+# sed -i '/CFLAGS="DSMALL"/a\wlm' common.sh
 
 2) error message output
   - redirect the  error message output as normal message
