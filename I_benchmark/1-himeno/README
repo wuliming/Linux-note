@@ -1,0 +1,10 @@
+### Check to see if GCC is installed, please install GCC first if not installed
+which gcc
+
+### edit common.sh to set parameters
+
+### begin test
+./test.sh
+
+### Run get_data.Sh to get test results after the test is finished
+./get_data.sh

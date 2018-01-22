@@ -1,30 +1,43 @@
-- sed
-- message output
-- set +x
-- ROT_DATE=`date +%Y%m%d%H%M%S`
-- $ and so on
-- xargs
-- loop
-- #!/bin/sh
-- "This account is currently not available."
-- threshhold
-- csv2excel
-- decompress the src package
-- comm  
-- calculation
-- yum repolist
--
+1- sed
+2- message output
+3- set +x
+4- ROT_DATE=`date +%Y%m%d%H%M%S`
+5- $ and so on
+6- xargs
+7- loop
+8- #!/bin/sh
+9- "This account is currently not available."
+10- threshhold
+11- csv2excel
+12- decompress the src package
+13- comm  
+14- calculation
+15- yum repolist
+16- vim 
+17- cut
+
 1) about  sed command
-* change
+- change
 # sed -i  "s/226\.87/225\.87/g" /etc/hosts  ("g" will change the every mark, othewise change only one)
+- print lines which was replaced
+# sed -n 's/test/TEST/p' file
+- print from 7 to 15 lines
+# sed -n '7,15p' file
 
 2) error message output
+  - redirect the  error message output as normal message
+    ... 2>&1 > test.txt
+  - redirect the error message
+    ... 2>test.txt
+  - redirect the background message 
+
   1. don't let  error message ouput
   # tar -zxf 171006090033.tar.gz 2>/dev/null
+
   2. let error message ouput as normal message
   #  tar -zxf 171006090033.tar.gz > /dev/null 2>&1
   
-  3. redirect the strace output to a file
+  3. redirect the strace output to a file. 
   # strace ls &>strace.txt
 
 3) how to cancel "set -x"
@@ -111,8 +124,12 @@ if can't situation:
   - intger calculation
   $(( 3 * 5 ))
 
-  - float calculation
+  - float calculation but can't round up
   # echo "scale=3; 2 * 2.6" | bc
+  # echo "2 * 2.6" | bc -l
+  # echo 'ibase=10; obase=10; scale=3; 2.17/2' | bc
+  note: when use ibase and obase can specify the conversion base(2/8/10/16
+ 
 
   - radication calculation
   # echo "sqrt(10.000)" | bc
@@ -144,3 +161,8 @@ if can't situation:
  
  - horizontal
  :sp $filename
+
+17) cut
+# echo "25.56/2+0.5" | bc -l | cut -d. -f1
+f1: display the first element. before .
+f2: display the first element. after .

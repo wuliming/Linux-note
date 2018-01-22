@@ -1,0 +1,27 @@
+1-schema
+2-instructions
+
+1. schema
+In order to solve the issue of the CPU has been released defects,
+intel left a patch for the CPU interface, when there are defects 
+in the CPU, by loading Microcode (Microcode), 
+you can repair the CPU part of the defect
+
+2. instructions
+1) research the model name of cpu
+  # lscpu | grep -i "model name"
+    Model name:            Intel(R) Core(TM) i5-3470 CPU @ 3.20GHz
+
+2) download the corresponding package for intel official website
+  https://downloadcenter.intel.com/download/27431/
+
+3) step by step
+ # tar zxvf microcode-20180108.tar.gz
+ # ls
+   microcode-20180108.tar.gz intel-ucode
+ # cp -rpf  /lib/firmware/intel-ucode intel-ucode-bak
+ # rm -rf /lib/firmware/intel-ucode
+ # cp -rp intel-ucode /lib/firmware/intel-ucode
+ - update the microcode
+ # echo 1 > /sys/devices/system/cpu/microcode/reload
+

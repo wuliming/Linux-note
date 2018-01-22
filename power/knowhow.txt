@@ -1,0 +1,54 @@
+1- S/C/P state
+2- driver
+
+1. S/C/P state
+ 1) C state
+ *  view method
+ # cpupower info
+ # turbostat
+ # grep . /sys/devices/system/cpu/cpu*/cpuidle/state*/*
+ * setting method
+ - BIOS
+ - grub parameters
+   idle=poll,
+   intel_idle.max_cstate=N,
+   processor.max_cstate=N
+ - cpupower idle-set
+ - echo  1 > /sys/devices/system/cpu/cpuN/cpuidle/stateN/disable
+
+ 2) P state
+ * governor
+  - performance
+  - powersave
+  - ondemand
+  - userspace
+  - conservative
+
+ * instructions of governor
+  # cpupower frequency-info
+   available cpufreq governors: performance powersave
+  # grep . /sys/devices/system/cpu/cpufreq/policyN/*
+
+ * set method
+  # cpupower frequency-set -g performance
+  # echo powersave > /sys/devices/system/cpu/cpufreq/policyN/scaling_governor
+
+2. driver
+ * idle driver
+  -intel_idle driver
+   add "processor.max_cstate=0" to grub
+  - acpi_idle driver
+   add "intel_idle.max_ctstate=0" to grub
+ 
+ * freq driver
+  intel_pstate supported governor
+  - powersave
+  - performance
+
+  acpi_freq supported governor
+  - powersave
+  - performance
+  - ondemade
+ 
+
+

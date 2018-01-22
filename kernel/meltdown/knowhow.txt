@@ -1,0 +1,33 @@
+1- schema
+
+- reference
+https://downloadcenter.intel.com/download/27431/Linux-Processor-Microcode-Data-File?product=75272 
+https://access.redhat.com/articles/3311301 
+https://newsroom.intel.com/news/firmware-updates-and-initial-performance-data-for-data-center-systems/
+
+1. schema
+- The tunables control Page Table Isolation (pti)
+- Indirect Branch Restricted Speculation (ibrs)
+- Indirect Branch Prediction Barriers (ibpb)
+Red Hat enables each of these features by default as needed to protect the architecture detected at boot.
+disable method
+- grub
+noibrs noibpb nopti  (grub)
+- Runtime disable
+# echo 0 > /sys/kernel/debug/x86/pti_enabled
+# echo 0 > /sys/kernel/debug/x86/ibpb_enabled
+# echo 0 > /sys/kernel/debug/x86/ibrs_enabled
+- note
+  * requires that the debugfs filesystem be mounted
+    mount -t debugfs nodev /sys/kernel/debug
+  * pti 1 ibrs 1 ibpb 1 -> fix variant#1 #2 #3
+    pti 1 ibrs 0 ibpb 0 -> fix variant#1 #3 (for older Intel systems with no microcode update available)
+- cve
+  RHSA-2018-0007
+  RHSA-2018-0023
+  RHSA-2018-0029
+1) Meltdown
+Meltdown breaks the most fundamental isolation between user applications and the operating system. This attack allows a program to access the memory, and thus also the secrets, of other programs and the operating system.
+
+2) Spectre
+Spectre breaks the isolation between different applications. It allows an attacker to trick error-free programs, which follow best practices, into leaking their secrets. In fact, the safety checks of said best practices actually increase the attack surface and may make applications more susceptible to Spectre

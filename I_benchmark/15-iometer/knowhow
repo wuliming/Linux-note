@@ -1,12 +1,51 @@
 step
+-summary pint
+-test by hand
+-autotest
 
-1.summary
+1.summary point
 1) there are iometer(win) and Dynamo(Linux) 2 parts
    iometer: GUI control program
    Dynamo : load generate tool
+2) Workers = Cpus
+3) use O_DIRECT in Linux defaultly
+since using O_DIRECT ,IO bottleneck easily lead to 
+unable get the difference of performance
+
+1605 // It is preferred to open the target with O_DIRECT in order to minimize the
+1606 // effects of caching. Unfortunately we had problems in the past with O_DIRECT
+1607 // and multiple outstanding IOs so the flag was removed. Using libaio, this
+1608 // is no longer an issue and O_DIRECT has been reintroduced accordingly.
+1609 //
+1610 // TODO: Ultimately the way forward is to stick to a good automatic default,
+1611 // but (i) add functionality to display the used flags and (ii) add an option
+1612 // for the user to explicitely specify the flags.
+1613 #ifdef IOMTR_SETTING_LINUX_LIBAIO
+1614                 ((struct File *)disk_file)->fd = open(file_name, O_DIRECT | O_RDWR | O_LARGEFILE, S_IRUSR | S_IWUSR);
+
+4) recommended to use idle=poll
+ 
+
+2. test by hand
+1) mount the disk to the test directory
+ # mount /dev/sdb1 /home/iotest
+
+2) start the dynamo worklod at SUT  
+ # 
+
+3) set the test parameter at windows client
+- Disk targets
+ . check the /home/iostest(xfs)
+ . Maximum Disk size 8388608 sectors = 30GB
+ . # of Outstanding I/Os
+- Access Specifications
+ . check the fily copy/fileserver/database/streaming/restore
+- Test Setup
+ . Runtime  1Minutes
 
 
 
+3. auto test
 centos7.3 + win2008 r2
 --------server---------------------------------------
 1)install the needed package (expect & samba & telnet)

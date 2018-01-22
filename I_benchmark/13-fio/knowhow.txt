@@ -1,0 +1,18 @@
+1- schema
+2- using method
+3- http://fio.readthedocs.io/en/latest/fio_doc.html
+1. schema
+  - io type
+  1) read		Sequential reads.
+  2) write.		Sequential writes.
+  3) rw,readwrite.	Sequential mixed reads and writes.
+  4) randread		Random reads.
+  5) randwrite		Random writes.
+  6) randrw		Random mixed reads and writes.
+  7) bw			
+  8) iops.
+  9) runt. 
+  10) lat (msec).
+  11) msec. 
+  13) usec. 
+

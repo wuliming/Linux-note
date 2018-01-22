@@ -1,0 +1,24 @@
+1- schema
+2- instructions
+
+1. schema
+  1) MFLOPS(Million Floating-point Operations per Second)
+
+2. instructions
+1) memory usage whit different type
+SSMALL	3.78MB		33*33*65*4*14/1024/1024	 # at L3 cache can calculate
+SMALL	29.11MB		65*65*129*4*14/1024/1024
+MIDDLE	288.40MB	129*129*257*4*14/1024/1024 
+LARGE	1809.55MB	257*257*513*4*14/1024/1024
+ELARGE	14406.11MB	513*513*1025*4*14/1024/1024
+
+2) test time
+  - GUEST
+  * 1 time   15min
+  TAZYU_GUEST="1 2 4 8"
+  Start time: 06:15:16 01/11/18
+  end: Thu Jan 11 06:29:36 EST 2018
+  - Native
+  * deviation  0.01% - 0.05%
+    sample data: 1/2/4/8 5 times
+

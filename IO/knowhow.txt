@@ -5,6 +5,7 @@
 4- stat -f .  # get the blocks information
 5- sg_vpd
 
+
 1) check and modify the bad blocks
   1. how to check the bad blocks of disk
   # badblocks -s -v  -o /home/cdrom.log /dev/cdrom

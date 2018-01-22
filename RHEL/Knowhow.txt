@@ -1,14 +1,46 @@
 Base information test
-1. seted by Bios
+1- Bios
+2- OS setting
+3- cpu time  when test the throughput, calculate the cpu time. 
+   ( 1/throughput * Cpus * usr% * 1000 ) ms/Gbits (eg: iperf/netperf/tpcc and so on)
+4- irmc video socket error
+  shutdown the server -> on irmc restart the irmc service
+
+-reference
+ https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/7/html/performance_tuning_guide/
+
+1. Bios
 1) HT			->	off
-2) Enhanced Speed Step	->	off
+2) Enhanced Speed Step	->	off  
+  - this feature is supported by some ACPI O/S
+  - support the FM(frequency modulation) dynamically of hardware
+
+   					
 3) Turbo Mode		->	off  
 4) disk-acess		->	RW
-5) dist-Read		->	Ahead
+5) disk-Read		->	Ahead
 6) disk-DiskCach	->	Enable
 7) disk-DisableBGI	->	No.
 8) disk-Default Write	->	Always Write Back
 9) disk-Current Write	->	Write Back
+write Back vs write through
+- performance:  write Back > write through
+- write through
+  Write is done synchronously both to the cache and to the backing store.
+  support the DPO or FUA
+- write Back
+  Writing is done only to the cache. 
+  A modified cache block is written back to the store, just before it is replaced.
+  does't support the DPO or FUA
+
+  # dmesg | grep sda | grep -i "write cache"
+    1.831512] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+  "doesn't support DPO or FUA" means "write back"
+  "support DPO or FUA" means "write through"  
+  DPO: disable page out
+  FUA: force unit access
+  reference: http://blog.chinaunix.net/uid-25465536-id-3152785.html
+
 
 2. os setting
 1) intel_idle.max_cstate	->	0  # can forbid the intel_idle

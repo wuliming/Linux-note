@@ -22,7 +22,7 @@ BRIDGE=br0
 1- NAT
 2- Bridge Adapter
 3- nfs
-
+4- interrupt
 --------------knowhow------------------
 1) NAT network(G: guest H:host) 
 G	->	H  O

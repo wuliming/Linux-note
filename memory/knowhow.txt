@@ -3,7 +3,7 @@
  - before free had better to do sync
  # sync
 
- - To free pagecache:
+ - To free pagecache to flush all RAM to disk:
  # echo 1 > /proc/sys/vm/drop_caches
 
  - To free dentries and inodes:

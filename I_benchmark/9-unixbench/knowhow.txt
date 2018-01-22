@@ -1,0 +1,27 @@
+1- schema
+2- instructions
+3- output
+
+1. schema
+ 1) Dhrystone 2 using register variables	interger calculate	lps	src/dhry*
+ 2) Double-Precision Whetstone 			sin/cos/float/int..	MWIPS	src/whets.c
+ 3) System Call Overhead			mix/close/getpid/exec	lps	src/syscall.c
+ 4) Pipe Throughput				pipe			lps	src/pipe.c
+ 5) Context Switching				context switch		lps	src/context1.c
+ 6) Process Creation				process			lps	src/spawn.c
+ 7) Execl Throughput				Excel			lps	src/execl.c
+ 8) File Copy 1024 bufsize 2000 maxblocks	I/O			Kbps	src/fstime.c
+ 9) File Copy 256 bufbufsize 500 maxblocks	I/O			Kbps	.. 
+ 10)File Copy 4096 bufsize 8000 maxblocks	I/O			Kbps	..
+ 11)Shell Scripts (1 concurrent)		shell			lpm	looper.c,pgms/multi.sh,pgms/tsh.sh
+ 12)Shell Scripts (8 concurrent)		shell			lpm	..
+ - lps  : loops per second
+ - MWIPS: Million Whetstones Instructions Per Second)
+ - KBps : Kilo-Bytes per second
+ - lpm  : loops per minute
+
+2. instructions
+
+3. output
+
+

@@ -1,6 +1,6 @@
 summary
 - option
-- 
+- read & write 
 
 1) option
  - if    read from instead of stdin (usually set /dev/zero)
@@ -81,3 +81,10 @@ summary
 
  5. nonblock
   Use non-blocking I/O.
+
+2) read and write
+  1. read
+  # dd if=test_file of=/dev/null bs=102M count=3
+
+  2. write
+  # dd if=/dev/zero of=test_file bs=102M count=3

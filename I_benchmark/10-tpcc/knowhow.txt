@@ -1,0 +1,23 @@
+1-schema
+2-instructions
+3-QA
+3.1-increase the CPU usage 
+
+1. schema
+
+2. instructions
+
+3. QA
+3.1 increase the CPU usage
+ - instruction (*)
+   # mount -t tmpfs -o size=12000m tmpfs /var/lib/mysql/  
+ - previous
+   RX300 S8 (mem: 128GB)
+   agents   : 128 
+   cpu usage: about 10%
+ - after using tmpfs
+   cpu usage: about 60%
+3.2 mysql tuning
+ - http://www.cnblogs.com/zengkefu/category/724379.html
+
+
