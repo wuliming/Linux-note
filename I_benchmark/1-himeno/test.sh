@@ -3,7 +3,7 @@
 # Program:
 #       himeno test scripts
 # History:
-#       yangtao 2017/11/28 1.0v
+#       wulm 2017/11/28 1.0v
 #
 
 . ./common.sh
@@ -24,14 +24,15 @@ do
 		mkdir -p $log
 		if [ "$TEST_MODE" = 0 ];then
 			echo "******** TEST_MODE=native TEST_TIME=$i TAZYU=$TAZYU_NATIVE BIND_CPU=$BIND_CPU CFLAGS=$CFLAGS ********"       
-			./start_run.sh $TAZYU_COUNT $CFLAGS $CPU_BIND
-			mv getperfinfo $log/getperfinfo_native
+			./start_run.sh $TAZYU_COUNT $BIND_CPU $CFLAGS
+			mkdir ${log}/getperfinfo_native
+			mv getperfinfo* $log/getperfinfo_native
 			mv himeno-* $log/ 	
 		else
 			echo "******** TEST_MODE=guest TEST_TIME=$i TAZYU=$TAZYU_GUEST BIND_CPU=$BIND_CPU CFLAGS=$CFLAGS ********"       
 			GUEST_DIR=$PWD
 			../tool/log_start.sh $log/getperfinfo_host
-			ssh $GUEST_IP "cd $GUEST_DIR; ./start_run.sh $TAZYU_COUNT $CFLAGS $CPU_BIND"
+			ssh $GUEST_IP "cd $GUEST_DIR; ./start_run.sh $TAZYU_COUNT $BIND_CPU $CFLAGS"
 			sleep 10
 			../tool/log_stop.sh
 			scp -r $GUEST_IP:$GUEST_DIR/getperfinfo $log/getperfinfo_guest

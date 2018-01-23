@@ -1,3 +1,8 @@
+# small : 33,33,65		3.78	MB
+# small : 65,65,129		29.11	MB
+# midium: 129,129,257		228.40	MB
+# large : 257,257,513		1809.55	MB
+# ext.large: 513,513,1025	14406.11MB
 ### Check to see if GCC is installed, please install GCC first if not installed
 which gcc
 
@@ -7,4 +12,4 @@ which gcc
 ./test.sh
 
 ### Run get_data.Sh to get test results after the test is finished
-./get_data.sh
+./get_data.sh log

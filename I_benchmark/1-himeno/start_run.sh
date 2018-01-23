@@ -3,19 +3,19 @@
 # Program:
 #       himeno test scripts
 # History:
-#       yangtao 2017/11/28 1.0v
+#       wulm 2017/11/28 1.0v
 #
 
 export LANG=c
 TAZYU_COUNT=$1
-CFLAGS=$2
-CPU_BIND=$3
+CPU_BIND=$2
+CFLAGS=$3
 CPU_NUM=`cat /proc/cpuinfo | grep processor | wc -l`
 sed -i "s/DLARGE/$CFLAGS/g" Makefile
 make clean
 make
-
-../tool/log_start.sh getperfinfo
+TIME=`date +%Y%m%d%H%M%S`
+../tool/log_start.sh getperfinfo_${TIME}
 PIDS=""
 for((i=0;i<$TAZYU_COUNT;i++))
 do

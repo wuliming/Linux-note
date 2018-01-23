@@ -14,7 +14,7 @@
 14- calculation
 15- yum repolist
 16- vim 
-17- cut
+17- split (cut\tr .etc)
 
 1) about  sed command
 - change
@@ -174,7 +174,11 @@ if can't situation:
  - horizontal
  :sp $filename
 
-17) cut
+17) split 
+- cut
 # echo "25.56/2+0.5" | bc -l | cut -d. -f1
 f1: display the first element. before .
 f2: display the first element. after .
+
+- awk
+# awk -F',' '{print $1}' file

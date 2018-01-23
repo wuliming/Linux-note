@@ -3,10 +3,13 @@
 # Program:
 #        get test results
 # History:
-#        yangtao 2017/11/28 1.0v
+#        wulm 2017/11/28 1.0v
 #
 
 . ./common.sh
+if [[ $1 != NULL ]]; then
+	LOG_DIR=$1	
+fi
 SPLITER="\t"
 
 declare -a STR
@@ -36,9 +39,9 @@ for SUBDIR in $SUBDIRS; do
 		for((i=0;i<PROC;i++))
 		do
 			FILE=$LOG_DIR/$SUBDIR/$PROC-tazyu/himeno-$i.log
-			RESULT=`grep "MFLOPS measured :" $FILE | awk '{print $4}'`
+			RESULT=`grep "MFLOPS measured :" $FILE | awk '{printf("%.2f", $4)}'`
 			RESULT=`echo $RESULT`
-			MFLOPS=`echo "$MFLOPS + $RESULT" | bc`
+			MFLOPS=`echo "$MFLOPS $RESULT" | awk '{printf("%.2f", $1+$2)}'`
 		done
 
 		TMP=`echo ${STR[$PROC_VALUE]}`
@@ -55,8 +58,9 @@ for PROC in $TAZYU; do
 	PROC_VALUE=`expr $PROC`
 	echo -n "tazyu=$PROC  "
 	echo -n -e ${STR[$PROC_VALUE]}
-	results_avg=`cat $LOG_DIR/*/${PROC}-tazyu/himeno-* | grep "MFLOPS measured :" | awk -v test_times="$TEST_TIMES" 'BEGIN{sum=0}{sum=sum+$4}END{print sum/test_times}'`
-	echo "  $results_avg"
+	#results_avg=`cat $LOG_DIR/*/${PROC}-tazyu/himeno-* | grep "MFLOPS measured :" | awk -v test_times="$TEST_TIMES" 'BEGIN{sum=0}{sum=sum+$4}END{print sum/test_times}'`
+	cat $LOG_DIR/*/${PROC}-tazyu/himeno-* | grep "MFLOPS measured :" | awk -v test_times="$TEST_TIMES" 'BEGIN{sum=0}{sum=sum+$4}END{printf("\t%.2f\n", sum/test_times)}'
+	#echo " $results_avg"
 done
 
 unset STR
