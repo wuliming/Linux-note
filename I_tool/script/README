@@ -1,0 +1,61 @@
+USAGE
+csv2xls.sh
+1)  sh -x csv2xls.sh  sar-A_1108142559  XLS_DIR
+2)  cd XLS_DIR
+3)  ll 
+#########################################################################
+# #  ls                                                                 #
+# csv_file  output_1219230020.xls                                       #
+######################################################################### 
+
+threshold_check.sh
+1)./threshold_check.sh 1108/sar-A_1108142559 MEM_DIR mem 70     		# check mem used > 70%
+2) ./threshold_check.sh 1108/sar-A_1108142559 CACHE_DIR cache 20  	        # check cache used > 20%	
+3) ./threshold_check.sh 1108/sar-A_1108142559 NETWORK_DIR network 1024        # check nic txkB/s  > 1024 txkB/s ,rxkB/s  > 1024 rxkB/s
+4) ./threshold_check.sh 1108/sar-A_1108142559 CPU_DIR cpu 80                  # check cpu used > 80%
+5) ./threshold_check.sh 1108/sar-A_1108142559 DISK_DIR disk 50                # check disk util > 50%
+
+
+Mutation_check.sh
+step 1) vim Mutation_check.sh
+#########################################################################################################
+#  # vim Mutation_check.sh                                              				#
+#  CHECK_MODE="all"            # cpu | memory | dev | network | process | irq | swap | page |  all	#
+#  CHECK_CPU_INFO="all"        # usr | sys | irq | soft | guest | idle | all				#
+#  CHECK_MEMORY_INFO="all"     # memused | kbbuffers | kbcached | commit | all				#
+#  CHECK_DEV_INFO="all"        # tps | rd_sec | wr_sec | all						#
+#  CHECK_NETWORK_INFO="all"    # rxkB | txkB | all							#
+#  CHECK_PROCESS_INFO="all"    # proc | cswch | all							#
+#  CHECK_SWAP_INFO="all"       # pswpin | pswpout | all							#	
+#  CHECK_PAGE_INFO="all"       # pgpgin | pgpgout | fault | majflt | pgfree | all		       	#
+#  CHECK_THRESHOLD=5           # set threshold : [1,100]                                               	#
+#  CHECK_THRESHOLD_FLAG="all"  # up | down | all                                                       	#
+#########################################################################################################
+step 2) ./Mutation_check.sh 1108/sar-A_1108142559.txt 
+
+
+sar2csv.sh
+1)  sh -x sar2csv.sh  sar-A_1108142559  CSV_DIR
+2)  cd CSV_DIR
+3)  ll CSV_DIR
+#########################################################################
+#  # ll                                                                 #
+#  total 7096                                                           #
+#  -rw-r--r--. 1 root root  375942 Dec  7 00:50 cpu_0_1108142559.csv    #
+#  -rw-r--r--. 1 root root  380261 Dec  7 00:50 cpu_10_1108142559.csv   #
+#  -rw-r--r--. 1 root root  375981 Dec  7 00:50 cpu_1_1108142559.csv    #
+#  -rw-r--r--. 1 root root  380298 Dec  7 00:50 cpu_11_1108142559.csv   #
+#  -rw-r--r--. 1 root root  375942 Dec  7 00:50 cpu_2_1108142559.csv    #
+#  -rw-r--r--. 1 root root  375978 Dec  7 00:50 cpu_3_1108142559.csv    #
+#  -rw-r--r--. 1 root root  375942 Dec  7 00:50 cpu_4_1108142559.csv    #
+#  -rw-r--r--. 1 root root  375975 Dec  7 00:50 cpu_5_1108142559.csv    #
+#  -rw-r--r--. 1 root root  375940 Dec  7 00:50 cpu_6_1108142559.csv    #
+#  -rw-r--r--. 1 root root  375975 Dec  7 00:50 cpu_7_1108142559.csv    #
+#  -rw-r--r--. 1 root root  375946 Dec  7 00:50 cpu_8_1108142559.csv    #
+#  -rw-r--r--. 1 root root  375977 Dec  7 00:50 cpu_9_1108142559.csv    #
+#  -rw-r--r--. 1 root root  380298 Dec  7 00:50 cpu_avg_1108142559.csv  #
+#  -rw-r--r--. 1 root root  374954 Dec  7 00:50 io_1108142559.csv       #
+#  -rw-r--r--. 1 root root  367792 Dec  7 00:50 mem_1108142559.csv      #
+#  -rw-r--r--. 1 root root 1608837 Dec  7 00:50 network_1108142559.csv  #
+#########################################################################
+

@@ -1,0 +1,5 @@
+-native test
+1) operate at server
+./test.sh
+
+2) unify the benchmark directory where client and server are located

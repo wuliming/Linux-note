@@ -1,5 +1,6 @@
 Base information test
 1- Bios
+ 1.1- Bios upgrade
 2- OS setting
 3- cpu time  when test the throughput, calculate the cpu time. 
    ( 1/throughput * Cpus * usr% * 1000 ) ms/Gbits (eg: iperf/netperf/tpcc and so on)
@@ -10,6 +11,9 @@ Base information test
  https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/7/html/performance_tuning_guide/
 
 1. Bios
+-collect information
+1) dmidecode
+-setting
 1) HT			->	off
 2) Enhanced Speed Step	->	off  
   - this feature is supported by some ACPI O/S
@@ -41,6 +45,17 @@ write Back vs write through
   FUA: force unit access
   reference: http://blog.chinaunix.net/uid-25465536-id-3152785.html
 
+1.1 bios upgrade
+  1) on IRMC -> Bios update check the version of BIOS
+  2) at the follow web download the the Bios(with 1)step's version name)
+     eg: D3383-A1x
+  http://datapool.abg.fsc.net/SoftwarePool/Default/Start
+  usr/psd:  domain user
+  3) slect the package with the name of "**online*****" and "**admin***" (MB)
+  4) decompress the package than use the DOC/UPD to upgrade BIOS at IRMC.
+  note: must shutdown the server before ugrade BIOS.
+  5) goto IRMC -> Bios update 
+  6) upgrade with the UPD file
 
 2. os setting
 1) intel_idle.max_cstate	->	0  # can forbid the intel_idle

@@ -110,3 +110,13 @@ A: # mount -t nfs  10.167.226.86:/sda6/wulm /mnt/ -o ro
 Q: cannot find in /etc/fstab
 A: 10.167.226.86:/sda6/wulm        /mnt    nfs     defaults        0 0
 
+Q1: how to use NFS3 in RHEL7
+A: mount -o vers=3 10.125.5.220:/FIO /FIO/
+Q: displayed as "nobody" after mount successfully
+A: since nfs4 provides a daemon called rpc.idmapd and uses the configuration file /etc/idmapd.conf.
+   When nfsv4 is requested to load, The default nis, nis it will automatically mapped into nobody user.
+   solutinos:
+   - Q1
+   - http://www.361way.com/nfs-mount-nobody/2616.html
+ 
+

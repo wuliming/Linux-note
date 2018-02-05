@@ -1,0 +1,7 @@
+1- dirty_ratio
+
+
+1. dirty_ratio
+  /proc/sys/vm/dirty_ratio
+   is the absolute maximum amount of system memory that can be filled with dirty pages before everything must get committed to disk.
+  default: 20

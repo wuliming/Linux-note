@@ -1,6 +1,8 @@
 1- schema
 2- using method
-3- http://fio.readthedocs.io/en/latest/fio_doc.html
+3- QA
+4- ref
+   http://fio.readthedocs.io/en/latest/fio_doc.html
 1. schema
   - io type
   1) read		Sequential reads.
@@ -15,4 +17,13 @@
   10) lat (msec).
   11) msec. 
   13) usec. 
+
+2.
+ 1) when test buffer
+  - in order to avoid data instability need to clean memory buffer by "sync"
+   # sync
+   # echo 3 > /proc/sys/vm/drop_caches 
+  
+  - the filesize need to less than `cat /proc/sys/vm/dirty_ratio` * `free memory`
+   
 

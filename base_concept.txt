@@ -1,4 +1,8 @@
-1) BIOS + MBR  the schema of present pc's arch
+1- BIOS + MBR
+2- EFI + GPT 
+3- SAS SATA
+
+1. BIOS + MBR  the schema of present pc's arch
  - BIOS :	Base input output system
  - MBR	:	Master Boot Record (master boot sector)
  - MSDOS:	the disk partion mode of BIOS+MBR
@@ -6,10 +10,21 @@
 		4 primary | (3 primary + 1 extended) & countless logic
 
   tool  :  fdisk
-2) EFI + GPT 
+2. EFI + GPT 
  - EFI	:	extensible Firmware Interface
  - GPT	:	GUID Partion Table
 		support 18EB(1024PB=1048576TB)
 		partion count has no limit
 
   tool  :  sgdisk
+
+2. SAS and SATA
+  - ref
+    https://www.pickaweb.co.uk/kb/difference-between-sata-sas-hard-drives/
+  1) SATA stands for Serial Advanced Technology Attachment 
+     and SAS stands for Serial Attached SCSI 
+     (SCSI Stands for Small Computer System Interface, typically pronounced as scuzzy).
+     They are two types of interface used for transferring data to and from hard drives.
+  2) speed
+     SATA:	7.2K
+     SAS :	10K and 15K 

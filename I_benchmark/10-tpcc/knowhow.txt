@@ -2,8 +2,17 @@
 2-instructions
 3-QA
 3.1-increase the CPU usage 
-
+4-REF
+  - windows tpc-c usage method
+  https://www.ibm.com/developerworks/cn/data/library/db-cn-tpc-ctest/index.html  
 1. schema
+  - TPCC is the standard of OLTP(online transaction procedure)
+  - 5 types of transactions handled
+    1) New-Order	customer request a new-order transaction	45%
+    2) payment		customer request payment transaction		43%
+    3) Delivery		dilivery transaction				4%
+    4) order-status	select order-status transaction			4%
+    5) Stock-Level	select Stock-Level transaction			4%
 
 2. instructions
 

@@ -2,7 +2,7 @@
 2- message output
 3- set +x
 4- ROT_DATE=`date +%Y%m%d%H%M%S`
-5- $ and so on
+5- special symbol ($ etc.)
 6- xargs
 7- loop
 8- #!/bin/sh
@@ -15,6 +15,10 @@
 15- yum repolist
 16- vim 
 17- split (cut\tr .etc)
+18- decompress
+19- declare -i
+20- if (# man test)
+21- regular expression
 
 1) about  sed command
 - change
@@ -59,12 +63,23 @@
 DATE=`date +%m%d%H%M%S`
 ROT_DATE=`date +%Y%m%d%H%M%S`
 
-5) the meaning character of $ 
+5) special symbol($ , ||:)
 # ./test 1 2 3
-$*	"1 2 3"
-$@	"1" "2" "3"
-$#	3 (the no. of parameter)
-$?	suc or fale (0 or 1)
+ -$*	"1 2 3"
+ -$@	"1" "2" "3"
+   # a=(1 2 3); echo ${a[@]}
+   1 2 3
+ -$#	3 (the no. of parameter)
+ -$?	suc or fale (0 or 1)
+ -$0	running command name currently
+  # vim test.sh
+  PATH=`dirname $0` # cat get the relative path of test.sh
+  cd $PATH
+  echo `pwd`
+ -command ||:		0 is returned regardless of the success of the preceding command
+ -command || command	when the preceding command return non-0, execute the following command
+ 
+
 
 6) how to build and execute command lines from standard input
   # find . -name "*.[c|h]" |xargs sed -i -e "s/getline/getline_calltree/"
@@ -182,3 +197,29 @@ f2: display the first element. after .
 
 - awk
 # awk -F',' '{print $1}' file
+
+18) decompress
+ - tar
+ decompress file with .tar suffix (-vxf <-> -vxf)
+ # tar -vxf tpcc-Multi-port.tar
+ add some additional file into tar file(-r)
+ # tar -rf all.tar *.gif 
+ update some file (-u)
+ # tar -uf all.tar logo.gif 
+ list the file in the tar
+ # tar -vtf tpcc-Multi-port.tar
+ decompress file with .tar.gz suffix (-vxzf <-> -vzcf)
+
+19) declare
+  if declare variable with "declare -i a=b=2" ,
+  you can calculate the sum with "c=a+b" without "$".
+
+20) if
+  # man test
+  -z string	NULL: 1 not NULL: 0	whether is NULL
+  -n string	NULL: 0 not NULL: 1	whether is NULL
+  -e FILE	exist: 1 not Exist: 0	whether is exist
+  -f FILE	is file: 1 not file: 0	whether is file
+
+21) regular expression
+  '$'		end with something	# grep -E "*1$" 

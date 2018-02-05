@@ -1,0 +1,9 @@
+1) install the rpm-build package
+ # yum --disablerepo="*" --enablerepo="rhel7.3" search all rpm-build
+ # ls /root/rpmbuild/
+   BUILD  RPMS  SOURCES  SPECS  SRPMS
+2) create spec file in SPECS directory 
+3) create **.tar.gz in SOURCES directory
+4) rpmbuild -ba  ../SPECS/*.spec
+-REF
+https://www.thegeekstuff.com/2015/02/rpm-build-package-example/

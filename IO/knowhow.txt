@@ -4,7 +4,8 @@
 3- du
 4- stat -f .  # get the blocks information
 5- sg_vpd
-
+6-  Warning: partition is not properly aligned for best performance [KW. %]
+7- block size & sector 
 
 1) check and modify the bad blocks
   1. how to check the bad blocks of disk
@@ -70,3 +71,37 @@
     serial number:       GEC534RF240MVE
     firmware revision: GM4OA5CA
 
+6. Warning: partition is not properly aligned for best performance 
+  # parted -s /dev/sde mkpart primary xfs 0 100000
+    Warning: The resulting partition is not properly aligned for best performance.
+
+  solution:
+  1) Get the alignment parameters for your array
+   # cat /sys/block/sde/queue/optimal_io_size
+	0  ---------------------------------> a
+   # cat /sys/block/sde/queue/minimum_io_size
+	4096 -------------------------------> b
+   # cat /sys/block/sde/alignment_offset
+	0 ----------------------------------> c
+   # cat /sys/block/sde/queue/physical_block_size
+	4096 -------------------------------> d		
+  2) Add optimal_io_size to alignment_offset 
+     and divide the result by physical_block_size.
+     In my case this was (a+c)/d = 0
+  3) This number is the sector at which the partition 
+     should start. Your new parted command should look like
+    # parted -s /dev/sde mkpart primary xfs 0 100000
+
+  4) If all went well, the partition will have been created with no warnings. You can check the alignment thusly
+    # parted -s /dev/sde mkpart primary xfs 1 100000
+    # parted  /dev/sde align-check optimal 1
+     1 aligned
+ 
+    The trailing 's'  is important: it tells parted that you are
+     talking about sectors, not bytes or megabytes.
+    # parted -s /dev/sde mkpart primary xfs 1s 100000 (different with URL)
+    # parted  /dev/sde align-check optimal 1
+     1 not aligned
+    https://rainbow.chard.org/2013/01/30/how-to-align-partitions-for-best-performance-using-parted/
+    
+   summary: using 0% is best and easiest method. (KW. % percntage)
