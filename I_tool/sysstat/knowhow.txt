@@ -1,0 +1,53 @@
+1- sar
+2- iostat
+
+
+1. sar
+ 1) /proc/meminfo	fs/proc/meminfo.c : meminfo_proc_show()
+  http://linuxperf.com/?p=142
+  # sar -R	the change speed of memory
+  - frmpg/s	delta( MemFree )/itv
+    S_VALUE(KB_TO_PG(smp->frmkb),  KB_TO_PG(smc->frmkb), itv)
+  - bufpg/s	delta( Buffers )/itv
+    S_VALUE( KB_TO_PG(smp->bufkb),KB_TO_PG(smc->bufkb), itv)
+  - campg/s	delta( Cached )/itv
+     S_VALUE( KB_TO_PG(smp->camkb), KB_TO_PG(smc->camkb), itv)
+  # sar -r	memory info
+  - kbmemfree	MemFree
+    frmkb
+  - kbmemused	MemTotal-MemFree 
+    tlmkb - frmkb
+  - %memused	(MemTotal-MemFree / MemTotal)*100%
+    (tlmkb-frmkb)/tlmkb * 100%
+  - kbbuffers	Buffers
+    bufkb
+  - kbcached	Cached
+    camkb
+  - kbcommit	Committed_AS
+    kbcommit
+  - %commit	Committed_AS / (MemTotal+SwapTotal) * 100%
+    comkb / (tlmkb  + tlskb) * 100
+  - kbactive	Active
+    kbactive
+  - kbinact	Inactive
+    kbinact
+  - kbdirty	Dirty
+    kbdirty
+  # sar -S	swap info
+  - kbswpfree	SwapFree
+    frskb
+  - kbswpused	SwapTotal - SwapFree
+    tlskb - frskb
+  - %swpused	(SwapTotal - SwapFree) / SwapTotal * 100%
+    (tlskb-frskb)/tlskb*100%
+  - kbswpcad	SwapCached
+    caskb
+  - %swpcad	SwapCached / ( SwapTotal - SwapFree) *100%
+    (tlskb - frskb)?caskb/.tlskb -frskb.*100% : 0
+  # sar -H	hugepage info
+  - kbhugfree	HugePages_Free
+    frhkb
+  - kbhugused	HugePages_Total - HugePages_Free
+     tlhkb - frhkb
+  - %hugused	(HugePages_Total - HugePages_Free) / HugePages_Total  * 100%
+    (tlhkb - frhkb) / tlhkb * 100%

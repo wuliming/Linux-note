@@ -1,0 +1,8 @@
+1- /proc/vmallocinfo
+
+
+1. /proc/vmallocinfo
+  - cat get the allocated memory(bytes) by kernel module
+    the memory maybe more than the lsmod, but more exact.
+    0xffffffffc56c4000-0xffffffffc56f0000  180224 module_alloc_update_bounds+0x14/0x70 pages=43 vmalloc N1=43
+

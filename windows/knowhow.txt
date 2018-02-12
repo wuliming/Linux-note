@@ -1,0 +1,16 @@
+1- excel
+
+
+1. excel
+ 1) insert select list
+   - DATA -> verification/efectivity -> order 
+   - insert "O,X" (splitted by comma ",")
+ 2) calculate the time
+   start: 19:00		end: 20:30
+   time=(start - end) * 24  ( set the time to number )
+ 3) if/else
+   =if(X>=y,True: expression1, False: expression2)
+   EX: =IF(H11="X", G11*H$4, G11*I$4)
+   H$4=H4, when if add $ between H and 4, the H4 will not change with the dragging.
+        
+

@@ -1,0 +1,9 @@
+1- hugepage
+2- THP
+
+1. hugepage
+  - set
+  # echo 128 > /proc/sys/vm/nr_hugepages
+http://linuxperf.com/?p=142
+
+
