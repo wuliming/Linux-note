@@ -13,12 +13,14 @@
 13- comm  
 14- calculation
 15- yum repolist
-16- vim 
+16- vim & less 
 17- split (cut\tr .etc)
 18- decompress
 19- declare -i
 20- if (# man test)
 21- regular expression
+22- awk
+23- decimal conversion 
 
 1) about  sed command
 - change
@@ -177,17 +179,27 @@ if can't situation:
             |-bioset(82)
             |-bioset(92)
 
-16) vim
+16) vim & less
+ 1. vim
  - tab windows
  :tabe $filename
  :tabn -> next file
  :tabp -> previos file
 
- - vertical split
+ - vertical(|) split
  :vsp $filename
  
- - horizontal
+ - horizontal(-) split
  :sp $filename
+
+ - :set ignorecase
+ 2. less
+ -i	ignore case
+ -N	line NO.
+ -s	not output the blank line
+ -S	drop the long section
+ -x<4>	4 blank intead of tab key
+ 
 
 17) split 
 - cut
@@ -223,3 +235,34 @@ f2: display the first element. after .
 
 21) regular expression
   '$'		end with something	# grep -E "*1$" 
+
+22) awk
+  - NR		number
+  - FNR		file number, when new file is operated, count from 1
+  - NF		number of fields
+
+23) decimal conversion 
+  - 10	decimal		D
+  - 8	octonary	O
+  - 16	hexadecimal	H
+  - 2	binary		B
+  - binary/octonary/hexadecimal -> decimal  (base#number)
+   # ((i=2#1111)); echo $i
+   15
+   # ((i=8#1111)); echo $i
+   585
+   # ((i=16#1111)); echo $i
+   4369
+   #((i=16#ffffc900184c7000-16#ffffc900184ca000)); echo $i
+   #((i=0xffffc900184c7000-0xffffc900184ca000)); echo $i
+   -12288
+  - decimal -> binary/octonary/hexadecimal   (use "bc")
+   # echo "obase=2; 65536" | bc
+   10000000000000000
+   # echo "obase=8; 65536" | bc
+   200000
+   # echo "obase=16; 65536" | bc
+   10000
+   
+
+  

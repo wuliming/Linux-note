@@ -92,6 +92,10 @@ nfs-utils-1.3.0-0.33.el7.x86_64
 libnfsidmap-0.25-15.el7.x86_64
 2. # cat /etc/exports
 /sda6/wulm 10.167.225.0/24(rw) 10.167.226.0/24(rw,sync,no_root_squash,no_subtree_check)
+-no_root_squash
+ when load the nfs-server, the client will has the root right.
+ otherwise, has the nobody right.
+-root_squash
 
 3. # systemctl start nfs-server.service
 

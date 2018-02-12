@@ -74,7 +74,7 @@ command to see how much memory is allocated to a specific process.
 Swapping can have one of two causes:
 
 
- 1. A process enters sleep mode. This usually happens because the process depends on
+1. A process enters sleep mode. This usually happens because the process depends on
 interactive action and editors, shells, and data entry applications spend most of their time
 waiting for user input. During this time, they are inactive .
 
@@ -83,7 +83,7 @@ waiting for user input. During this time, they are inactive .
 amount of free memory pages falls below the minimum amount specified, because the
 paging mechanism is not able to handle the requests for physical memory pages and the
 swap mechanism is called to free more pages. This significantly increases I/O to disk and
-will quickly degrade a server’s performance.
+will quickly degrade a server performance.
 
 
 Tunnig the vm subsystem:

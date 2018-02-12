@@ -54,6 +54,7 @@ write Back vs write through
   3) slect the package with the name of "**online*****" and "**admin***" (MB)
   4) decompress the package than use the DOC/UPD to upgrade BIOS at IRMC.
   note: must shutdown the server before ugrade BIOS.
+     # unzip **.bup
   5) goto IRMC -> Bios update 
   6) upgrade with the UPD file
 
