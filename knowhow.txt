@@ -21,27 +21,35 @@
 21- regular expression
 22- awk
 23- decimal conversion 
-
+24- echo
+25- top
+26- define new mark as new line (IFS)
+27- wget
+28- iconv (unicode convertion)
+29- support chinese 
+30- rpm
+31- SElinux
 1) about  sed command
 - change
-# sed -i  "s/226\.87/225\.87/g" /etc/hosts  ("g" will change the every mark, othewise change only one)
+  # sed -i  "s/226\.87/225\.87/g" /etc/hosts  ("g" will change the every mark, othewise change only one)
 - print lines which was replaced
-# sed -n 's/test/TEST/p' file
+  # sed -n 's/test/TEST/p' file
 - print from 7 to 15 lines
-# sed -n '7,15p' file
+  # sed -n '7,15p' file
 - delete
-*1 delete first line	# sed -i '1d' file
-*2 delete last line	# sed -i '$d' file
-*3 delete space of line	# sed -i 's/[ ]*//g' file
-*4 delete blank line	# sed -i '/^$/d' file
-*5 delete 1 and 2 line	# sed -i '1,2d' file
-*6 delete line with 'love'	# sed -i '/love/d' file
+  *1 delete first line	# sed -i '1d' file
+  *2 delete last line	# sed -i '$d' file
+  *3 delete space of line	# sed -i 's/[ ]*//g' file
+  *4 delete blank line	# sed -i '/^$/d' file
+  *5 delete 1 and 2 line	# sed -i '1,2d' file
+  *6 delete line with 'love'	# sed -i '/love/d' file
 - insert
-*1 insert a line before the specified line with some KW.	
-# sed -i '/CFLAGS="DSMALL"/i\wlm' common.sh
-*2 insert a line after the specified line with some KW.		
-# sed -i '/CFLAGS="DSMALL"/a\wlm' common.sh
-
+  *1 insert a line before the specified line with some KW.	
+   # sed -i '/CFLAGS="DSMALL"/i\wlm' common.sh
+  *2 insert a line after the specified line with some KW.		
+   # sed -i '/CFLAGS="DSMALL"/a\wlm' common.sh
+  *3 insert "abc" at the first line of file 
+   # sed '1s/.*/abc\n&/' file
 2) error message output
   - redirect the  error message output as normal message
     ... 2>&1 > test.txt
@@ -87,12 +95,26 @@ ROT_DATE=`date +%Y%m%d%H%M%S`
   # find . -name "*.[c|h]" |xargs sed -i -e "s/getline/getline_calltree/"
 
 7) loop
-1. no. loop
-# for x in `seq 0 12`; do echo $x; done  ( 0 means the begin no.)
-# for((i=1;i<=10;i++)); do xxx; done 
-2. file loop
-# for file in /proc/*
-# for file in $(ls *.sh)  
+  1. no. loop
+    # for x in `seq 0 12`; do echo $x; done  ( 0 means the begin no.)
+    # for((i=1;i<=10;i++)); do xxx; done 
+  2. file loop
+    # for file in /proc/*
+    # for file in $(ls *.sh)  
+  3. read every line of file
+    # while read line
+      do
+        echo $line
+      done < file
+    # cat file | while read line
+      do
+        echo $line
+      done
+    # for line in `cat file`
+      do
+       echo $line
+      done
+
 
 8) the effect of #!/bin/sh
 if add this line you can show the process whit the name of shell using ps.
@@ -203,12 +225,20 @@ if can't situation:
 
 17) split 
 - cut
-# echo "25.56/2+0.5" | bc -l | cut -d. -f1
-f1: display the first element. before .
-f2: display the first element. after .
+  # echo "25.56/2+0.5" | bc -l | cut -d. -f1
+   f1: display the first element. before .
+   f2: display the first element. after .
 
 - awk
-# awk -F',' '{print $1}' file
+ # awk -F',' '{print $1}' file
+ 
+ show the charactor between 'c' and 'e'
+ 1. # echo "abcde" | awk '{split($0, a, "[ce]"); print a[2]}'
+     d
+ 2. # echo "abcde" | awk -F'c|e' '{print $2}'
+     d
+
+
 
 18) decompress
  - tar
@@ -232,15 +262,23 @@ f2: display the first element. after .
   -n string	NULL: 0 not NULL: 1	whether is NULL
   -e FILE	exist: 1 not Exist: 0	whether is exist
   -f FILE	is file: 1 not file: 0	whether is file
+  - if [ string1 = string2 ]; then  $action fi
 
 21) regular expression
   '$'		end with something	# grep -E "*1$" 
-
+  -shell if format
+   if [[ string =~ $EXPR ]]; then  *** fi
+  https://www.cnblogs.com/linuxws/p/6942574.html
 22) awk
   - NR		number
   - FNR		file number, when new file is operated, count from 1
   - NF		number of fields
-
+  - $0		all of columns
+  - regular expression
+    # awk '/^top/{print}' top.txt
+    # awk '{if(/^top/ || ($9 > 50)) print}' 
+  - transfer variable at awk using -v
+    # awk -v v1=$1 '{if(/^top/ || ($9 > v1)) print}' $2
 23) decimal conversion 
   - 10	decimal		D
   - 8	octonary	O
@@ -264,5 +302,62 @@ f2: display the first element. after .
    # echo "obase=16; 65536" | bc
    10000
    
+24) echo
+  -e
+   # echo -e "a\tb\tc\nd\te\tf"
+     a       b       c
+     d       e       f
 
+
+25) top 
+  - monitor the usage of all child process
+    # top -p $(pgrep -P 2069 -d,)
+    or
+    # top -p $(ps -eo pid,ppid |awk '($2==2069){printf "%s%s",delim,$1; delim=","}')
   
+    if want to add parent process
+    # top -p $(pgrep -P 2069 -d,),2069
+
+26)- define new mark as new line
+  # IFS_o=$IFS;IFS=$'>';for line in `grep totalPage index.html`;do echo $line >> log; done;IFS=$IFS_o
+
+27) wget
+  -o	log
+  -O	change the store name and path
+
+28) iconv
+  get the unicode of file
+  # file c1411046463725/log.csv
+  convert utf-8 to gb2312
+  # iconv -f utf-8 -t gb2321 c1411046463725/log.csv -o c1411046463725/log.csv 
+
+29) support chinese (en_US.UTF-8 -> zh_CN.GB18030)
+ # export LANG=zh_CN.GB18030
+ need to update vimrc, otherwise it will hard to use.
+ # vim /etc/vimrc
+  set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+  set termencoding=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+  set encoding=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+
+30) rpm
+ 1. group mockbuild does not exist - using root 
+  # groupadd mockbuild
+  # useradd mockbuild -g mockbuild
+ 2. NOKey
+  # rpm -ivh   *.rpm --nosignature
+
+31) SElinux
+ 1. getenforce
+   # getenforce
+   Enforcing
+  
+ 2. vim /etc/selinux/config
+   #     enforcing - SELinux security policy is enforced.
+   #     permissive - SELinux prints warnings instead of enforcing.
+   #     disabled - No SELinux policy is loaded.
+   #SELINUX=enforcing
+   SELINUX=disabled
+  3. reboot
+   # shutdown -r now
+  4. getenforce
+

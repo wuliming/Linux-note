@@ -1,6 +1,6 @@
 1- S/C/P state
 2- driver
-
+3- tuning frequency
 1. S/C/P state
  1) C state
  *  view method
@@ -50,5 +50,12 @@
   - performance
   - ondemade
  
-
-
+3. tuning frequency
+  - /sys/devices/system/cpu/intel_pstate/no_turbo 
+   0: can adjust he CPU frequency   turbo_on 
+   1: can't adjust he CPU frequency turbo_off
+  - disable the c3 and c6 and turbo function (performance)
+   # cpupower idle-set -d 2 > /dev/null 2>&1
+   # cpupower idle-set -d 3 > /dev/null 2>&1
+   # echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo
+  

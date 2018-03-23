@@ -5,7 +5,7 @@ summary
 1) option
  - if    read from instead of stdin (usually set /dev/zero)
  - of    write to instead of stdout (usually set /dev/null to test the disk performance)
- - bs    block size
+ - bs    block size # default block size: 512Byte
  - count block count
  - conv  sync / fsync / fdatasync
  - iflag sync / dsync / direct / cio / nocache / nonblock

@@ -1,4 +1,4 @@
-1- schema
+1- summary 
 2- using method
 3- QA
 4- ref
@@ -18,6 +18,13 @@
   11) msec. 
   13) usec. 
 
+  - io Engine
+  1) libaio		asynchronous IO
+  2) sync		synchronous IO	
+
+  - direct (default: 0)
+  1) 0			buffer IO
+  2) 1			driect IO (without pagecache)
 2.
  1) when test buffer
   - in order to avoid data instability need to clean memory buffer by "sync"

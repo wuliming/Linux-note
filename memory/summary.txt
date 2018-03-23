@@ -1,5 +1,6 @@
 1- hugepage
 2- THP
+3- slab
 
 1. hugepage
   - set

@@ -1,5 +1,35 @@
 1- schema
-2- 
+2- numastat 
 
 1. schema
  
+
+
+2. numastat
+ 1) get the qeu-kvm memory accese status
+  # numastat -c qemu-kvm
+   Per-node process memory usage (in MBs) for PID 6284 (qemu-kvm)
+            Node 0 Node 1 Total
+            ------ ------ -----
+   Huge          0      0     0
+   Heap         15    142   157
+   Stack        96      8   104
+   Private   31059  18372 49432
+   -------  ------ ------ -----
+   Total     31170  18523 49693
+  
+3. numactl
+  1) get the numa status
+    # numactl -H
+     available: 2 nodes (0-1)
+     node 0 cpus: 0 1 2 3 4 5 6 7 8 9
+     node 0 size: 32718 MB
+     node 0 free: 188 MB
+     node 1 cpus: 10 11 12 13 14 15 16 17 18 19
+     node 1 size: 32768 MB
+     node 1 free: 12272 MB
+     node distances:
+     node   0   1
+       0:  10  20
+       1:  20  10
+

@@ -11,7 +11,9 @@
 
  - To free pagecache, dentries and inodes:
  # echo 3 > /proc/sys/vm/drop_cachesTo free pagecache:
-
+   since 3.* , it can't echo 0 > /proc/sys/vm/drop_caches  
+   you should restart machine, otherwise can't restore to 0
+   2.6 kernel can modify to 0.
 Memory metrics:
 1) Free memory
 Compared to most other operating systems, the free memory value in Linux should not be a cause for concern.“The Linux kernel allocates most unused memory as file system cache, so subtract the amount

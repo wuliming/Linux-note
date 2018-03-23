@@ -1,4 +1,5 @@
-1- excel
+1- excel mecro
+2- freezing window for scroll
 
 
 1. excel
@@ -12,5 +13,9 @@
    =if(X>=y,True: expression1, False: expression2)
    EX: =IF(H11="X", G11*H$4, G11*I$4)
    H$4=H4, when if add $ between H and 4, the H4 will not change with the dragging.
-        
+       
+2. freezing window
+   graphic -> freezing window -> select the cell which you want operated line
 
+3. change the cells's color
+  start -> terms format

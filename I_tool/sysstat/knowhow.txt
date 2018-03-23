@@ -3,7 +3,11 @@
 
 
 1. sar
- 1) /proc/meminfo	fs/proc/meminfo.c : meminfo_proc_show()
+ 1) cpu
+  - %user = %usr + %guest
+  - %system = %sys + %irq + %soft
+   
+ 2) /proc/meminfo	fs/proc/meminfo.c : meminfo_proc_show()
   http://linuxperf.com/?p=142
   # sar -R	the change speed of memory
   - frmpg/s	delta( MemFree )/itv
