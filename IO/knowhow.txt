@@ -6,6 +6,7 @@
 5- sg_vpd
 6-  Warning: partition is not properly aligned for best performance [KW. %]
 7- block size & sector 
+8- major and minor device number
 
 1) check and modify the bad blocks
   1. how to check the bad blocks of disk
@@ -105,3 +106,10 @@
     https://rainbow.chard.org/2013/01/30/how-to-align-partitions-for-best-performance-using-parted/
     
    summary: using 0% is best and easiest method. (KW. % percntage)
+
+8. major and minor device number
+
+  # ls -l /dev/
+   crw-------. 1 root root     10, 235 Dec  2 15:58 autofs
+                                ^   ^
+                              major minor

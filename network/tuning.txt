@@ -1,0 +1,41 @@
+1- /proc/sys/net
+2- vhost-net zero-copy
+3- set affinity for NIC
+4- parameter
+
+
+2. zero-copy
+  for avoid the kernel buffer->app buffer, can improve network performance.
+    BEFORE:   kernel buffer -> app buffer -> app
+    AFTER:    kernel buffer -> app
+  - It does not affect performance for guest-to-guest, guest-to-host, or small packet workloads
+  
+  1) deault 0
+    # cat /sys/module/vhost_net/parameters/experimental_zcopytx
+     0
+  2) enable the zero-copy
+    add a new file vhost-net.conf to /etc/modprobe.d 
+    # vim /etc/modprobe.d/vhost-net.conf
+    options vhost_net  experimental_zcopytx=1
+    # modprobe -r vhost_net
+    # modprobe vhost_net experimental_zcopytx=1
+
+  3) disable zero-copy
+    # modprobe -r vhost_net
+    # modprobe vhost_net experimental_zcopytx=0
+
+3. set affinity for NIC
+  # echo 4 > /proc/irq/4${i}/smp_affinity_list
+  # echo 3-14 > /proc/irq/4${i}/smp_affinity_list
+  # echo 3,4 > /proc/irq/4${i}/smp_affinity_list
+
+4. parameter
+  1) txqueuelen  (transmit queue length)
+     - default: 1000
+     - tuning
+       < 1000 can reduce the latency
+       # ifconfig eth0 txqueuelen 500
+       or
+       ip link set eth0 txqueuelen 500
+       > 1000 can avoid the drop packets
+       # ifconfig eth0 txqueuelen 1500

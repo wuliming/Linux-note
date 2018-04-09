@@ -1,0 +1,68 @@
+SR-IOV (Single-Root I/O Virtualization)
+1- summary
+2- usage method
+
+1. summary
+  - can improve the network performance (similar to physical NIC)
+  - it's one way of virtual network IO ( path-through/SR-IOV/soft simulation)
+  - enable intel VT-d
+  - when use SR-IOV function, tcpdump will ineffective.
+
+
+2. usage
+  EFFECTIVE SR-IOV
+  1) wether has the pci device
+   # lspci | grep Ethernet
+  2) set the BIOS  VT-d on
+  3) edit grub.conf
+   # vim /boot/grub2/grub.cfg
+     linux16 /vmlinuz-3.10.0-514.el7.x86_64..... intel_iommu=on
+   # reboot
+   # cat /proc/cmdline
+     BOOT_IMAGE=/vmlinuz-3.10.0-514.el7.x86_64 root=/dev/mapper/rhel-root ro crashkernel=auto rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet LANG=en_US.UTF-8 intel_idle.max_cstate=0 intel_iommu=on
+  4) echo 2 > /sys/class/net/eno1/device/sriov_numvfs  
+     * this operation will change the iterrutp NO. 
+      0: eno1 and eno1-TxRx-0 - eno1-TxRx-7 (count:9)
+      1~X: eno1 and eno1-TxRx-0 (count:2)
+      others hasn't verify.
+      
+
+    # lspci  | grep Ethernet | grep "Virtual Function"
+     08:10.0 Ethernet controller: Intel Corporation I350 Ethernet Controller Virtual Function (rev 01)
+     08:10.4 Ethernet controller: Intel Corporation I350 Ethernet Controller Virtual Function (rev 01)
+    # virsh nodedev-list | grep 08_10
+     pci_0000_08_10_0
+     pci_0000_08_10_4
+    show detail
+    # virsh nodedev-dumpxml pci_0000_08_10_0
+     <capability type='phys_function'>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
+    </capability>
+    <iommuGroup number='45'>
+      <address domain='0x0000' bus='0x08' slot='0x10' function='0x0'/>
+    </iommuGroup>
+   note:  0x07->phy   0x08->vf
+  5)# vim /home/tmp.xml
+   <hostdev mode='subsystem' type='pci' managed='yes'>
+    <source>
+      <address type='pci' domain='0x0000' bus='0x08' slot='0x10' function='0x0' />
+    </source>
+   </hostdev>
+  6) edit the guest xml file
+    # virsh attach-device rhel7.3 /home/tmp.xml --config
+
+ INEFFECTIVE SR-IOV
+ 1) virsh detach-device rhel7.3 /home/tmp1.xml --config
+ 2) # vim /home/br.xml
+     <interface type='bridge'>
+      <mac address='52:54:00:de:0a:e2'/>
+      <source bridge='br0'/>
+      <target dev='vnet1'/>
+      <model type='virtio'/>
+      <alias name='net1'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x09' function='0x0'/>
+    </interface>
+ 3) # virsh attach-device rhel7.3 /home/br.xml --config
+
+  
+

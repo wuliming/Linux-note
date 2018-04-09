@@ -1,6 +1,7 @@
 1- hugepage
 2- THP
 3- slab
+4- buddy
 
 1. hugepage
   - set
@@ -8,3 +9,16 @@
 http://linuxperf.com/?p=142
 
 
+2. THP
+  - RHEL7 
+   1) default 
+   # grep . /sys/kernel/mm/transparent_hugepage/*
+    /sys/kernel/mm/transparent_hugepage/defrag:[always] madvise never
+    /sys/kernel/mm/transparent_hugepage/enabled:[always] madvise never
+
+   2) tuning
+    when /proc/buddyinfo last 2 columns is not enough, maybe excute
+    the compaction. so may be slowdown the performance.
+    so can improve the performance by  off the THP funcion.
+    
+    

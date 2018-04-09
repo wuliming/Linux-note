@@ -1,0 +1,62 @@
+1- NFS server building
+2- how to use NFS3 in RHEL7 
+3- "nobody" problem
+4- how to umount NFS server is gone
+
+1. NFS server building (Centos7.3)
+  1) # rpm -qa |grep nfs
+       nfs-utils-1.3.0-0.33.el7.x86_64
+       libnfsidmap-0.25-15.el7.x86_64
+  2) # cat /etc/exports
+      /sda6/wulm 10.167.225.0/24(rw) 10.167.226.0/24(rw,sync,no_root_squash,no_subtree_check)
+     -no_root_squash
+      when load the nfs-server, the client will has the root right.
+      otherwise, has the nobody right.
+     -root_squash
+
+  3) # systemctl start nfs-server.service
+
+  4) # exportfs
+       /sda6/home      10.167.225.0/24
+
+  5) # iptables -F
+     ref:
+     https://wiki.archlinux.org/index.php/NFS/Troubleshooting_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+
+  6) showmount at server 
+    # showmount 
+
+note:
+Q: mount.nfs: access denied by server while mounting 10.167.226.86:/sda6/wulm
+A: # chmod 777 -R /sda6/
+Q: how to mount whit read only type
+A: # mount -t nfs  10.167.226.86:/sda6/wulm /mnt/ -o ro
+Q: cannot find in /etc/fstab
+A: 10.167.226.86:/sda6/wulm        /mnt    nfs     defaults        0 0
+Q: # mount -t nfs 193.168.140.157:/home/wulm /mnt -o ro
+    mount: 193.168.140.157:/home/wulm failed, reason given by server: Permission denied
+A: research reason by /var/log/messages
+   Mar 28 02:38:04 localhost rpc.mountd[22750]: refused mount request from 192.168.122.234 for /home/wulm (/home/wulm): unmatched host
+
+
+
+
+2. how to use NFS3 in RHEL7
+   # mount -o vers=3 10.125.5.220:/FIO /FIO/
+
+3. displayed as "nobody" after mount successfully
+   since nfs4 provides a daemon called rpc.idmapd and uses the configuration file /etc/idmapd.conf.
+   When nfsv4 is requested to load, The default nis, nis it will automatically mapped into nobody user.
+   solutinos:
+   - Q1
+   - http://www.361way.com/nfs-mount-nobody/2616.html
+ 
+
+4. how to umount NFS server is gone
+   get to know the reason by strace command
+   # strace df
+   # umount -f -l /FIO
+    -f:  force
+    -l:  --lazy
+        Lazy unmount.  Detach the filesystem from the filesystem hierarchy  now,  and  cleanup  all references to the filesystem as soon as it is not busy anymore.
+

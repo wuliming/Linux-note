@@ -1,0 +1,117 @@
+1- summary
+2- usage
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/virtualization/chap-virtualization-pci_passthrough
+
+1. summary
+  
+
+2. usaage
+  - restore from passthrough
+    # virsh nodedev-reattach pci_0000_07_00_0
+  
+  - passthrough setting method
+  1) at BIOS Enable the Intel VT-d extensions
+  2) Activate Intel VT-d in the kernel
+     Activate Intel VT-d in the kernel by appending the intel_iommu=on 
+     parameter to the kernel line of the kernel line in the /boot/grub/grub.conf
+     # vim /boot/grub/grub.conf
+       kernel /vmlinuz-2.6.18-190.el5 ro root=/dev/VolGroup00/LogVol00 intel_iommu=on
+
+  3) reboot
+    # cat /proc/cmdline
+
+  4) confirm whether BIOS is valid 
+     # dmesg | grep 'ACPI: DMAR'
+       [    0.000000] ACPI: DMAR 000000007cbb7450 00110 (v01 A M I   OEMDMAR 00000001 INTL 00000001)
+  5) confirm whether IOMMU is valid
+     # dmesg | grep 'Virtualization Technology for Directed I/O'
+       [    5.879368] DMAR: Intel(R) Virtualization Technology for Directed I/O
+  6) get the PCI NO.
+     # lspci | grep Ethernet
+      07:00.0 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
+      07:00.1 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
+  7) get the PCI device
+    # virsh nodedev-list | grep 07_00_0
+      pci_0000_07_00_0
+
+  8) confirm PCI device detail(igb: NIC; lpfc: FC Fibre card etc.) 
+    # virsh nodedev-dumpxml pci_0000_07_00_0
+     <device>
+       <name>pci_0000_07_00_0</name>
+       <path>/sys/devices/pci0000:00/0000:00:1c.0/0000:07:00.0</path>
+       <parent>pci_0000_00_1c_0</parent>
+       <driver>
+         <name>igb</name>
+       </driver>
+       <capability type='pci'>
+         <domain>0</domain>
+         <bus>7</bus>
+         <slot>0</slot>
+         <function>0</function>
+         <product id='0x1521'>I350 Gigabit Network Connection</product>
+         <vendor id='0x8086'>Intel Corporation</vendor>
+         <capability type='virt_functions' maxCount='7'/>
+         <iommuGroup number='17'>
+           <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
+         </iommuGroup>
+         <numa node='0'/>
+         <pci-express>
+           <link validity='cap' port='0' speed='5' width='4'/>
+           <link validity='sta' speed='5' width='4'/>
+         </pci-express>
+       </capability>
+     </device>
+  9) from host detach PCI device
+    # virsh nodedev-dettach pci_0000_07_00_0
+     Device pci_0000_07_00_0 detached
+  10) convert PCI NO. to hexadecimal 
+     - bus 
+      # printf %x 7
+        7
+     - slot
+      # printf %x 0 
+       0
+     - function
+      # printf %x 0
+       0
+    
+ 11) edit device xml
+   # vim /home/passthrough.xml
+    <hostdev mode='subsystem' type='pci' managed='yes'>						
+     <source>						
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>						
+    </source>						
+   </hostdev>						
+ 12) attach the device to VM.xml
+   # virsh attach-device rhel7.3 /home/passthrough.xml --config 
+    Device attached successfully
+ 13) confirm the state of PCI device (whether show as *pci* type)
+   # readlink /sys/bus/pci/devices/0000\:07\:00.0/driver
+     ../../../../bus/pci/drivers/vfio-pci
+   note: if show as follow, do the 9) again (# virsh nodedev-dettach pci_0000_07_00_0)
+   other type:
+   # readlink /sys/bus/pci/devices/0000:07:00.1/driver
+     ../../../../bus/pci/drivers/igb
+ 14) if SELinux is effective, must do as follow 
+   # setsebool -P virt_use_sysfs 1
+    setsebool:  SELinux is disabled. (if show this message, it's ok without this operation)
+  
+ 15) virsh edit rhel7.3 delete the bridge of the PCI NIC 
+ 16) At Guest confirm the PCI device
+   before delete the br0
+   # lspci | grep Ethernet
+    00:03.0 Ethernet controller: Red Hat, Inc Virtio network device
+    00:09.0 Ethernet controller: Red Hat, Inc Virtio network device
+    00:0a.0 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
+  after delete the br0
+  # lspci | grep Ethernet
+   00:03.0 Ethernet controller: Red Hat, Inc Virtio network device
+   00:0a.0 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
+
+
+ 17) At Guest confirm the state of PCI device
+   # readlink  /sys/bus/pci/devices/0000\:00\:0a.0/driver
+     ../../../bus/pci/drivers/igb
+
+

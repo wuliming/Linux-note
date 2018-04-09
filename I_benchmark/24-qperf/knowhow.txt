@@ -1,0 +1,12 @@
+1- summary
+2- usage
+
+
+
+2. usage
+ 1)
+  # taskset -c 4 qperf -t 35s -m 300 -vv 192.168.200.12 sctp_bw -ca 4 
+  -ca	set cpu affinity but maybe uneffective
+  -t	timeout time
+  -m	message size (byte) or add K
+  -vv	show the bw/sys/usr/ etc. 

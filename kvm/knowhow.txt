@@ -1,0 +1,128 @@
+1- xml
+2- numa
+3- qemu-img
+4- verify setting
+5- virsh
+
+-ref
+  https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/7/html-single/virtualization_tuning_and_optimization_guide/index
+1. xml
+ 1) mem lock setting
+   can fix the memory but mutual exclusive with SR-IOV
+  <memoryBacking>
+  <locked/>
+  </memoryBacking>
+ 2) comment 
+   <!--catalog last updated 2000-11-01-->.
+   <!--	*** -->
+ 3) emulatorpin
+   <cputune>
+        <emulatorpin cpuset="1-3"/>
+   </cputune>
+
+ Q: why virsh dumpxml rhel5.7-4 different with  virsh edit rhel5.7-4
+ A: need to restart libvirtd service
+
+2. numa
+3. qemu-img
+ 
+ qcow2 VS raw
+ 
+ QCOW2
+
+ 1) qcow2 characteristic
+ - COW characteristic
+  incremental can save the origine imag 
+ 
+ 2) COMMAND
+ - create image
+  # qemu-img create -f qcow2 test.qcow2 4G
+ - ifomation of img
+  # qemu-img info test.qcow2
+ - crate snapshot
+  # qemu-img snapshot -c snap1 test.qcow2
+ - delete snapshot
+  #  qemu-img snapshot -d snap1 test.qcow2
+ - resize +10G
+  1) host
+     # qemu-img resize /sda6/wulm/I_img/rhel7.3_1.qcow2 +10G
+     # virsh shutdown rhel7.3_1
+     # virsh start rhel7.3_1
+  2) guest
+     # fdisk -l 
+       p -> n -> p -> w
+     
+     add vda3 to the lvm
+     # reboot
+     # pvcreate /dev/vda3
+       Physical volume "/dev/vda3" successfully created.
+     # pvs
+       PV         VG   Fmt  Attr PSize  PFree
+       /dev/vda2  rhel lvm2 a--  14.00g     0
+       /dev/vda3       lvm2 ---  10.00g 10.00g
+     # vgextend rhel /dev/vda3
+       Volume group "rhel" successfully extended
+     # pvs
+       PV         VG   Fmt  Attr PSize  PFree
+       /dev/vda2  rhel lvm2 a--  14.00g     0
+       /dev/vda3  rhel lvm2 a--  10.00g 10.00g
+     # vgs
+       VG   #PV #LV #SN Attr   VSize  VFree
+       rhel   2   2   0 wz--n- 23.99g 10.00g
+     
+     how to add VFree(10g) into root
+     # lvs
+       LV   VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+       root rhel -wi-ao---- 12.50g
+       swap rhel -wi-ao----  1.50g
+     # lvextend -l +100%FREE /dev/rhel/root
+       Size of logical volume rhel/root changed from 12.50 GiB (3199 extents) to 22.49 GiB (5758 extents).
+       Logical volume rhel/root successfully resized.
+     # lvs
+       LV   VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+       root rhel -wi-ao---- 22.49g
+       swap rhel -wi-ao----  1.50g
+
+     # xfs_growfs /dev/mapper/rhel-root
+     success !!
+     # df -hT
+       Filesystem               Type      Size  Used Avail Use% Mounted on
+       /dev/mapper/rhel-root    xfs        23G   12G   11G  53% /
+
+
+
+
+
+
+ 
+ RAW
+
+ 1) merit
+   - performance  > QCOW2
+   - can expand the size using dd directly
+
+4. verify setting
+  - cpu
+   1) Copy host cpu configuration
+   2) cpu pin
+    <cputune>
+     <vcpupin vcpu='0' cpuset='14'/>
+     <vcpupin vcpu='1' cpuset='15'/>
+     <vcpupin vcpu='2' cpuset='16'/>
+     <vcpupin vcpu='3' cpuset='17'/>
+     <vcpupin vcpu='4' cpuset='18'/>
+     <vcpupin vcpu='5' cpuset='19'/>
+    </cputune>
+
+  - vdisk
+  
+   1) cache mod -> none
+   2) IO mod	-> native
+
+  - vnic
+   1) virt-io bridge
+
+5. virsh
+
+  - virsh shutdown vm1 ineffective
+    since /etc/init.d/acpid hasn't started

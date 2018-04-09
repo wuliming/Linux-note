@@ -1,0 +1,16 @@
+1) compile
+  # make
+  # make test
+2) dmesg  get the major device number
+  # dmesg
+  # mknod /dev/module_ex c 246 0
+  - 246 major
+  - 0 minor
+  # ls /dev/module_ex -l
+    crw-r--r--. 1 root root 246, 0 Apr  3 13:07 /dev/module_ex
+
+summary
+
+1. info
+    /sys/module/module_ex
+

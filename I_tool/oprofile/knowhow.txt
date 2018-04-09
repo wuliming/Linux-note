@@ -1,0 +1,22 @@
+1- summary
+2- usage
+
+1. summary
+  
+2. usage
+  - default event
+     default event: CPU_CLK_UNHALTED:100000:0:1:1
+
+  - must install kernel-debuginfo before using oprofiled
+    # rpm -ivh kernel-debuginfo-common-2.6.18-274.el5.x86_64.rpm
+    # rpm -ivh kernel-debug-debuginfo-2.6.18-274.el5.x86_64.rpm
+  COMMAND
+  - ophelp
+    list events available for profiling
+  - opcontrol 
+    # opcontrol --event=<event-name>:<sample-rate>
+      sample-rate: the number of events between samples
+    1) ignore events in kernel mode for a specific counter (0: ignore 1: include kernel)
+      # opcontrol --event=<event-name>:<sample-rate>:<unit-mask>:0
+    2) ignore events in user mode for a specific counter (0: ignore 1: include user)
+      # opcontrol --event=<event-name>:<sample-rate>:<unit-mask>:<kernel>:0

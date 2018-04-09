@@ -1,4 +1,5 @@
 #!/bin/bash  
+#set -x
 echo "Bios info:"  
 dmidecode -t bios | grep -iE "Vendor|Version|Release"
 
@@ -40,9 +41,13 @@ echo -e "\tMemory number:\t"`dmidecode | grep -A5 "Memory Device" | grep -i "  *
 dmidecode -t memory | grep -iE "type:|size|Speed|Manufacturer" | grep -Ev "No|Unknown|Error"
 
 echo "Power Info:"
+cpupower info | awk '{ printf("\t%s\n", $0) }'
 cpupower frequency-info | awk '{ printf("\t%s\n", $0) }'
 cpupower -c all idle-info | awk '{ printf("\t%s\n", $0) }'
 
 echo "IRQ affinity Info:"
 find /proc/irq -name smp_affinity_list -exec echo {} \; -exec cat {} \;  | awk '{ printf("\t%s\n", $0) }'
+
+echo "KVM Info:"
+virt-what | awk '{ printf("\t%s\n", $0) }'
 

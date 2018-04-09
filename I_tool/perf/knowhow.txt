@@ -1,0 +1,23 @@
+https://github.com/brendangregg/perf-tools
+
+1- summary
+2- usage method
+
+1. summary
+  - from kernel 2.6.31 start to support perf tools(since RHEL6)
+  - RHEL5.7 don't support perf
+2. usage
+  1) perf top
+  2) perf stat
+   # perf stat ls
+   specify the CPU NO.
+   # perf stat -C 0
+
+  3) perf record
+    -a  all cpu
+    -C  specify cpu  -C 4
+    -p  specify PID
+  4) perf timechart
+   # perf timechart record -T 
+   # perf timechart -w 1900
+   # perf timechart -w 1800 -o output_io.svg

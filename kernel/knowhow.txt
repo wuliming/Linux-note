@@ -1,0 +1,40 @@
+1- compile 4.16 kernel in rhle7.3
+
+
+1. compile 4.16 kernel in rhle7.3
+   1) # tar -xzv linux-4.16
+   2) clean source directory
+      # make mrproper
+   3) make menuconfig then save and exit
+      # make menuconfig
+   4) install needed package
+      #  yum install -y ncurses-devel openssl-devel.x86_64
+   
+   5) can increse the compiling speed with -j(cores)
+      # make -j2
+   6) compile module
+      # make modules
+      # make modules_install
+      can generate 2 file, auto to copy to /boot
+      1. # ls arch/x86_64/boot/bzImage  -hlt
+           lrwxrwxrwx. 1 root root 22 Apr  9 13:56 arch/x86_64/boot/bzImage -> ../../x86/boot/bzImage
+         # ls /boot/vmlinuz-4.16.0 -hlt
+           -rw-r--r--. 1 root root 6.8M Apr  9 16:46 /boot/vmlinuz-4.16.0
+   
+      2. # ls System.map -hlt
+           -rw-r--r--. 1 root root 3.3M Apr  9 13:55 System.map
+         # ls /boot/System.map-4.16.0 -hlt
+           -rw-r--r--. 1 root root 3.3M Apr  9 16:46 /boot/System.map-4.16.0
+      # make install
+   7) # ls /boot/ |grep "4\.16"
+        initramfs-4.16.0.img
+        System.map-4.16.0
+        System.map-4.16.0.old
+        vmlinuz-4.16.0
+        vmlinuz-4.16.0.old
+      # cat /boot/grub2/grub.cfg  | grep "4\.16"
+        menuentry 'Red Hat Enterprise Linux Server (4.16.0) 7.3 (Maipo)' --class red --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-3.10.0-514.el7.x86_64-advanced-0fe46789-1412-4137-93cc-3185f2dcec82' {
+                linux16 /vmlinuz-4.16.0 root=/dev/mapper/rhel-root ro crashkernel=auto rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet LANG=en_US.UTF-8
+                initrd16 /initramfs-4.16.0.img
+   
+  

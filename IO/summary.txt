@@ -1,0 +1,49 @@
+1- base concept
+2- tuning
+
+
+1. base concept
+  1) sector	(logical_block_size)
+    - basic unit for hardware trasferring the data
+    - generally 512 Byte
+      # cat /sys/block/sda/queue/logical_block_size
+      512
+    - is the smallest size the drive is able to write 
+      (cf. the linux kernel documentation).
+    - can displayed by parted or fdisk
+      Sector size (logical/physical): 512 bytes <-/ 4096 bytes
+ 
+  2) block	(physical_block_size)
+    - basic unit for VFS and file system
+    - generally 512/1024/2048/4096 Byte 
+      # cat /sys/block/sda/queue/physical_block_size
+      4096
+    - is the minimal size of a block the drive is able to write 
+      in an atomic operation.
+    - can displayed by parted or fdisk
+      Sector size (logical/physical): 512 bytes / 4096 bytes <-
+    - get the block size
+     # blockdev --getbsz /dev/sda*
+    - Create filesystem to change new block size
+     # mkfs -t ext4 -b 2048 /dev/sde1
+     # mount /dev/sde1 /FIO
+     # blockdev --getbsz /dev/sde1
+       2048
+
+
+  3) segment
+  4) page cache
+     
+  5) Direct I/O <-> Buffer IO
+    - Direct I/O generally requires data to be aligned on disk sector 
+      boundaries.(multiple 512Byte)
+    - O_DIRECT open()
+    - mmap and direct_IO to the same file at the same time may result in 
+      fail with I/O error.
+      https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/global_file_system/s1-manage-direct-io 
+    
+    - 
+
+2. tuning
+  - tune IO
+  https://cromwell-intl.com/open-source/performance-tuning/disks.html

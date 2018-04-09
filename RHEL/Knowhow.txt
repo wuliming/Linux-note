@@ -78,7 +78,12 @@ write Back vs write through
    step2. # ll /lib/systemd/system/runlevel3.target
 	lrwxrwxrwx. 1 root root 17 Nov 23 16:36 /lib/systemd/system/runlevel3.target -> multi-user.target
    step3. # rm -rf /etc/systemd/system/default.target
-   step4. # ln -s /lib/systemd/system/runlevel3.target /etc/systemd/system/default.target 
+   step4. # ln -s /lib/systemd/system/runlevel3.target /etc/systemd/system/default.target
+
+   RHEL5.7
+  # vim /etc/inittab
+   id:3:initdefault:
+ 
 3) selinux			->	Enabled
    # selinuxenable
 4) copy benchmark list

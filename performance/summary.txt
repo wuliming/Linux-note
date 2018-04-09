@@ -1,0 +1,19 @@
+summary
+
+1- cpu
+2- memory
+3- network
+4- disk
+
+
+1. cpu
+  1) numa
+    irq/memory access: wheter happen at the same node
+
+
+3. network
+  1) SR-IOV
+    for hardware simulate the virtual network. can improve the
+    performance.
+
+  2) irqbalance

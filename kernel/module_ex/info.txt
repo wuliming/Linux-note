@@ -1,0 +1,318 @@
++ date
+Tue Apr  3 14:26:27 CST 2018
++ echo 'kernel info:'
+kernel info:
++ cat /proc/cmdline
+BOOT_IMAGE=/vmlinuz-3.10.0-514.el7.x86_64 root=UUID=e303873a-391e-4058-9b87-9550a8ecc14c ro crashkernel=auto rhgb quiet LANG=en_US.UTF-8 intel_idle.max_cstate=0
++ uname -a
+Linux centos-minion-1 3.10.0-514.el7.x86_64 #1 SMP Tue Nov 22 16:42:41 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
++ getenforce
+Enforcing
++ for service in firewalld auditd irqbalance ksm
++ systemctl is-active firewalld
+active
++ for service in firewalld auditd irqbalance ksm
++ systemctl is-active auditd
+active
++ for service in firewalld auditd irqbalance ksm
++ systemctl is-active irqbalance
+inactive
++ for service in firewalld auditd irqbalance ksm
++ systemctl is-active ksm
+active
++ ps aux
++ grep 'ge[t]'
++ grep -v qemu
+root      3256  0.0  0.0 113140  1408 pts/7    S+   14:26   0:00 /bin/bash /Linux-note/I_tool/get_common.sh
+root      3855  0.0  0.0      0     0 ?        S<   Feb09   0:00 [target_completi]
+pt       15893  0.0  0.0 560168  2784 ?        S<l  Jan17   0:08 /usr/bin/pulseaudio --start --log-target=syslog
++ ps aux
++ fgrep .sh
++ grep -v qemu
+root      3256  0.0  0.0 113140  1408 pts/7    S+   14:26   0:00 /bin/bash /Linux-note/I_tool/get_common.sh
+root      3269  0.0  0.0 112660   872 pts/7    S+   14:26   0:00 grep -F .sh
++ ps aux
++ grep X
++ grep -v qemu
+root       642  0.0  0.0 210264   156 ?        Ss    2017   0:00 /usr/bin/abrt-watch-log -F Backtrace /var/log/Xorg.0.log -- /usr/bin/abrt-dump-xorg -xD
+root      2601  0.0  0.0 418856  6228 tty1     Ssl+  2017  21:57 /usr/bin/Xorg :0 -background none -noreset -audit 4 -verbose -auth /run/gdm/auth-for-gdm-cgL6Z6/database -seat seat0 -nolisten tcp vt1
+root      3272  0.0  0.0 112664   952 pts/7    S+   14:26   0:00 grep X
+root      5076  0.0  0.3 262976 46228 pts/5    Sl   Mar23   0:13 /usr/bin/Xvnc :1 -desktop centos-minion-1:1 (root) -auth /root/.Xauthority -geometry 1024x768 -rfbwait 30000 -rfbauth /root/.vnc/passwd -rfbport 5901 -fp catalogue:/etc/X11/fontpath.d -pn
+root      5226  0.0  0.0  52920   580 ?        Ss   Mar23   0:01 /usr/bin/ssh-agent /etc/X11/xinit/Xclients
++ set +x
+Bios info:
+	Vendor: LENOVO
+	Version: F1KT47AUS
+	Release Date: 03/06/2013
+Product name:
+	Product Name: QiTianM4350
+	Version:  
+Processor info:
+	HT:	OFF
+	Core Count: 4
+	Core Enabled: 4
+	Current Speed: 3200 MHz
+	Family: Core i5
+	Max Speed: 3800 MHz
+	Version: Intel(R) Core(TM) i5-3470 CPU @ 3.20GHz
+	Architecture:          x86_64
+	CPU op-mode(s):        32-bit, 64-bit
+	Byte Order:            Little Endian
+	CPU(s):                4
+	On-line CPU(s) list:   0-3
+	Thread(s) per core:    1
+	Core(s) per socket:    4
+	Socket(s):             1
+	NUMA node(s):          1
+	Vendor ID:             GenuineIntel
+	CPU family:            6
+	Model:                 58
+	Model name:            Intel(R) Core(TM) i5-3470 CPU @ 3.20GHz
+	Stepping:              9
+	CPU MHz:               3200.000
+	BogoMIPS:              6385.30
+	Virtualization:        VT-x
+	L1d cache:             32K
+	L1i cache:             32K
+	L2 cache:              256K
+	L3 cache:              6144K
+	NUMA node0 CPU(s):     0-3
+	available: 1 nodes (0)
+	node 0 cpus: 0 1 2 3
+	node 0 size: 12109 MB
+	node 0 free: 2074 MB
+	node distances:
+	node   0 
+	  0:  10 
+Disk Info:
+	Disk /dev/sda: 500GB
+	Sector size (logical/physical): 512B/512B
+Network Info:
+	02:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 02)
+	03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 02)
+	04:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 06)
+	Settings for lo:
+		Link detected: yes
+	Settings for enp2s0:
+		Supports auto-negotiation: Yes
+		Advertised auto-negotiation: No
+		Speed: 10Mb/s
+		Duplex: Half
+		Auto-negotiation: off
+		Link detected: no
+	Settings for enp3s0:
+		Supports auto-negotiation: Yes
+		Advertised auto-negotiation: Yes
+		Speed: 10Mb/s
+		Duplex: Half
+		Auto-negotiation: on
+		Link detected: no
+	Settings for enp4s0:
+		Supports auto-negotiation: Yes
+		Advertised auto-negotiation: Yes
+		Link partner advertised auto-negotiation: Yes
+		Speed: 1000Mb/s
+		Duplex: Full
+		Auto-negotiation: on
+		Link detected: yes
+	Settings for br0:
+		Link detected: no
+	Settings for virbr0:
+		Link detected: no
+	Settings for virbr0-nic:
+		Supports auto-negotiation: No
+		Advertised auto-negotiation: No
+		Speed: 10Mb/s
+		Duplex: Full
+		Auto-negotiation: off
+		Link detected: no
+Memory Info:
+	Memory number:	2
+	Size: 4096 MB
+	Type: DDR3
+	Speed: 1600 MHz
+	Manufacturer: Kingston
+	Configured Clock Speed: 1600 MHz
+	Size: 8192 MB
+	Type: DDR3
+	Speed: 1600 MHz
+	Manufacturer: Kingston
+	Configured Clock Speed: 1600 MHz
+Power Info:
+	analyzing CPU 0:
+	perf-bias: 5
+	analyzing CPU 0:
+	  driver: intel_pstate
+	  CPUs which run at the same hardware frequency: 0
+	  CPUs which need to have their frequency coordinated by software: 0
+	  maximum transition latency:  Cannot determine or is not supported.
+	  hardware limits: 1.60 GHz - 3.60 GHz
+	  available cpufreq governors: performance powersave
+	  current policy: frequency should be within 1.60 GHz and 3.60 GHz.
+	                  The governor "performance" may decide which speed to use
+	                  within this range.
+	  current CPU frequency: 3.20 GHz (asserted by call to hardware)
+	  boost state support:
+	    Supported: yes
+	    Active: yes
+	    3400 MHz max turbo 4 active cores
+	    3500 MHz max turbo 3 active cores
+	    3600 MHz max turbo 2 active cores
+	    3600 MHz max turbo 1 active cores
+	
+	CPUidle driver: acpi_idle
+	CPUidle governor: menu
+	analyzing CPU 0:
+	
+	Number of idle states: 4
+	Available idle states: POLL C1 C2 C3
+	POLL:
+	Flags/Description: CPUIDLE CORE POLL IDLE
+	Latency: 0
+	Usage: 5328833
+	Duration: 11874832626
+	C1:
+	Flags/Description: ACPI FFH INTEL MWAIT 0x0
+	Latency: 1
+	Usage: 2199285425
+	Duration: 2512643538315
+	C2 (DISABLED) :
+	Flags/Description: ACPI FFH INTEL MWAIT 0x10
+	Latency: 59
+	Usage: 735595267
+	Duration: 165792845522
+	C3 (DISABLED) :
+	Flags/Description: ACPI FFH INTEL MWAIT 0x20
+	Latency: 80
+	Usage: 2793806314
+	Duration: 7145484787889
+	
+	analyzing CPU 1:
+	
+	Number of idle states: 4
+	Available idle states: POLL C1 C2 C3
+	POLL:
+	Flags/Description: CPUIDLE CORE POLL IDLE
+	Latency: 0
+	Usage: 5610896
+	Duration: 51295044468
+	C1:
+	Flags/Description: ACPI FFH INTEL MWAIT 0x0
+	Latency: 1
+	Usage: 2258368434
+	Duration: 2470286627015
+	C2 (DISABLED) :
+	Flags/Description: ACPI FFH INTEL MWAIT 0x10
+	Latency: 59
+	Usage: 753038087
+	Duration: 170116562767
+	C3 (DISABLED) :
+	Flags/Description: ACPI FFH INTEL MWAIT 0x20
+	Latency: 80
+	Usage: 2916088340
+	Duration: 7146817585655
+	
+	analyzing CPU 2:
+	
+	Number of idle states: 4
+	Available idle states: POLL C1 C2 C3
+	POLL:
+	Flags/Description: CPUIDLE CORE POLL IDLE
+	Latency: 0
+	Usage: 5103068
+	Duration: 14820271765
+	C1:
+	Flags/Description: ACPI FFH INTEL MWAIT 0x0
+	Latency: 1
+	Usage: 2223060581
+	Duration: 2559926787929
+	C2 (DISABLED) :
+	Flags/Description: ACPI FFH INTEL MWAIT 0x10
+	Latency: 59
+	Usage: 739491955
+	Duration: 166172019030
+	C3 (DISABLED) :
+	Flags/Description: ACPI FFH INTEL MWAIT 0x20
+	Latency: 80
+	Usage: 2757609004
+	Duration: 7095468118496
+	
+	analyzing CPU 3:
+	
+	Number of idle states: 4
+	Available idle states: POLL C1 C2 C3
+	POLL:
+	Flags/Description: CPUIDLE CORE POLL IDLE
+	Latency: 0
+	Usage: 1571363
+	Duration: 1492681060
+	C1:
+	Flags/Description: ACPI FFH INTEL MWAIT 0x0
+	Latency: 1
+	Usage: 2082054222
+	Duration: 2507632668023
+	C2 (DISABLED) :
+	Flags/Description: ACPI FFH INTEL MWAIT 0x10
+	Latency: 59
+	Usage: 735449059
+	Duration: 165559430199
+	C3 (DISABLED) :
+	Flags/Description: ACPI FFH INTEL MWAIT 0x20
+	Latency: 80
+	Usage: 2782857752
+	Duration: 6969474066299
+	
+IRQ affinity Info:
+	/proc/irq/0/smp_affinity_list
+	0-3
+	/proc/irq/1/smp_affinity_list
+	1-3
+	/proc/irq/2/smp_affinity_list
+	0-3
+	/proc/irq/3/smp_affinity_list
+	0-3
+	/proc/irq/4/smp_affinity_list
+	0-3
+	/proc/irq/5/smp_affinity_list
+	0-3
+	/proc/irq/6/smp_affinity_list
+	0-3
+	/proc/irq/7/smp_affinity_list
+	0-3
+	/proc/irq/8/smp_affinity_list
+	1-3
+	/proc/irq/9/smp_affinity_list
+	1-3
+	/proc/irq/10/smp_affinity_list
+	0-3
+	/proc/irq/11/smp_affinity_list
+	0-3
+	/proc/irq/12/smp_affinity_list
+	0-3
+	/proc/irq/13/smp_affinity_list
+	0-3
+	/proc/irq/14/smp_affinity_list
+	0-3
+	/proc/irq/15/smp_affinity_list
+	0-3
+	/proc/irq/16/smp_affinity_list
+	1-3
+	/proc/irq/23/smp_affinity_list
+	1-3
+	/proc/irq/24/smp_affinity_list
+	1-3
+	/proc/irq/25/smp_affinity_list
+	1-3
+	/proc/irq/26/smp_affinity_list
+	2
+	/proc/irq/28/smp_affinity_list
+	1
+	/proc/irq/29/smp_affinity_list
+	3
+	/proc/irq/30/smp_affinity_list
+	3
+	/proc/irq/31/smp_affinity_list
+	1-3
+	/proc/irq/32/smp_affinity_list
+	1-3
+KVM Info:

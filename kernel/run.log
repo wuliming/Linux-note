@@ -1,0 +1,196 @@
++ LANG=C
++ export LANG
++ PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/lib64/qt-3.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
++ export PATH
+++ basename /usr/bin/getPerfInfo.sh
++ COMMANDNAME=getPerfInfo.sh
++ VERSION=2.6-1
++ MPSTAT_ID=-1
++ SAR_ID=-1
++ IOSTAT_ID=-1
++ NFSIOSTAT_ID=-1
++ TOP_ID=-1
++ IOTOP_ID=-1
++ CAE_ID=-1
++ VIRT_TOP_ID=-1
++ TOOL_DIR=.
++ TEMPDIR=
++ EXEC_FLAG=0
++ COLUMNS_NUM=80
++ ROTATION_DIR_NAME=/var/log/FJSVgetperfinfo
++ rotation_Flag=0
++ [[ ! -z 1 ]]
++ [[ 1 = \R\O\T\A\T\I\O\N\_\0\0\1 ]]
++ [[ 1 = \R\O\T\A\T\I\O\N\_\0\0\0 ]]
++ rpm -q sysstat
++ '[' 0 '!=' 0 ']'
++ '[' 2 -eq 0 ']'
++ '[' 2 -gt 10 ']'
+++ date +%m%d%H%M%S
++ DATE=0403101206
+++ date +%Y%m%d%H%M%S
++ ROT_DATE=20180403101206
+++ /bin/date +%Y/%m/%d
++ DATA_DATE=2018/04/03
++ declare -i INTERVAL=0
++ declare -i MAX_COUNT=0
++ declare -i COUNT=0
++ declare -i IOCOUNT=0
++ declare -i BASETIME=0
++ declare -i ROTATION=7
++ TOP_COM=0
++ IOTOP_COM=0
++ NOIOTOP_COM=0
++ CAE_COM=0
++ OPT_FORCE=0
++ OPT_FILE=0
++ NETSTAT_COM=0
++ NOVIRTTOP_COM=0
++ NOKVM_COM=0
++ ROTATION_CHECK_FLAG=0
++ KVM_STAT_COM=0
++ OUT_OPT=-d
++ TEMPDIR=/tmp/perf0403101206
++ '[' 0 = 1 ']'
++ OUTFILE=/tmp/perf0403101206.tar.gz
++ FLAG=0
++ Stop_Service_Flag=0
++ Kill_Suc=0
++ CMD_OPTIONS=1
++ '[' 2 -eq 2 ']'
++ '[' 1 = -kill -o 1 = --kill ']'
++ [[ 1 != '' ]]
++ [[ 1 = \-\-\r\s\t\a\r\t ]]
++ [[ 1 != '' ]]
++ [[ 1 = \-\-\r\s\t\o\p ]]
++ '[' 1 '!=' '' ']'
++ '[' -z ']'
+++ echo @1
+++ cut -c2
++ '[' 1 '!=' - ']'
++ case $FLAG in
++ INTERVAL=1
++ FLAG=1
++ LP_Check_Digit 1
++ DIGIT=1
++ echo 1
++ awk '{
+		for(i=1;i<length($0)+1;i++){
+			if(substr($0,i,1) !~ /[[:digit:]]/){
+				exit 1
+			}
+		}
+		exit 0
+	}'
++ return 0
++ '[' 0 '!=' 0 ']'
++ shift
++ '[' 1 '!=' '' ']'
++ '[' -z ']'
+++ echo @1
+++ cut -c2
++ '[' 1 '!=' - ']'
++ case $FLAG in
++ MAX_COUNT=1
++ FLAG=2
++ LP_Check_Digit 1
++ DIGIT=1
++ echo 1
++ awk '{
+		for(i=1;i<length($0)+1;i++){
+			if(substr($0,i,1) !~ /[[:digit:]]/){
+				exit 1
+			}
+		}
+		exit 0
+	}'
++ return 0
++ '[' 0 '!=' 0 ']'
++ shift
++ '[' '' '!=' '' ']'
++ [[ 0 = 1 ]]
++ case ${OPTION} in
++ chk_file_exist /tmp/perf0403101206
++ FILE_PATH=/tmp/perf0403101206
++ '[' -e /tmp/perf0403101206 ']'
++ return 0
++ '[' -d = -z ']'
++ '[' 2 '!=' 2 ']'
++ '[' 1 -le 0 ']'
++ '[' 1 -le 0 ']'
++ '[' 0 = 1 ']'
++ '[' 0 = 1 ']'
++ '[' 0 = 0 ']'
++ '[' 0 = 0 ']'
++ echo -n 'Start time: '
+++ date '+%T %x'
++ echo 10:12:06 04/03/2018
++ mkdir -p /tmp/perf0403101206
++ '[' 0 = 1 ']'
+++ uname -r
+++ awk -F- '{printf $1}'
++ DISTRIBUTION=3.10.0
++ OPT_IOSTAT=-xdt
++ '[' 3.10.0 = 2.6.18 ']'
++ [[ 3.10.0 =~ 2\.6\.3[1-9] ]]
++ [[ 3.10.0 = \3\.\1\0\.\0 ]]
++ OPT_IOSTAT='-xdtk -p'
++ [[ 3.10.0 != \3\.\1\0\.\0 ]]
++ '[' 0 = 0 ']'
++ trap LP_dispatch_signal INT
++ echo 'Version : 2.6-1'
++ cat /proc/cpuinfo
++ uname -a
++ uname -r
++ grep -i PAE
++ '[' 1 = 0 ']'
++ rpm -qi kernel
+++ date '+%T %x'
++ echo 10:12:06 04/03/2018
++ df -hTP
+++ date '+%T %x'
++ echo 10:12:06 04/03/2018
++ ps aux
++ mount -l
+++ LP_dispatch_signal
+++ echo -n 'Interrupt signal received. Stopping getPerfInfo.sh. '
+++ LP_killtool
+++ '[' -1 '!=' -1 ']'
+++ echo -n .
+++ '[' -1 '!=' -1 ']'
+++ echo -n .
+++ '[' -1 '!=' -1 ']'
+++ echo -n .
+++ '[' -1 '!=' -1 ']'
+++ echo -n .
+++ '[' -1 '!=' -1 ']'
+++ echo -n .
+++ '[' -1 '!=' -1 ']'
+++ echo -n .
+++ '[' -1 '!=' -1 ']'
+++ echo -n .
+++ '[' -1 '!=' -1 ']'
+++ echo -n .
+++ LP_ProcessFiles /tmp/perf0403101206 -d /tmp/perf0403101206.tar.gz
+++ '[' /tmp/perf0403101206 '!=' '' ']'
+++ sar -A -f /tmp/perf0403101206/sar-A_0403101206
+++ echo
++++ date '+%T %x'
+++ echo 10:13:13 04/03/2018
+++ df -hTP
+++ echo
++++ date '+%T %x'
+++ echo 10:13:13 04/03/2018
+++ ps aux
+++ cat /proc/cmdline
+++ '[' -d = -z ']'
+++ '[' 0 = 0 ']'
+++ LP_EndMsg
+++ echo 'INFO: Performance information has collected.'
+++ '[' -d = -d ']'
+++ echo '      Check the /tmp/perf0403101206'
+++ echo -n 'End time: '
++++ date '+%T %x'
+++ echo 10:13:13 04/03/2018
+++ echo '. Success.'
+++ exit 1

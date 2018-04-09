@@ -29,6 +29,16 @@
     camkb
   - kbcommit	Committed_AS
     kbcommit
+    discription	Amount of memory in kilobytes needed for current workload.
+		This is an estimate of how much RAM/swap is needed to 
+		guarantee that there never is out of memory.
+    08:12:56 AM kbmemfree kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+    08:12:39 AM  12049400  53774292     81.69        84   1227048  56265428     76.90  51706004   1135268         0
+
+    AFTER  allocate 100 MB using ./allocate 100
+    08:13:06 AM  11947616  53876076     81.85        84   1227048  56366424     77.04  51808116   1135268         4
+    100MB = 51808116 - 51706004
+
   - %commit	Committed_AS / (MemTotal+SwapTotal) * 100%
     comkb / (tlmkb  + tlskb) * 100
   - kbactive	Active

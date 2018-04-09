@@ -1,0 +1,13 @@
+1. summary
+2. usage
+3. trouble-shooting
+
+
+3. trouble-shooting
+
+  1) ERROR Message: /usr/bin/ld: cannot find -lc
+  Q: # gcc -DRESULT -static -o yourprogname file.c 
+    /usr/bin/ld: cannot find -lc
+  A: install glibc-static and glibc-utils can fix
+    # yum install glibc-static  glibc-utils
+  

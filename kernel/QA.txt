@@ -1,0 +1,14 @@
+1- grub2-editenv: error: environment block too small
+2- Makefile.2.*** missing separator. Stop
+
+
+
+
+1. grub2-editenv: error: environment block too small
+   solution:
+   # mv /boot/grub2/grubenv /home/wulm/ 
+   # grub2-editenv  /boot/grub2/grubenv create 
+
+2. Makefile.2.*** missing separator. Stop
+  solution:
+  change the blank with the tab.

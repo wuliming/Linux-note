@@ -7,6 +7,9 @@ https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/7/html/pe
 5- setting
 6- monitor
 7- tcpdump
+8- ifconfig
+9- Full Duplex and Half Duplex
+10-netstat
 --------------knowhow------------------
 1) NAT network(G: guest H:host) 
 G	->	H  O
@@ -77,6 +80,19 @@ BRIDGE=br0
 4. ethtool
   1) close the auto negotiation and set speed 1000Mbit/s and duplex full type
     # ethtool -s  ens33 autoneg off speed 1000 duplex full
+    
+    - can only set the speed 10/100/1000 
+      can't set other spedd(eg: 50/60/55)
+    # ethtool -s ens10 autoneg off speed 50
+     Cannot set new settings: Invalid argument
+     not setting speed
+     not setting autoneg
+    
+    other set method
+    # vi /etc/sysconfig/network-scripts/ifcfg-eth0
+      ETHTOOL_OPTS="speed 100 duplex full autoneg off"
+    # ifdown eth0 && ifup eth0
+    
   2) get the tx/rx setting
     # ethtool -c eno2
   3) set the tx-usecs to 0 and adaptive-tx off
@@ -88,6 +104,13 @@ BRIDGE=br0
     # ethtool -d eno2
   6) get rec-send packets 
     # ethtool -S eno2
+  7) get the base infomation
+    # ethtool eno2
+  8) show the statistics (count)
+    can get the rx/tx drop information
+    # ethtool -S eno2
+  9) show functions
+    # ethtool -k eno2
 
 5. setting
  1) # chkconfig NetworkManager off
@@ -149,10 +172,25 @@ BRIDGE=br0
    # tcpdump -c 2 -q -XX -vvv -nn -i eth0 tcp dst port 22
    #  
  
-   
+8. ifconfig
+  1) MTU (Maximun Transmission Unit)  UNIT: Byte   1500B=1.5KB
+   MTU (Maximum Transmission Unit) is related to TCP/IP networking in Linux/BSD/UNIX oses.
+   It refers to the size (in bytes) of the largest datagram that 
+   a given layer of a communications protocol can pass at a time.
 
+   - CHANGE method
+    # ifconfig eth0 mtu 1400
+    OR
+    # ip link set dev eth0 mtu 1400
 
+9. Full Duplex and Half Duplex
+   1) full duplex
+     can recieve and send at same time
+   2) half duplex
+     transmission and reception of information must happen alternately. 
+   3) simlex
+     can't recieve and send at same time
 
-
-
-
+10. netstat
+   1) get socket status
+     # netstat -paut

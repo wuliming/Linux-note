@@ -1,0 +1,16 @@
+1- meminfo   /proc/meminfo.c
+2- cache
+
+
+1. meminfo
+  -cached
+   page cache
+  1) x86 PAGE_SHIFT		12
+  2) cached = global_page_state(NR_FILE_PAGES) 
+             - total_swapcache_pages() - i.bufferram;
+    * global_page_state(NR_FILE_PAGES)
+       NR_FILE_PAGES: /proc/zoneinfo nr_file_pages=0+261577+505793
+    * total_swapcache_pages   ref: mm/swap_state.c
+	sum(swapper_spaces[i].nrpages):
+ 
+    

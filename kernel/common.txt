@@ -1,0 +1,12 @@
+1- struct dot
+
+
+
+1. struct dot
+  -function: can initialize the struct variable in C99  
+  static const struct address_space_operations swap_aops = {
+         .writepage      = swap_writepage,
+         .set_page_dirty = swap_set_page_dirty,
+         .migratepage    = migrate_page,
+ };
+
