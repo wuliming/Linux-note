@@ -1,5 +1,7 @@
 1- compile 4.16 kernel in rhle7.3
-
+2- url
+   https://mirrors.edge.kernel.org/pub/linux/kernel/v4.x/
+   https://mirrors.edge.kernel.org/pub/linux/kernel/
 
 1. compile 4.16 kernel in rhle7.3
    1) # tar -xzv linux-4.16
