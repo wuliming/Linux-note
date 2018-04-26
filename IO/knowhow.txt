@@ -7,6 +7,7 @@
 6-  Warning: partition is not properly aligned for best performance [KW. %]
 7- block size & sector 
 8- major and minor device number
+9- resize image
 
 1) check and modify the bad blocks
   1. how to check the bad blocks of disk
@@ -113,3 +114,68 @@
    crw-------. 1 root root     10, 235 Dec  2 15:58 autofs
                                 ^   ^
                               major minor
+
+9. resize image
+ - resize +10G (SLES15)
+  1) host
+     # qemu-img resize /sda6/wulm/I_img/sles15.raw +10G
+     # virsh shutdown sles15
+     # virsh start sles15
+  2) guest
+     # parted
+       resizepart
+     # mount /dev/vda2  /mnt/
+     # btrfs filesystem resize max /mnt/  
+     # reboot
+  
+ - resize +10G (RHEL7)
+  1) host
+     # qemu-img resize /sda6/wulm/I_img/rhel7.3_1.qcow2 +10G
+     # virsh shutdown rhel7.3_1
+     # virsh start rhel7.3_1
+  2) guest
+     # fdisk  
+       p -> n -> p -> w
+     
+     add vda3 to the lvm
+     # reboot
+     # pvcreate /dev/vda3
+       Physical volume "/dev/vda3" successfully created.
+     # pvs
+       PV         VG   Fmt  Attr PSize  PFree
+       /dev/vda2  rhel lvm2 a--  14.00g     0
+       /dev/vda3       lvm2 ---  10.00g 10.00g
+     # vgextend rhel /dev/vda3
+       Volume group "rhel" successfully extended
+     # pvs
+       PV         VG   Fmt  Attr PSize  PFree
+       /dev/vda2  rhel lvm2 a--  14.00g     0
+       /dev/vda3  rhel lvm2 a--  10.00g 10.00g
+     # vgs
+       VG   #PV #LV #SN Attr   VSize  VFree
+       rhel   2   2   0 wz--n- 23.99g 10.00g
+     
+     how to add VFree(10g) into root
+     # lvs
+       LV   VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+       root rhel -wi-ao---- 12.50g
+       swap rhel -wi-ao----  1.50g
+     # lvextend -l +100%FREE /dev/rhel/root
+       Size of logical volume rhel/root changed from 12.50 GiB (3199 extents) to 22.49 GiB (5758 extents).
+       Logical volume rhel/root successfully resized.
+     # lvs
+       LV   VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+       root rhel -wi-ao---- 22.49g
+       swap rhel -wi-ao----  1.50g
+
+     # xfs_growfs /dev/mapper/rhel-root
+     success !!
+     # df -hT
+       Filesystem               Type      Size  Used Avail Use% Mounted on
+       /dev/mapper/rhel-root    xfs        23G   12G   11G  53% /
+
+
+
+
+
+
