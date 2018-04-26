@@ -1,0 +1,24 @@
+#!/bin/bash
+
+export LANG=C
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
+
+MODE="read write randread randwrite"
+TAZYU="1"
+RESULT_DIR="./log"
+
+for mode in $MODE
+do
+	for tazyu in $TAZYU
+	do
+		log="$RESULT_DIR/$mode/tazyu-$tazyu"
+		mkdir -p $log
+		rm -rf /home/iotest/*
+		echo 3 > /proc/sys/vm/drop_caches
+		echo "mode=$mode tazyu=$tazyu"
+		fio -filename=/home/iotest/fiotest  -iodepth=10  -rw=$mode -ioengine=libaio -size=2GB -runtime=30 -numjobs=$tazyu -directory=/home/iotest/ -group_reporting -name=myFioTest >> $log/log_fio.log
+		sleep 1
+	done
+done
+

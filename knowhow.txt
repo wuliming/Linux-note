@@ -30,27 +30,32 @@
 30- rpm
 31- SElinux
 32- ssh
+33- pgrep
+34- screen
+35- shell multi lines insert
 1) about  sed command
-- change
-  # sed -i  "s/226\.87/225\.87/g" /etc/hosts  ("g" will change the every mark, othewise change only one)
-- print lines which was replaced
-  # sed -n 's/test/TEST/p' file
-- print from 7 to 15 lines
-  # sed -n '7,15p' file
-- delete
-  *1 delete first line	# sed -i '1d' file
-  *2 delete last line	# sed -i '$d' file
-  *3 delete space of line	# sed -i 's/[ ]*//g' file
-  *4 delete blank line	# sed -i '/^$/d' file
-  *5 delete 1 and 2 line	# sed -i '1,2d' file
-  *6 delete line with 'love'	# sed -i '/love/d' file
-- insert
-  *1 insert a line before the specified line with some KW.	
-   # sed -i '/CFLAGS="DSMALL"/i\wlm' common.sh
-  *2 insert a line after the specified line with some KW.		
-   # sed -i '/CFLAGS="DSMALL"/a\wlm' common.sh
-  *3 insert "abc" at the first line of file 
-   # sed '1s/.*/abc\n&/' file
+   - transfer variable using ""
+     # a=bbbbb; sed  "s/xx/$a/g" test.txt  
+   - change
+     # sed -i  "s/226\.87/225\.87/g" /etc/hosts  ("g" will change the every mark, othewise change only one)
+   - print lines which was replaced
+     # sed -n 's/test/TEST/p' file
+   - print from 7 to 15 lines
+     # sed -n '7,15p' file
+   - delete
+     *1 delete first line	# sed -i '1d' file
+     *2 delete last line	# sed -i '$d' file
+     *3 delete space of line	# sed -i 's/[ ]*//g' file
+     *4 delete blank line	# sed -i '/^$/d' file
+     *5 delete 1 and 2 line	# sed -i '1,2d' file
+     *6 delete line with 'love'	# sed -i '/love/d' file
+   - insert
+     *1 insert a line before the specified line with some KW.	
+      # sed -i '/CFLAGS="DSMALL"/i\wlm' common.sh
+     *2 insert a line after the specified line with some KW.		
+      # sed -i '/CFLAGS="DSMALL"/a\wlm' common.sh
+     *3 insert "abc" at the first line of file 
+      # sed '1s/.*/abc\n&/' file
 2) error message output
   - redirect the  error message output as normal message
     ... 2>&1 > test.txt
@@ -278,6 +283,8 @@ if can't situation:
    if [[ string =~ $EXPR ]]; then  *** fi
   https://www.cnblogs.com/linuxws/p/6942574.html
 22) awk
+  - get the length of string
+    # awk '{printf("%20s\t%s\n", $0,length($0))}' metric.log
   - whether is blank line
     if(!NF)
   - insert one column
@@ -392,3 +399,32 @@ if can't situation:
   Q: /usr/bin/ssh-copy-id: ERROR: No identities found
   A: add pubkey path can fix this problem
   # ssh-copy-id  -i ~/.ssh/id_rsa.pub 193.168.140.157
+
+33) pgrep
+  can get the process with some argument
+  1. get the child process PID splited with comma
+    # pgrep -P 18 -d,
+
+34) screen
+  when using ssh , maybe interrupt since network issue.
+  so can use screen to avoid this problem
+  # screen ls
+    1033.pts-3.**** (attached)
+  # screen -r -d 1033
+
+
+35. shell multi lines insert
+    
+    cat>/etc/systemd/system/operation.slice<<EOF
+    [Unit]
+    Description=Operation Slice
+    DefaultDependencies=no
+    Before=slices.target
+    Wants=-.slice
+    After=-.slice
+    [Slice]
+    CPUShares=10240
+    [Install]
+    WantedBy=slices.target
+    EOF
+    

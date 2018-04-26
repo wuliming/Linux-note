@@ -126,3 +126,7 @@
 
   - virsh shutdown vm1 ineffective
     since /etc/init.d/acpid hasn't started
+
+  - virsh edit ineffective
+    1) should restart libvirtd service
+    2) virsh shutdown and start VM

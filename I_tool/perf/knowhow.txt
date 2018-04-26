@@ -17,7 +17,12 @@ https://github.com/brendangregg/perf-tools
     -a  all cpu
     -C  specify cpu  -C 4
     -p  specify PID
+    -F	frequency
+     difference of 99 and 997 is samples count
+     [ perf record: Captured and wrote 3.416 MB 3504_block_seq_write_sync/perf_dwarf_99.data (421 samples) ]
+     [ perf record: Captured and wrote 34.369 MB 20180421182818_block_seq_write_sync/perf_dwarf_997.data (4258 samples) ]
   4) perf timechart
    # perf timechart record -T 
    # perf timechart -w 1900
    # perf timechart -w 1800 -o output_io.svg
+ 

@@ -1,7 +1,9 @@
 1- BIOS + MBR
 2- EFI + GPT 
 3- SAS SATA
-
+4- APIC (Advanced Programmable Interrupt Controller)
+5- ISA (Industry Standard Architecture)
+6- GPIO (General-purpose input/output)
 1. BIOS + MBR  the schema of present pc's arch
  - BIOS :	Base input output system
  - MBR	:	Master Boot Record (master boot sector)

@@ -1,0 +1,18 @@
+1- usage
+2- notice items
+
+
+2. notice items
+
+  1) in RHEL7.4 , can't use pcm directly. but can use it by 
+     comment out the -DPCM_USE_PERF  at Makefile.
+     - can't collect the IPc/FREQ etc. correctly.
+  2) EXEC=IPC* FREQ
+     IPC=EXEC/FREQ
+     FREQ=Avg_MHZ/TSC_MHZ (turbostat)
+  3) 2 pcm.x can't run at same time, otherwise datas are not correcty.
+     pcm.x and perf can't run at same time.
+  4) pcm.x and pcm-memory.x can run at same time.
+     but the  P. Write (T/s) item is not corret.
+  5) at pcm-2.11, pcm-memory.x  can collect the data   " -- sleep $time "
+     # pcm-memory.x 1 -csv=pcm-memory.csv -- slee 10

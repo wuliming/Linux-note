@@ -1,0 +1,64 @@
+report analyze:
+1. latency
+  fio record 3 time
+  start time (io_u->start_time) >>>>>>  (io_u->issue_time) >>>>>> finish time(icd->time)
+  start time:	buffer get ready time
+  issuse time:	sync-time before R/W syscall; async-IO request get ready time
+  icd->time:	IO finish time
+  1) lat (submission latency)	io_u->issue_time	- io_u->start_time
+  2) clat (completion latency)	icd->time 		- io_u->issue_time
+  3) lat (latency)		icd->time 		- io_u->start_time
+
+job1: (g=0): rw=write, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=sync, iodepth=1
+job2: (g=0): rw=write, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=sync, iodepth=1
+fio-3.5
+Starting 2 processes
+
+job1: (groupid=0, jobs=1): err= 0: pid=14815: Wed Apr 11 18:32:24 2018
+  write: IOPS=5421, BW=21.2MiB/s (22.2MB/s)(2000MiB/94439msec)
+    clat (usec): min=4, max=11274, avg=72.06, stdev=125.11
+     lat (usec): min=5, max=11300, avg=99.45, stdev=146.57
+    clat percentiles (usec):
+     |  1.00th=[   64],  5.00th=[   65], 10.00th=[   65], 20.00th=[   65],
+     | 30.00th=[   65], 40.00th=[   66], 50.00th=[   66], 60.00th=[   67],
+     | 70.00th=[   67], 80.00th=[   70], 90.00th=[   71], 95.00th=[   75],
+     | 99.00th=[   80], 99.50th=[   86], 99.90th=[ 2606], 99.95th=[ 3425],
+     | 99.99th=[ 3949]
+   bw (  KiB/s): min= 9669, max=39336, per=39.62%, avg=17181.85, stdev=2672.97, samples=188
+   iops        : min= 2417, max= 9834, avg=4295.16, stdev=668.18, samples=188
+  lat (usec)   : 10=0.72%, 20=0.02%, 50=0.01%, 100=98.89%, 250=0.08%
+  lat (usec)   : 500=0.08%, 750=0.01%, 1000=0.01%
+  lat (msec)   : 2=0.05%, 4=0.14%, 10=0.01%, 20=0.01%
+  cpu          : usr=4.02%, sys=11.37%, ctx=6116931, majf=0, minf=12
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,512000,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+job2: (groupid=0, jobs=1): err= 0: pid=14816: Wed Apr 11 18:32:24 2018
+  write: IOPS=39.4k, BW=154MiB/s (161MB/s)(2000MiB/12989msec)
+    clat (usec): min=3, max=11493, avg= 8.90, stdev=126.25
+     lat (usec): min=4, max=11495, avg=11.25, stdev=140.17
+    clat percentiles (usec):
+     |  1.00th=[    4],  5.00th=[    5], 10.00th=[    5], 20.00th=[    5],
+     | 30.00th=[    5], 40.00th=[    5], 50.00th=[    5], 60.00th=[    5],
+     | 70.00th=[    5], 80.00th=[    5], 90.00th=[    6], 95.00th=[    6],
+     | 99.00th=[    9], 99.50th=[   11], 99.90th=[ 2114], 99.95th=[ 3752],
+     | 99.99th=[ 4555]
+   bw (  KiB/s): min=147161, max=161529, per=100.00%, avg=158362.52, stdev=2495.28, samples=25
+   iops        : min=36790, max=40382, avg=39590.44, stdev=623.83, samples=25
+  lat (usec)   : 4=4.24%, 10=95.15%, 20=0.48%, 50=0.01%, 250=0.01%
+  lat (usec)   : 500=0.01%, 750=0.01%, 1000=0.01%
+  lat (msec)   : 2=0.02%, 4=0.07%, 10=0.03%, 20=0.01%
+  cpu          : usr=19.86%, sys=25.77%, ctx=4286, majf=0, minf=13
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,512000,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+  WRITE: bw=42.4MiB/s (44.4MB/s), 21.2MiB/s-154MiB/s (22.2MB/s-161MB/s), io=4000MiB (4194MB), run=12989-94439msec
+
+Disk stats (read/write):
+  sampleblk1: ios=0/32652, merge=0/18, ticks=0/35245, in_queue=32937, util=2.72%

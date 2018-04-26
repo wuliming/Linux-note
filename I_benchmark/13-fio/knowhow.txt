@@ -1,8 +1,9 @@
 1- summary 
-2- using method
-3- QA
+2- usage
+3- report
 4- ref
    http://fio.readthedocs.io/en/latest/fio_doc.html
+   https://github.com/axboe/fio
 1. schema
   - io type
   1) read		Sequential reads.
@@ -25,12 +26,29 @@
   - direct (default: 0)
   1) 0			buffer IO
   2) 1			driect IO (without pagecache)
-2.
- 1) when test buffer
-  - in order to avoid data instability need to clean memory buffer by "sync"
-   # sync
-   # echo 3 > /proc/sys/vm/drop_caches 
+
+2. usage
+  *  when test buffer
+    - in order to avoid data instability need to clean memory buffer by "sync"
+      # sync
+      # echo 3 > /proc/sys/vm/drop_caches 
   
-  - the filesize need to less than `cat /proc/sys/vm/dirty_ratio` * `free memory`
-   
+    - the filesize need to less than `cat /proc/sys/vm/dirty_ratio` * `free memory`
+
+  INSTALL
+   # git clone  https://github.com/axboe/fio
+   # cd fio   
+   # make
+   # make install
+ 
+3. report
+ -latency
+  fio record 3 time
+  start time (io_u->start_time) >>>>>>  (io_u->issue_time) >>>>>> finish time(icd->time)
+  start time:   buffer get ready time
+  issuse time:  sync-time before R/W syscall; async-IO request get ready time
+  icd->time:    IO finish time
+  1) lat (submission latency)   io_u->issue_time        - io_u->start_time
+  2) clat (completion latency)  icd->time               - io_u->issue_time
+  3) lat (latency)              icd->time               - io_u->start_time
 
