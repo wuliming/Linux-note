@@ -3,6 +3,7 @@
 3- tuning frequency
 4- cpupower 
 5- turbostat
+6- tuned
 1. S/C/P state
  1) C state
  *  view method
@@ -76,4 +77,9 @@
         0       0       1       0.03    2200    2200    7       0       99.97   0.00    0.00    0.00    22      35      27.54   15.21   8.02    0.00    0.00
         1       1       0       0.00    2201    2200    2       0       100.00  0.00    0.00    0.00    26
         2       2       0       0.00    2200    2200    1       0       100.00  0.00    0.00    0.00    28
-
+6. tuned
+  1)setting file
+   - /etc/tuned/tuned-main.conf
+   - /usr/lib/tuned/throughput-performance/tuned.conf
+  2) change profile
+   # tuned-adm profile powersave

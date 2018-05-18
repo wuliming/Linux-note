@@ -3,6 +3,7 @@
 3- qemu-img
 4- verify setting
 5- virsh
+6- kvm_stat
 
 -ref
   https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/7/html-single/virtualization_tuning_and_optimization_guide/index
@@ -19,6 +20,25 @@
    <cputune>
         <emulatorpin cpuset="1-3"/>
    </cputune>
+ 4) cpu flag setting
+    https://libvirt.org/formatdomaincaps.html#elementsCPU
+    <domainCapabilities>
+      ...
+      <cpu>
+        <mode name='host-passthrough' supported='yes'/>
+        <mode name='host-model' supported='yes'>
+          <model fallback='allow'>Broadwell</model>
+          <vendor>Intel</vendor>
+          <feature policy='disable' name='aes'/>
+          <feature policy='require' name='vmx'/>
+        </mode>
+        <mode name='custom' supported='yes'>
+          <model usable='no'>Broadwell</model>
+          <model usable='yes'>Broadwell-noTSX</model>
+          <model usable='no'>Haswell</model>
+          ...
+        </mode>
+      </cpu>
 
  Q: why virsh dumpxml rhel5.7-4 different with  virsh edit rhel5.7-4
  A: need to restart libvirtd service
@@ -130,3 +150,7 @@
   - virsh edit ineffective
     1) should restart libvirtd service
     2) virsh shutdown and start VM
+
+6. kvm_stat
+   1) first column is total event count
+   2) second column is current average event count
