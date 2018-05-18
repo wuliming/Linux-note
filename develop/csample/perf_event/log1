@@ -1,0 +1,381 @@
+cpus is 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_entry/id 4 -1
+======4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_hypercall/id 5 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_hv_hypercall/id 6 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pio/id 7 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_fast_mmio/id 8 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_cpuid/id 9 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic/id 10 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_exit/id 11 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_inj_virq/id 12 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_inj_exception/id 13 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_page_fault/id 14 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_msr/id 15 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_cr/id 16 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pic_set_irq/id 17 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic_ipi/id 18 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic_accept_irq/id 19 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_eoi/id 20 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pv_eoi/id 21 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmrun/id 22 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_intercepts/id 23 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmexit/id 24 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmexit_inject/id 25 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_intr_vmexit/id 26 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_invlpga/id 27 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_skinit/id 28 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_emulate_insn/id 29 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/vcpu_match_mmio/id 30 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_write_tsc_offset/id 31 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_update_master_clock/id 32 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_track_tsc/id 33 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pml_full/id 34 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ple_window/id 35 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pvclock_update/id 36 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_wait_lapic_expire/id 37 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_enter_smm/id 38 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pi_irte_update/id 39 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_userspace_exit/id 40 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_vcpu_wakeup/id 41 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_set_irq/id 42 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ioapic_set_irq/id 43 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ioapic_delayed_eoi_inj/id 44 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_msi_set_irq/id 45 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ack_irq/id 46 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_mmio/id 47 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_fpu/id 48 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_age_page/id 49 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_try_async_get_page/id 50 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_doublefault/id 51 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_not_present/id 52 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_ready/id 53 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_completed/id 54 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_halt_poll_ns/id 55 4
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_entry/id 56 -1
+======56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_hypercall/id 57 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_hv_hypercall/id 58 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pio/id 59 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_fast_mmio/id 60 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_cpuid/id 61 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic/id 62 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_exit/id 63 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_inj_virq/id 64 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_inj_exception/id 65 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_page_fault/id 66 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_msr/id 67 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_cr/id 68 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pic_set_irq/id 69 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic_ipi/id 70 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic_accept_irq/id 71 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_eoi/id 72 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pv_eoi/id 73 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmrun/id 74 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_intercepts/id 75 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmexit/id 76 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmexit_inject/id 77 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_intr_vmexit/id 78 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_invlpga/id 79 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_skinit/id 80 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_emulate_insn/id 81 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/vcpu_match_mmio/id 82 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_write_tsc_offset/id 83 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_update_master_clock/id 84 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_track_tsc/id 85 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pml_full/id 86 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ple_window/id 87 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pvclock_update/id 88 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_wait_lapic_expire/id 89 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_enter_smm/id 90 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pi_irte_update/id 91 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_userspace_exit/id 92 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_vcpu_wakeup/id 93 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_set_irq/id 94 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ioapic_set_irq/id 95 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ioapic_delayed_eoi_inj/id 96 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_msi_set_irq/id 97 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ack_irq/id 98 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_mmio/id 99 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_fpu/id 100 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_age_page/id 101 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_try_async_get_page/id 102 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_doublefault/id 103 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_not_present/id 104 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_ready/id 105 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_completed/id 106 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_halt_poll_ns/id 107 56
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_entry/id 108 -1
+======108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_hypercall/id 109 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_hv_hypercall/id 110 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pio/id 111 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_fast_mmio/id 112 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_cpuid/id 113 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic/id 114 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_exit/id 115 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_inj_virq/id 116 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_inj_exception/id 117 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_page_fault/id 118 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_msr/id 119 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_cr/id 120 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pic_set_irq/id 121 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic_ipi/id 122 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic_accept_irq/id 123 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_eoi/id 124 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pv_eoi/id 125 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmrun/id 126 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_intercepts/id 127 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmexit/id 128 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmexit_inject/id 129 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_intr_vmexit/id 130 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_invlpga/id 131 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_skinit/id 132 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_emulate_insn/id 133 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/vcpu_match_mmio/id 134 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_write_tsc_offset/id 135 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_update_master_clock/id 136 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_track_tsc/id 137 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pml_full/id 138 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ple_window/id 139 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pvclock_update/id 140 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_wait_lapic_expire/id 141 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_enter_smm/id 142 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pi_irte_update/id 143 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_userspace_exit/id 144 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_vcpu_wakeup/id 145 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_set_irq/id 146 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ioapic_set_irq/id 147 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ioapic_delayed_eoi_inj/id 148 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_msi_set_irq/id 149 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ack_irq/id 150 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_mmio/id 151 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_fpu/id 152 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_age_page/id 153 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_try_async_get_page/id 154 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_doublefault/id 155 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_not_present/id 156 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_ready/id 157 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_completed/id 158 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_halt_poll_ns/id 159 108
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_entry/id 160 -1
+======160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_hypercall/id 161 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_hv_hypercall/id 162 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pio/id 163 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_fast_mmio/id 164 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_cpuid/id 165 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic/id 166 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_exit/id 167 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_inj_virq/id 168 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_inj_exception/id 169 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_page_fault/id 170 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_msr/id 171 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_cr/id 172 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pic_set_irq/id 173 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic_ipi/id 174 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_apic_accept_irq/id 175 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_eoi/id 176 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pv_eoi/id 177 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmrun/id 178 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_intercepts/id 179 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmexit/id 180 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_vmexit_inject/id 181 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_nested_intr_vmexit/id 182 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_invlpga/id 183 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_skinit/id 184 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_emulate_insn/id 185 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/vcpu_match_mmio/id 186 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_write_tsc_offset/id 187 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_update_master_clock/id 188 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_track_tsc/id 189 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pml_full/id 190 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ple_window/id 191 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pvclock_update/id 192 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_wait_lapic_expire/id 193 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_enter_smm/id 194 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_pi_irte_update/id 195 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_userspace_exit/id 196 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_vcpu_wakeup/id 197 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_set_irq/id 198 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ioapic_set_irq/id 199 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ioapic_delayed_eoi_inj/id 200 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_msi_set_irq/id 201 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_ack_irq/id 202 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_mmio/id 203 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_fpu/id 204 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_age_page/id 205 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_try_async_get_page/id 206 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_doublefault/id 207 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_not_present/id 208 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_ready/id 209 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_async_pf_completed/id 210 160
+path and fd is /sys/kernel/debug/tracing/events/kvm/kvm_halt_poll_ns/id 211 160
+==****====4, 52, 0
+==****====56, 52, 192
+==****====108, 52, 192
+==****====160, 52, 192
+        52	        52	        52	        52
+       192	        40	         0	       137
+         0	         0	         0	         0
+         0	         0	         0	         0
+        25	        17	         0	        42
+         0	         0	         0	         0
+         0	         0	         0	         0
+         2	         4	         0	         2
+       192	        40	         0	       137
+        40	         6	         0	        21
+         0	         0	         0	         0
+         0	         0	         0	         0
+       126	        16	         0	        72
+         0	         0	         0	         0
+         5	         4	         0	         9
+         1	         2	         0	         1
+        38	         6	         0	        23
+        40	         6	         0	        21
+        40	         6	         0	        21
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+        11	        16	         0	        27
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+        36	         3	         0	        19
+         0	         0	         0	         0
+         0	         0	         0	         0
+        25	        17	         0	        42
+        40	         5	         0	        19
+         5	         4	         0	         9
+         5	         4	         0	         9
+         0	         0	         0	         0
+         0	         0	         0	         1
+         0	         0	         0	         0
+         0	         0	         0	         0
+       130	        44	         0	       122
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+==****====4, 52, 192
+==****====56, 52, 522
+==****====108, 52, 522
+==****====160, 52, 522
+        52	        52	        52	        52
+       522	        54	         0	       190
+         0	         0	         0	         0
+         0	         0	         0	         0
+       106	        17	         0	        47
+         0	         0	         0	         0
+         0	         0	         0	         0
+         6	         6	         0	         4
+       522	        54	         0	       190
+       106	         9	         0	        34
+         0	         0	         0	         0
+         0	         0	         0	         0
+       302	        27	         0	       107
+         0	         0	         0	         0
+        24	         5	         0	         9
+         2	         3	         0	         2
+       102	        10	         0	        37
+       106	         9	         0	        34
+       105	         9	         0	        34
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+        67	        16	         0	        27
+         1	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+        95	         5	         0	        32
+         0	         0	         0	         0
+         0	         0	         0	         0
+       107	        17	         0	        47
+       102	         8	         0	        32
+        24	         5	         0	         9
+        24	         5	         0	         9
+         0	         0	         0	         0
+         0	         0	         0	         1
+         2	         0	         0	         0
+         2	         0	         0	         0
+       418	        50	         0	       158
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+==****====4, 52, 522
+==****====56, 52, 639
+==****====108, 52, 639
+==****====160, 52, 639
+        52	        52	        52	        52
+       639	       197	        30	       291
+         0	         0	         0	         0
+         0	         0	         0	         0
+       110	        41	        17	        87
+         0	         0	         0	         0
+         0	         0	         0	         0
+         8	         8	         4	         6
+       639	       197	        30	       291
+       132	        36	         4	        51
+         0	         0	         0	         0
+         0	         0	         0	         0
+       389	       118	         8	       149
+         0	         0	         0	         0
+        24	        10	         4	        18
+         3	         4	         2	         3
+       128	        37	         4	        54
+       132	        36	         4	        51
+       131	        36	         4	        51
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+        67	        27	        16	        54
+         1	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+       119	        30	         1	        46
+         0	         0	         0	         0
+         0	         0	         0	         0
+       111	        41	        17	        87
+       128	        35	         3	        47
+        24	        10	         4	        18
+        24	        10	         4	        18
+         0	         0	         0	         0
+         1	         0	         0	         1
+         2	         0	         0	         0
+         2	         0	         0	         0
+       478	       152	        40	       268
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
+         0	         0	         0	         0
