@@ -10,20 +10,20 @@ int main () {
    /* an int array with 5 elements */
    int balance[5] = {1000, 2, 3, 17, 50};
  
-   /* method 1 */
+   /* function 1 */
    double avg;
    avg = getAverage( balance, 5 ) ;
    printf("Average value is: %f\n", avg );
 
-   /* method 2 */
+   /* function 2 */
    double avg1;
    printf("the p addr of &avg1 is %p\n", &avg1);
    getAverage1( balance, 5, &avg1 ) ;
    printf("Average value is: %f\n", avg1 );
 
-   /* method 3 */
+   /* function 3 */
    double *avg2;
-   avg2 = malloc(sizeof(double));
+   avg2 = (double *)malloc(sizeof(double));
    printf("the p addr of &avg2 is %p\n", &avg2);
    printf("the p addr of avg2 is %p\n", avg2);
    getAverage1( balance, 5, avg2 ) ;

@@ -1,0 +1,33 @@
+1. memory location
+
+
+
+
+1. memory location
+  https://www.geeksforgeeks.org/memory-layout-of-c-program/
+ ^HIGH ADDRESS
+ | 1) stack (zhan) area
+ |   - managed by compiler, the compiler automatically assign and release 
+ |     the memory.
+ |   - store some parameters which was used to run function
+ |     * local variables
+ |     * function parameters
+ |     * return parameter
+ |     * return address  etc.
+ | 2) heap (dui) area
+ |   - managed by programer. 
+ |    * malloc etc.
+ |
+ | 3) static area (Uninitialized data segment & Initialized data segment)
+ |   - managed by system. it was reclaimed automatically 
+ |     after programer was closed
+ |    * uninitialized gloable/static variables 
+ |      it's BSS segment. Block Started by Symbol
+ |    * initialized gloable/static variables
+ |       it's data segment
+ |
+ | 4) text constant area (text segment and code segment)
+ |   - managed by system. It was reclaimed automatically 
+ |     after programer was closed.
+ |    * string constant value "123456" etc.
+ |    * code segment
