@@ -9,13 +9,18 @@
 00:00:33 24840  2999 99.2  0.7   0 python          python /usr/bin/pmrep -pa test0601.0 -x proc.psinfo.nice
 -todo
 5) compile the pcp
-1.# yum install perl-Tk-devel bison flex libmicrohttpd-devel gcc-c++
-2.# groupadd pcp
-3.# adduser -s /sbin/nologin -g pcp -M pcp
-4.# ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --with-webapi=true
-
-Q: FATAL ERROR: Perl ExtUtils::MakeMaker module missing.
-# yum install perl-ExtUtils-Install.noarch
-
+  1.# yum install perl-Tk-devel bison flex libmicrohttpd-devel gcc-c++
+  2.# groupadd pcp
+  3.# adduser -s /sbin/nologin -g pcp -M pcp
+  4.# ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --with-webapi=true
+    # make && make install
+    # ldconfig  -v
+    # systemctl daemon-reload
+    # systemctl restart pmcd
+  
+  Q: FATAL ERROR: Perl ExtUtils::MakeMaker module missing.
+  # yum install perl-ExtUtils-Install.noarch
+  Q2: how to use perfevent PMDA
+  # yum install libpfm*
 
 :
