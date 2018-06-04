@@ -8,6 +8,7 @@
 7- block size & sector 
 8- major and minor device number
 9- resize image
+10- get the file-system type
 
 1) check and modify the bad blocks
   1. how to check the bad blocks of disk
@@ -177,5 +178,28 @@
 
 
 
+
+10. get the file-system type
+    1) fsck
+      # fsck -N /dev/vda2
+      fsck from util-linux 2.31.1
+      [/sbin/fsck.btrfs (1) -- /] fsck.btrfs /dev/vda2
+    2) lsblk
+      # lsblk -f
+        NAME        FSTYPE      LABEL               UUID                                   MOUNTPOINT
+        sda
+        |-sda1      xfs                             9aab062e-3a96-4a53-9c88-94b620e0ce05   /boot
+        |-sda2      xfs                         
+    3) mount
+      # mount  |grep "^/dev"
+        /dev/vda2 on / type btrfs (rw,relatime,space_cache,subvolid=266,subvol=/@/.snapshots/1/snapshot)
+        /dev/vda2 on /.snapshots type btrfs (rw,relatime,space_cache,subvolid=265,subvol=/@/.snapshots)
+    4) blkid
+      # blkid /dev/vda2
+      /dev/vda2: UUID="ac1d758d-2438-4108-a4ef-aee99d3f9277" UUID_SUB="f502de05-3f55-489c-9437-9bce54b5fa86" TYPE="btrfs" PARTUUID="7b4e3b89-e2c9-45ed-902c-a9f8a4633c1a"
+    5) file
+       # file -sL /dev/vda2
+       /dev/vda2: BTRFS Filesystem sectorsize 4096, nodesize 16384, leafsize 16384, UUID=ac1d758d-2438-4108-a4ef-aee99d3f9277, 22414446592/27390562304 bytes used, 1 devices
+    6) # cat /etc/fstab
 
 

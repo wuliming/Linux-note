@@ -23,4 +23,45 @@
   Q2: how to use perfevent PMDA
   # yum install libpfm*
 
-:
+6. debug
+   # dbpmda
+    dbpmda> debug libpmda
+    dbpmda> open dso pmda_mmv.so mmv_init 70
+    dbpmda> status
+
+    attr name [value]
+    attr attr# [value]
+    children metric-name
+    close
+    debug all | none
+    debug option [ option ... ] (option is a symbolic name or a decimal number)
+    desc metric
+    fetch metric [ metric ... ]
+    getdesc on | off
+    instance indom# [ number | name | "name" ]
+    label context
+    label domain
+    label indom indom#
+    label cluster cluster#
+    label item metric
+    label instances indom#
+    name pmid#
+    namespace fname
+    open dso dsoname init_routine [ domain# ]
+    open pipe execname [ arg ... ]
+    open socket unix sockname
+    open socket inet port#|service
+    open socket ipv6 port#|service
+    pmid metric-name
+    profile indom# [ all | none ]
+    profile indom# [ add | delete ] number
+    quit
+    status
+    store metric "value"
+    text metric
+    text indom indom#
+    timer on | off
+    traverse metric-name
+    wait seconds
+    watch logfilename
+

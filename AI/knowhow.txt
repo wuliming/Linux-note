@@ -1,3 +1,48 @@
+1- python environment
+2- java environment
+
+1. python enviroment
+  1) install Anaconda3(python lib distrbution including lots of python lib api) 
+     - wget from https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/
+     # bash Anaconda3-5.0.1-Linux-x86_64.sh
+  2) set the pip resource
+     - set pip proxy at /etc/profile 
+     # export http_proxy=http://10.167.129.21:8080/
+     # mkdir /root/.pip
+     # vim /root/.pip/pip.conf  (the follow resource speed is fast)
+       [global]
+       index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+  3) conda is the same with pip as package manager
+     # conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+     # conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+     # conda config --set show_channel_urls yes 
+     # vim /root/.condarc  (for set the proxy for conda)
+       channels:
+       - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+       - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+       - defaults
+       show_channel_urls: true
+       use_pip: true
+       proxy_servers:
+       http: http://10.167.129.21:8080/
+       https: http://10.167.129.21:8080/
+  4) for avoid to pollute environment, make a sandbox environment 
+     # conda create -n ottertune python=3.6
+     enter the sandbox environment
+     # source activate ottertune
+
+2. java environment
+  - set Java environment
+  # mkdir /usr/java
+  # mv jdk-8u121-linux-x64.tar.gz /usr/java
+  # tar -zxvf jdk-8u121-linux-x64.tar.gz
+  # vim /etc/profile (or /root/.bashrc)
+   export JAVA_HOME=/usr/java/jdk1.8.0_152
+   export PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin
+   export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib
+  # source /etc/profile
+
+
 1) install python-pip
  # wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
  # yum install epel

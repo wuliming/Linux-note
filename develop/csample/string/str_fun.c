@@ -15,4 +15,14 @@ int main(int args, char *argv[])
     printf("%s\n", buf);
     sscanf(s, "%*[^:]%[^@]", buf);
     printf("%s\n", buf);
+
+    /* strncmp(char *a, char *b, size_t n)
+     * 0: until '\0' a is same with b
+     * >0: a' asscii > b' asscii
+     */
+    char *a = "ab";
+    char *b = "AB";
+    int c = 0;
+    c = strncmp(a, b, 2);
+    printf("ab(%d) - AB(%d) = %d\n", *a, *b, c);
 }

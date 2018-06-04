@@ -15,6 +15,7 @@
 3- init local repository
 4- ! [remote rejected] master -> master
 5- error: Your local changes to the following files would be overwritten by merge:
+6- git branch
 
 1. how to remove 
  how to remove file
@@ -60,3 +61,9 @@
    
   file
   # git checkout HEAD -- path/to/file
+
+6. branch
+  add and switch the branch
+  # git checkout -b dev
+  when you commit the change at dev branch 
+  the changes  can't seen by other branch.
