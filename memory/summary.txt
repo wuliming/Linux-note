@@ -2,6 +2,7 @@
 2- THP
 3- slab
 4- buddy
+5- HugePage
 
 1. hugepage
   - set
@@ -21,4 +22,7 @@ http://linuxperf.com/?p=142
     the compaction. so may be slowdown the performance.
     so can improve the performance by  off the THP funcion.
     
-    
+5. hugePage
+  1) search the process which anonhugepage > 4  
+    # grep -e AnonHugePages  /proc/*/smaps | awk  '{ if($2>4) print $0} ' |  awk -F "/"  '{print $0; print $3; system("ps -fp " $3)}'
+

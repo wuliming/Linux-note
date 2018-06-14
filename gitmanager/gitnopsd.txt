@@ -31,7 +31,7 @@
   # mkdir benchmark
   # cd benchmark
   # git init
-  # git add -all
+  # git add --all
   1) git clone from remote
    # git clone 193.160.31.222:/home/LPT/Benchmark_2017/Benchmarks_2018
   2) pull latest master

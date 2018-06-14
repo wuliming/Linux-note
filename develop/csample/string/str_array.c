@@ -65,6 +65,23 @@ int main(void)
     //puts(str[0][2]);  segment error.
     //printf("%s\n",  &str[0][0]);
     printf("%c\n",  &str[0][0]);
-    
+   
+    /* insert data into 2 dimension array
+     * first must allocate the memory for pointed dimension
+     */
+    char *test1[5];
+    for(i=0; i<5; i++)
+    {
+        test1[i] = (char *)malloc(sizeof(char));
+    }
+    char tmp1[5];
+    //memset(test1, '\0', sizeof(test1));
+    for(i=0; i<(sizeof(test1)/sizeof(test1[0])); i++)
+    {
+        char tmp[10]="wlm";
+        sprintf(tmp1, "%d", i); 
+        test1[i]=strcat(tmp, tmp1);
+        printf("%s\n", test1[i]);
+    } 
     return 0;
 }

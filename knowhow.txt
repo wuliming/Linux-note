@@ -34,6 +34,8 @@
 34- screen
 35- shell multi lines insert
 36- ./config error
+37- tee
+
 1) about  sed command
    - transfer variable using ""
      # a=bbbbb; sed  "s/xx/$a/g" test.txt  
@@ -440,3 +442,7 @@ if can't situation:
 36. config error
    1) configure: error: cannot run /bin/sh ./config.sub 
      before ./config do "# autoreconf --install " may help you 
+
+37. tee
+   can output the command line by using it
+   # diff -ruNp data_collector_5.1_src_1/data_collector_5.1_src/ data_collector_5.1_src -x .git | tee diffsrc

@@ -4,11 +4,15 @@ summary
 2- memory
 3- network
 4- disk
+5- kvm
 
 
 1. cpu
   1) numa
     irq/memory access: wheter happen at the same node
+  2) schedule domain balance
+    reference 
+    /Linux-note/kernel/schedule.txt
 
 
 3. network
@@ -17,3 +21,9 @@ summary
     performance.
 
   2) irqbalance
+
+
+5. kvm
+   - schedule domain blance 
+    reference 
+    /Linux-note/kernel/schedule.txt

@@ -9,6 +9,7 @@
 8- major and minor device number
 9- resize image
 10- get the file-system type
+11- blktrace
 
 1) check and modify the bad blocks
   1. how to check the bad blocks of disk
@@ -202,4 +203,54 @@
        /dev/vda2: BTRFS Filesystem sectorsize 4096, nodesize 16384, leafsize 16384, UUID=ac1d758d-2438-4108-a4ef-aee99d3f9277, 22414446592/27390562304 bytes used, 1 devices
     6) # cat /etc/fstab
 
-
+11. blktrace
+  http://fibrevillage.com/storage/539-blktrace-and-btt-example-to-debug-and-tune-disk-i-o-on-linux
+  1) output info
+   -Q  will generate IO request
+   -G  generated IO request
+   -I  IO entry scheduler queue
+   -D  IO entry driver
+   -C  IO complete
+   Q------->G------------>I--------->M------------------->D----------------------------->C
+   |-Q time-|-Insert time-|
+   |--------- merge time ------------|-merge with other IO|
+   |----------------scheduler time time-------------------|---driver,adapter,storagetime--|
+   
+   |----------------------- await time in iostat output ----------------------------------| 
+   -Q2G  Q->G cost time, generated IO time(including remap and split time)
+   -G2I  G->I cost time until entry scheduler queue
+   -I2D  I->D waiting time at IO scheduler queue
+   -D2C  D->C cost time at driver and hardware
+   -Q2C  cost time of whole IO request equal await of iostat
+   Q2Q - time between requests sent to the block layer
+   Q2G - time from a block I/O is queued to the time it gets a request allocated for it
+   G2I - time from a request is allocated to the time it is Inserted into the device's queue
+   Q2M - time from a block I/O is queued to the time it gets merged with an existing request
+   I2D - time from a request is inserted into the device's queue to the time it is actually issued to the device
+   M2D - time from a block I/O is merged with an exiting request until the request is issued to the device
+   C - service time of the request by the device
+   Q2C - total time spent in the block layer for a request
+  2) usage
+   --1
+   # blktrace -d /dev/sdb -o - | blkparse -i -
+   --2
+   # blktrace -d /dev/sdb -o sdb.log
+   # blkparse -i sdb.log
+   --3
+   # blktrace -d /dev/sdb -o sdb.log
+   # blkparse -i sdb.log -d sdb.bin
+   # btt -i sdb.bin
+  3) intepret report
+    # btt -i btt
+      ==================== All Devices ====================
+      
+                  ALL           MIN           AVG           MAX           N
+      --------------- ------------- ------------- ------------- -----------
+      Q2Qdm             0.000135334   0.001324336   0.004180522           6
+      Q2Cdm             0.000092110   0.001113028   0.004146520           7
+      
+      Q2G               0.000000945   0.000001092   0.000001258           7
+      G2I               0.000001862   0.000002042   0.000002463           7
+      I2D               0.000001440   0.000001590   0.000002007           7
+      D2C               0.000087857   0.001108304   0.004141843           7
+    - D2C/Q2C = 95%  so almost time spented in driver and HW
