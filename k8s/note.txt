@@ -1,0 +1,10 @@
+1- max pods
+
+1. setting for the max pods
+   default is 110 pods per node.
+   if you want to redefine the pods can do as follow:
+  1) modify the config file
+   # vimm /etc/kubernetes/kubelet 
+     # Add your own!
+     KUBELET_ARGS="--max-pods=8000" 
+  2) restart kubelet and scheduler service

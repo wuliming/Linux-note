@@ -1,0 +1,9 @@
+1- debug
+
+
+1. debug
+ 1) use command
+  # python -m pdb test.py
+ 2) use import
+  import pdb
+  pdb.set_trace() 

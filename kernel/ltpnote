@@ -1,0 +1,6 @@
+1.
+ # runltp -c 2 -i 2 -m 2,4,10240,1 -D 2,10,10240,1 -p -q  -l /tmp/result-log.19420 -o /tmp/result-output.19420 -C /tmp/result-failed.19420 -d /opt/ltp
+ # ./runltp -p -l /home/ltplog -o /home/runlog -t 20s
+  -p Human readable format logfiles.
+  -l Log results of test
+  -o Redirect test output to a file.

@@ -1,0 +1,57 @@
+1. volatile
+2. malloc
+3. fix incompatible implicit declaration of built-in function srcpy/malloc/strlen
+4. error: expected ';', identifier or '(' before *
+5. interger -> string
+6. undefined reference to `stdscr' (solution: -l curses)
+7. gdb
+8. main function
+
+1. volatile
+   eg: volatile unsigned long irq_err_count;
+   tell the compiler this variable has't any other backup
+   don't need to optimize
+2. malloc
+   1)how to initialise the value after malloc.
+     http://www.cnblogs.com/bigshow/archive/2009/01/03/1367661.html
+
+     use memset as follow:
+ 
+     long long   *trace_values;
+     trace_values  = (long long *)malloc(trace_count * sizeof(long long));
+     memset(trace_values, 0, trace_count * sizeof(trace_values));
+
+3. fix incompatible implicit declaration of built-in function srcpy/malloc/strlen
+   can resolve it by add #include <string.h>
+
+4. kvm_debug.h:21:9: error: expected ';', identifier or '(' before 'struct'
+   reason:
+   ..
+   #include "kvmstat.h"		<- for lack of ";" at enum 
+   #include "kvm_debug.h" 	<- show error
+5. interger -> string
+   - can't use itoa at linux
+   in stead, using sprintf can convert it
+
+6. undefined reference to `stdscr'
+   undefined reference to `wgetch'
+   solution:
+   # gcc test.c -l curses
+
+7. gdb
+   1) if you want use gdb debug program, you shoud add -g when compile.
+      # gcc -o test -g test.c
+   2) debug the programe with parameter
+      set args $parameter
+
+8. main function
+   1)  main function's parameter have 4 types as follow
+   -   main() 
+   -   main(int argc) 
+   -   main(int argc, char *argv[]) 
+   -   main(int argc, char *argv[], char *env[]) 
+   2) argv's meaning
+     argv[0]  ----> programe's name
+     argv[1]  ----> the first parameter
+     argv[2]  ----> the second parameter
+     ....

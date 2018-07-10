@@ -1,0 +1,6 @@
+1- install btrfs-progs
+
+1. install btrfs-progs
+   should install some package(in SLES15)
+   # zypper install xmlto asciidoc e2fslibs-dev libblkid-devel
+     libzstd-dev python3-devel lzo-devel

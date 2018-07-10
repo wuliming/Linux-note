@@ -1,0 +1,19 @@
+1. SNC (Sub Numa Cluster)
+2. UPI Optimizations (Ultra Path Interconnect Optimizations)
+
+
+summary:
+   skylake:  14nm (tock-tick)
+   broadwell:22nm (tock-tick)
+1. SNC (Sub Numa Cluster)
+   1. divide one node 2 nodes as numa cluster
+
+2. UPI Optimizations (Ultra Path Interconnect Optimizations)
+   QPI (Quick Path Interconnect)
+   since Skylake, it was used.
+   1) Max bindwith 
+      UPI(10.4 T/S)  > QPI(9.6 T/S)
+   2) transfer rate
+      UPI(25%)  > QPI(4%)
+   3) idle power
+      UPI(25%)  < QPI (50%)

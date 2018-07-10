@@ -73,6 +73,11 @@ write Back vs write through
            you should add the "idle=poll" into the grub config file.
  
 2) runlevel			->	3
+  RHEL7:
+   systemctl set-default graphical.target
+   systemctl set-default multi-user.target   
+  
+  RHEL6
    step1.# ll /etc/systemd/system/default.target
 	lrwxrwxrwx. 1 root root 36 Nov 23 16:56 /etc/systemd/system/default.target -> /lib/systemd/system/graphical.target
    step2. # ll /lib/systemd/system/runlevel3.target

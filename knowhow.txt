@@ -35,6 +35,8 @@
 35- shell multi lines insert
 36- ./config error
 37- tee
+38- Error: no display specified
+39- journalctl -u etcd
 
 1) about  sed command
    - transfer variable using ""
@@ -446,3 +448,11 @@ if can't situation:
 37. tee
    can output the command line by using it
    # diff -ruNp data_collector_5.1_src_1/data_collector_5.1_src/ data_collector_5.1_src -x .git | tee diffsrc
+
+38- Error: no display specified
+    solution: 
+    # export DISPLAY=localhost:0.0
+    # export DISPLAY=:0.0
+
+39- journalctl -u etcd
+    research specified service by -u;

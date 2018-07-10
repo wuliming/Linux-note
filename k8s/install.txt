@@ -1,0 +1,178 @@
+1- install  
+2- trouble shooting
+3- docker proxy setting
+
+1- install
+1. install go 
+  # tar -C /usr/local/ -xzf go1.10.1.linux-amd64.tar.gz
+  # export PATH=$PATH:/usr/local/go/bin
+
+2. generate certificates for your cluster
+  1) generate CA
+   # curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+   # tar xzf easy-rsa.tar.gz
+   # cd easy-rsa-master/easyrsa3
+   # ./easyrsa init-pki
+    init-pki complete; you may now create a CA or requests.
+    Your newly created PKI dir is: /sda6/k8s/easy-rsa-master/easyrsa3/pki
+   # ./easyrsa --batch "--req-cn=10.167.226.86@`date +%s`" build-ca nopass
+     Generating a 2048 bit RSA private key
+     ................................+++
+     ........+++
+     writing new private key to '/sda6/k8s/easy-rsa-master/easyrsa3/pki/private/ca.key'
+     -----
+   note: 10.167.226.86 is master IP  
+   this step can generate root certification
+     - pki/ca.crt
+     - pki/private/ca.key
+  2) generate kube-apiserver certificate and key. 
+   # ./easyrsa --subject-alt-name="IP:10.167.226.86,IP:20.1.0.1,DNS:node1,DNS:kubernetes" build-server-full server nopass --days=10000
+    
+    Ignoring unknown command option: '--days=10000'
+    Generating a 2048 bit RSA private key
+    .......+++
+    ...........................................................................+++
+    writing new private key to '/sda6/k8s/easy-rsa-master/easyrsa3/pki/private/server.key'
+    -----
+    Using configuration from /sda6/k8s/easy-rsa-master/easyrsa3/openssl-1.0.cnf
+    Check that the request matches the signature
+    Signature ok
+    The Subject's Distinguished Name is as follows
+    commonName            :ASN.1 12:'server'
+    Certificate is to be certified until May  7 06:34:56 2028 GMT (3650 days)
+    
+    Write out database with 1 new entries
+    Data Base Updated
+   * this step can generate  2 files
+     - pki/issued/server.crt
+     - pki/private/server.crt
+  3) generate CA for kubectl 
+   # ./easyrsa --dn-mode=org --req-cn=kubecfg --req-org=system:masters --req-c= --req-st= --req-city= --req-email= --req-ou= build-client-full kubecfg nopass
+    Generating a 2048 bit RSA private key
+    ......+++
+    ....................................................................+++
+    writing new private key to '/sda6/k8s/easy-rsa-master/easyrsa3/pki/private/kubecfg.key'
+    -----
+    Using configuration from /sda6/k8s/easy-rsa-master/easyrsa3/openssl-1.0.cnf
+    Check that the request matches the signature
+    Signature ok
+    The Subject's Distinguished Name is as follows
+    organizationName      :ASN.1 12:'system:masters'
+    commonName            :ASN.1 12:'kubecfg'
+    Certificate is to be certified until May  7 06:40:44 2028 GMT (3650 days)
+    
+    Write out database with 1 new entries
+    Data Base Updated
+
+    generated files as follows
+    - pki/issued/kubecfg.crt
+    - pki/private/kubecfg.key
+
+  4) generate CA for user
+    # ./easyrsa --dn-mode=org --req-cn=jane --req-org=jane --req-c= --req-st= --req-city= --req-email= --req-ou= build-client-full jane nopass
+     Generating a 2048 bit RSA private key
+     .....+++
+     ...............+++
+     writing new private key to '/sda6/k8s/easy-rsa-master/easyrsa3/pki/private/jane.key'
+     -----
+     Using configuration from /sda6/k8s/easy-rsa-master/easyrsa3/openssl-1.0.cnf
+     Check that the request matches the signature
+     Signature ok
+     The Subject's Distinguished Name is as follows
+     organizationName      :ASN.1 12:'jane'
+     commonName            :ASN.1 12:'jane'
+     Certificate is to be certified until May  7 06:42:19 2028 GMT (3650 days)
+     
+     Write out database with 1 new entries
+     Data Base Updated
+
+    * generated files as follows
+     - pki/issued/jane.crt
+     - pki/private/jane.key
+     
+
+  5) generate CA for node2
+    # ./easyrsa --dn-mode=org --req-cn=system:node:node2 --req-org=system:nodes --req-c= --req-st= --req-city= --req-email= --req-ou= build-client-full system:node:node2  nopass
+     Generating a 2048 bit RSA private key
+     ...................................................................................................+++
+     ...................+++
+     writing new private key to '/sda6/k8s/easy-rsa-master/easyrsa3/pki/private/system:node:node2.key'
+     -----
+     Using configuration from /sda6/k8s/easy-rsa-master/easyrsa3/openssl-1.0.cnf
+     Check that the request matches the signature
+     Signature ok
+     The Subject's Distinguished Name is as follows
+     organizationName      :ASN.1 12:'system:nodes'
+     commonName            :ASN.1 12:'system:node:node2'
+     Certificate is to be certified until May  7 09:17:27 2028 GMT (3650 days)
+     
+     Write out database with 1 new entries
+     Data Base Updated
+     [root@centos-minion-1 easyrsa3]# ls pki/issued/
+     jane.crt               kubecfg.crt            server.crt             system:node:node2.crt
+
+     * generated files as follow
+     pki/issued/system:node:node2.crt
+     pki/private/system:node:node2.key
+
+3. install multi soft at node1
+   1)  install ectd at node1
+    # wget https://github.com/coreos/etcd/releases/download/v3.1.10/etcd-v3.1.10-linux-amd64.tar.gz
+    # tar -zxvf etcd-v3.1.10-linux-amd64.tar.gz
+    # sudo cp etcd-v3.1.10-linux-amd64/etcdctl /usr/bin/etcdctl
+    # sudo cp etcd-v3.1.10-linux-amd64/etcd /usr/bin/etcd
+    # vim /root/.bashrc
+      ...
+       export ETCDCTL_API=3
+    # vim /lib/systemd/system/etcd.service
+     [Unit]
+     Description=Etcd Server
+     After=network.target
+     After=network-online.target
+     Wants=network-online.target
+     
+     [Service]
+     Type=notify
+     WorkingDirectory=/var/lib/etcd/
+     EnvironmentFile=-/etc/etcd/etcd.conf
+     User=etcd
+     # set GOMAXPROCS to number of processors
+     ExecStart=/bin/bash -c "GOMAXPROCS=$(nproc) /usr/bin/etcd --name=\"${ETCD_NAME}\" --data-dir=\"${ETCD_DATA_DIR}\" --listen-client-urls=\"${ETCD_LISTEN_CLIENT_URLS}\""
+     Restart=on-failure
+     LimitNOFILE=65536
+     
+     [Install]
+     WantedBy=multi-user.target
+    
+    # sudo cp /usr/bin/etcd /etc/default/
+
+   2) start etcd service
+     # systemctl daemon-reload
+     # systemctl start etcd
+
+
+2- trouble shooting
+
+   1) when start etcd service, if installed etcd's version >= 3.2 
+      followed errer happend.
+      "recovering backend from snapshot error: database snapshot file path error: s..."
+      SOLUTION:
+      intsll etcd 3.1.10 won't has this error.
+
+  2)  pod's status is Creating at all time
+      # kubectl get pods
+        NAME                               READY     STATUS              RESTARTS   AGE
+        nginx-deployment-5cd5bccfb-pssbw   0/1       ContainerCreating   0          21m
+ 
+      open /etc/docker/certs.d/registry.access.redhat.com/redhat-ca.crt: no such file or directory"
+    * SOLUTION
+    # yum install python-rhsm-certificates.x86_64
+    # docker pull registry.access.redhat.com/rhel7/pod-infrastructure:latest
+
+  
+3- docker proxy setting
+
+   1) # mkdir -p /etc/systemd/system/docker.service.d
+   2) # vim /etc/systemd/system/docker.service.d/http-proxy.conf
+       [Service]
+       Environment="HTTP_PROXY=http://[proxy-addr]:[proxy-port]/" "HTTPS_PROXY=https://[proxy-addr]:[proxy-port]/"

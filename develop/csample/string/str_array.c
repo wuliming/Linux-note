@@ -25,6 +25,9 @@ int main(void)
      * can't puts(str[0][1]). for str[0][1] is char.
      * just can printf("%c\n", str[0][1]. 
      * so you had better to use *str[3] to define string array.
+     *
+     *3. when int can reference 
+     * https://www.geeksforgeeks.org/dynamically-allocate-2d-array-c/
      * -------------------------------------------
      * fix strcpy/malloc/strlen incompatible 
      * #include <string.h>
@@ -69,19 +72,46 @@ int main(void)
     /* insert data into 2 dimension array
      * first must allocate the memory for pointed dimension
      */
-    char *test1[5];
+    printf("insert data into 2 dimension array. first must allocate the memory for pointed dimension.\n");
+    char *twodim_arr[5];
     for(i=0; i<5; i++)
     {
-        test1[i] = (char *)malloc(sizeof(char));
+        twodim_arr[i] = (char *)malloc(sizeof(char));
     }
     char tmp1[5];
-    //memset(test1, '\0', sizeof(test1));
-    for(i=0; i<(sizeof(test1)/sizeof(test1[0])); i++)
+    //memset(twodim_arr, '\0', sizeof(twodim_arr));
+    for(i=0; i<(sizeof(twodim_arr)/sizeof(twodim_arr[0])); i++)
+    //for(i=0; i<5; i++)
     {
         char tmp[10]="wlm";
         sprintf(tmp1, "%d", i); 
-        test1[i]=strcat(tmp, tmp1);
-        printf("%s\n", test1[i]);
+        twodim_arr[i]=strcat(tmp, tmp1);
+        printf("%s\n", twodim_arr[i]);
     } 
-    return 0;
+
+    /* define dynamic 2 dimension array 
+     * strcpy(dynamic[i],strcat(dyn, tmp1));	O
+     * dynamic[i] = strcat(dyn, tmp1);		X (forbidden absolutely) 
+     * */
+    printf("define dynamic 2 dimension array by **dynamic,\n \
+ you need to allocate memory for 2 dimensino.\n");
+    char **dynamic;
+    
+    dynamic = (char **)malloc(sizeof(char*) * 5);
+    for(i=0; i<5; i++)
+    {
+        char dyn[10]="dynamic";
+        //dynamic = (char **)malloc(sizeof(char*) * 10);
+        dynamic[i] = (char *)malloc(sizeof(char));
+        sprintf(tmp1, "%d", i);
+        strncpy(dynamic[i], strcat(dyn, tmp1), sizeof(dynamic[i] - 1));
+        printf("dyn is: %s\n", dynamic[i]);
+    }
+    
+    for(i=0; i<5; i++)
+    {
+        printf("dyn is: %s\n", dynamic[i]);
+        free(dynamic[i]);
+    }
+    free(dynamic);
 }

@@ -1,0 +1,2 @@
+blktrace -d /dev/mapper/cl-home -w 60 &
+blkparse -i dm-1.blktrace.* -d dm-1.bin
