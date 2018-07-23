@@ -1,11 +1,13 @@
 1- install  
 2- trouble shooting
 3- docker proxy setting
-
-1- install
+4- go devlopment environment
+1- install 
 1. install go 
   # tar -C /usr/local/ -xzf go1.10.1.linux-amd64.tar.gz
-  # export PATH=$PATH:/usr/local/go/bin
+  # vim /etc/profile
+   export PATH=$PATH:/usr/local/go/bin
+   export GOPATH=**** (default is /root)
 
 2. generate certificates for your cluster
   1) generate CA
@@ -176,3 +178,44 @@
    2) # vim /etc/systemd/system/docker.service.d/http-proxy.conf
        [Service]
        Environment="HTTP_PROXY=http://[proxy-addr]:[proxy-port]/" "HTTPS_PROXY=https://[proxy-addr]:[proxy-port]/"
+
+4- go devlopment environment
+   1) install go 
+      # tar -C /usr/local/ -xzf go1.10.1.linux-amd64.tar.gz
+      # vim /etc/profile
+        export PATH=$PATH:/usr/local/go/bin
+        export GOPATH=/home/wulm <- default is like /root
+   2) # tar -zxvf /Linux-note/develop/go/vimconfigdir.tar.gz 
+   3) # mv .vim/* /root/.vim
+   4) # vim /etc/vimrc
+        1 let g:go_version_warning = 0
+        2
+        3 set nocompatible              " be iMproved, required
+        4 filetype off                  " required
+        5 set rtp+=~/.vim/bundle/Vundle.vim
+        6 call vundle#begin()
+        7 Plugin 'gmarik/Vundle.vim'
+        8 Plugin 'fatih/vim-go'
+        9 call vundle#end()            " required
+       10 filetype plugin indent on    " required
+       11 syntax on
+   5) install go tags, will store the gotags and src in /root/bin
+     # go get -u github.com/jstemmer/gotags
+     # mv /root/bin/gotags /usr/local/go/bin
+     # mv /root/bin/src /usr/local/go/bin
+   6) install gocode
+     # go get -u github.com/nsf/gocode
+     # mv /root/go/bin/gocode /usr/local/go/bin/
+     # mv /root/go/src/github.com/nsf/ /usr/local/go/bin/src/github.com/
+   7) install godef
+     # go get -u github.com/rogpeppe/godef
+     # cp /root/go/bin/godef ./
+
+   gd -> can find the definition's location
+   F2 -> list the files at current directory, but I can't get it
+   F8 -> enable/disabel tagbar
+   help tags -> get help info
+   tp -> traversal same name flag forward
+   tn -> opposit to tp
+   t1 -> first same name location
+   ts -> list all same with flag

@@ -14,6 +14,15 @@ summary
     reference 
     /Linux-note/kernel/schedule.txt
 
+2. memory
+  1) vm.swappiness
+     - controls the relative weight given to swapping out of runtime memory, 
+       as opposed to dropping pages from the system page cache. 
+     - default is 60
+     - range: 0 ~ 100   0: disable swap   100: kernel will swap aggrssively
+  2) dirtratio
+     balance_dirty_pages_ratelimited ->  
+
 
 3. network
   1) SR-IOV

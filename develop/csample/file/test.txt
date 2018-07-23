@@ -1,3 +1,7 @@
+#wlm
+[dyn]
+   
+PATH=/var/lib
 1235dsadgd
 1235xadgd
 1235xadgd

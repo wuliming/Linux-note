@@ -10,14 +10,14 @@ char **a;
 int i, j;
 int m=4;
 int n=10;
-a = (char **)malloc(sizeof(char *) * m);//......
+a = (char **)malloc(sizeof(char *) * m);
 for(i=0; i<m; i++)
 {
-	a[i] = (char *)malloc(sizeof(char) * n);//............
+	a[i] = (char *)malloc(sizeof(char) * n);
 }
 
-printf("%d\n", sizeof(a));//4...
-printf("%d\n", sizeof(a[0]));//4...
+printf("%d\n", sizeof(a));
+printf("%d\n", sizeof(a[0]));
 for(i=0; i<m; i++)
 {
    set(a[i]);

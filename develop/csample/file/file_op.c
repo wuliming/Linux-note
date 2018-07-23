@@ -3,6 +3,11 @@
 #include <string.h>
 #include <curses.h>
 
+/* compile method
+ * gcc -o op file_op.c -l curses
+ *
+ *
+ */
 int main(int *argc, int args[])
 {
     /* rt	read text
@@ -24,9 +29,10 @@ int main(int *argc, int args[])
       * - dest will have '\n', if you want delete the '\n' can do as fllow
       *   str[strlen(str) - 1] = '\0';
       * - return vale last character is '\0', so don't need add '\0'.
+      * - can filter the blank line by "if(strncmp(str, "\n", 1) == 0) continue;" 
       */
      FILE *fp;
-     char str[15];
+     char str[25];
      char **arr;
      int count = 0;
      int i;
@@ -37,7 +43,18 @@ int main(int *argc, int args[])
            exit(1);
      }
      arr = (char **)malloc(sizeof(char *) * 6);
+     char trace_path[200]="";
      while( fgets(str, sizeof(str), fp) != NULL ) {
+         if(strncmp(str, "#", 1) == 0)  continue;
+         if(strncmp(str, "[", 1) == 0)  continue;
+         if(strncmp(str, "\n", 1) == 0 ||
+         strncmp(str, " ", 1) == 0  ||
+         strncmp(str, "\t", 1) == 0) continue;
+	
+         if (sscanf(str, "PATH=%s", trace_path) != 0) {
+             printf("trace_path is %s\n", str);
+             continue;
+         }
          arr[count] = (char *)malloc(sizeof(char)); 
          str[strlen(str) - 1] = '\0'; 
          strcpy(arr[count], str);

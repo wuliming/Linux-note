@@ -3,7 +3,8 @@
 3- tuning frequency
 4- cpupower 
 5- turbostat
-6- tuned
+6- tuned  (ref: https://talk.linuxtoy.org/tuned-adm-slides/#slide=52)
+7- x86_energy_perf_policy
 1. S/C/P state
  1) C state
  *  view method
@@ -83,3 +84,16 @@
    - /usr/lib/tuned/throughput-performance/tuned.conf
   2) change profile
    # tuned-adm profile powersave
+
+7- x86_energy_perf_policy
+   # x86_energy_perf_policy -r
+     cpu0: 0x0000000000000006  <-  normal
+     cpu1: 0x0000000000000006
+     cpu2: 0x0000000000000006
+     cpu3: 0x0000000000000006
+   set performance as follow
+   #  sudo x86_energy_perf_policy performance
+   # x86_energy_perf_policy -r
+    cpu0: 0x0000000000000000  <-- performance
+    cpu1: 0x0000000000000000
+

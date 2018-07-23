@@ -63,7 +63,13 @@
   # git checkout HEAD -- path/to/file
 
 6. branch
-  add and switch the branch
-  # git checkout -b dev
-  when you commit the change at dev branch 
-  the changes  can't seen by other branch.
+  1) add and switch the branch
+     # git checkout -b dev
+      when you commit the change at dev branch 
+     the changes  can't seen by other branch.
+  2) delete local branch
+     # git branch -D kvm
+
+  3) delete remote branch
+     # git push origin :br
+

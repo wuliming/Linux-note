@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-/* 1) stack > heap > static uninitialized BSS > static initialized > text segment
+/* 1) stack (zhan) > heap (dui) > static uninitialized BSS > static initialized > text segment
  * 2) stack pointer don't need to free. for it's reclaimed by complier automatically
  * 3) global variable is static segment
  * 4) declared by "staic" is static segment
@@ -83,6 +83,19 @@ int main()
 	free(p1);
 	free(p2);
 	//free(p3);						// segment error. for it's stack memory. don't need to free. will reclaim by compiler. 
+
+        int ar[3]={1,2,3};	
+        int * num;
+	//num = (int *)malloc(sizeof(int));
+        num = &ar[1];
+        printf("%d\n", *num);
+
+        /* follow can work in linux ,but it's not correct
+	 *
+	 */
+        int * num1;
+        *num1 = ar[2];	
+        printf("%d\n", *num1);
 	
         return 0;
 }

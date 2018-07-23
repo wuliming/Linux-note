@@ -1,7 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+/* output
+ * world@
+ * : world
+ * ab(97) - AB(65) = 32
+ * wlm1
+ * Final copied string : wlmll
+ * cpu 2 cpu 2
+ */
 int main(int args, char *argv[])
 {
     /* sscanf
@@ -11,10 +18,19 @@ int main(int args, char *argv[])
      */
     char *s = "hello : world@";
     char buf[40];
-    sscanf(s, "%*s%*s%s", buf);
+    char *buf1 = "wlm";
+    // filter the first and second string, get third string
+    sscanf(s, "%*s%*s%s", buf); 
     printf("%s\n", buf);
     sscanf(s, "%*[^:]%[^@]", buf);
     printf("%s\n", buf);
+    // filter the first string, get the second string
+    sscanf(s, "%*s%s", buf);
+    printf("%s\n", buf);
+    sscanf(s, "hello :%s", buf);
+    printf("%s\n", buf);
+    //sscanf(s, "hello :%s", &buf1);  <- error segment
+    //printf("%s\n", buf1);
 
     /* strncmp(char *a, char *b, size_t n)
      * 0: until '\0' a is same with b
@@ -51,4 +67,15 @@ int main(int args, char *argv[])
     strcpy(dest, strcat(src1, src2));
 
     printf("Final copied string : %s\n", dest);
+
+    /* 
+     * pmsprintf
+     */
+    char *pm;
+    char pm1[6];
+    pm = (char *)malloc(sizeof(char));
+    int cpu = 2;
+    sprintf(pm, "cpu %d", cpu);
+    sprintf(pm1, "cpu %d", cpu);
+    printf("%s %s \n", pm, pm1);
 }

@@ -2,7 +2,8 @@
 #include<stdlib.h>
 #include<string.h>
 
-void set_str(char *str[4])
+void set_str(char **str)
+// or void set_str(char *str[4])
 { 
    int i=0;
    char *p = "XXXXX";
@@ -114,4 +115,8 @@ int main(void)
         free(dynamic[i]);
     }
     free(dynamic);
+
+    /* support string point initialization as follow */
+    char *str_t = "/var/lib";
+    printf("%s\n", str_t);
 }

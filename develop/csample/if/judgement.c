@@ -9,6 +9,9 @@
  *        break;
  *   A: must be interger variable
  *   B: must be integer constant 
+ *   - ERROR: a label can only be part of a statement and a declaration is not a statement
+ *     for statement is after case, so will show this error. 
+ *     you must move it before case.
  */
 int main(int args, char * argv[])
 {

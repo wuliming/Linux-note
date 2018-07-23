@@ -66,6 +66,7 @@ int perf_event(int cpus, int *group_fd, char * trace_name[TRACE_SIZE])
     struct dirent *de;
     int offset = 0;    
     char path[LENGTH];
+    int i = 0;
 
     snprintf(path, sizeof(path),  "/sys/kernel/debug/tracing/events/kvm/");
     path[sizeof(path)-1] = '\0';
@@ -82,7 +83,11 @@ int perf_event(int cpus, int *group_fd, char * trace_name[TRACE_SIZE])
             if (!strncmp(de->d_name, ".", 1))
                 continue;
             if (!strncmp(de->d_name, "enable", 6) || !strncmp(de->d_name, "filter", 6))
-                continue; 
+                continue;
+            for (i = 0; i < trace_count; i ++)
+            {
+            if (!strcmp(de->d_name, trace_name[i]))
+            {
             sprintf(path, "/sys/kernel/debug/tracing/events/kvm/%s/id", de->d_name);
             pFile = fopen(path, "r");
             pe.config = atoi(fgets(temp, sizeof(temp), pFile));
@@ -101,9 +106,11 @@ int perf_event(int cpus, int *group_fd, char * trace_name[TRACE_SIZE])
             if(ioctl(fd, PERF_EVENT_IOC_RESET, 0) == -1 ||
                 ioctl(fd, PERF_EVENT_IOC_ENABLE, 0) == -1)
                 fprintf(stderr,"ioctl failed 'PERF_EVENT_IOC_ENABLE'.");
-            if(cpu == 0) {
+            /*if(cpu == 0) {
                  strcpy(trace_name[trace_count], de->d_name);
                  trace_count++;
+            }*/
+            }
             }
         }
         seekdir(kvm_dir, offset);
@@ -121,9 +128,20 @@ int main(int args, char *argv[])
     long long  **trace_values;
     long long tmp_values[TRACE_SIZE] = {0};
     char * trace_name[TRACE_SIZE];
-    for (i=0; i<TRACE_SIZE; i++)
+    char str[100];
+    FILE *fp;
+    if ((fp = fopen("trace_kvm.conf", "rt")) == NULL)
     {
-         trace_name[i] = (char *)malloc(sizeof(char));
+         printf("can't open file\n");
+         exit(1);
+    }
+
+    while (fgets(str, sizeof(str), fp) != NULL)
+    {
+        trace_name[trace_count] = (char *)malloc(sizeof(char));
+        str[strlen(str) - 1] = '\0';
+        strcpy(trace_name[trace_count], str);
+        trace_count ++;
     }
     if ((envpath = getenv("LINUX_NCPUS")))
         cpus = atoi(envpath);
@@ -135,7 +153,7 @@ int main(int args, char *argv[])
     group_fd = malloc(cpus * sizeof(int));
     sts = perf_event(cpus, group_fd,  trace_name);
     trace_values  = (long long **)malloc(cpus * sizeof(long long *));
-    for (i=0; i<cpus; i++) {
+    for (i = 0; i < cpus; i ++) {
         trace_values[i] = (long long *)malloc(trace_count * sizeof(long long));
         memset(trace_values[i], 0, trace_count * sizeof(trace_values[i]));
     }

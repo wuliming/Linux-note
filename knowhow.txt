@@ -270,6 +270,9 @@ if can't situation:
  # tar -vtf tpcc-Multi-port.tar
  decompress file with .tar.gz suffix (-vxzf <-> -vzcf)
 
+ decompress the .bz2 file
+ # tar -jxvf **.bz2
+
 19) declare
   if declare variable with "declare -i a=b=2" ,
   you can calculate the sum with "c=a+b" without "$".
