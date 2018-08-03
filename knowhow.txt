@@ -37,7 +37,10 @@
 37- tee
 38- Error: no display specified
 39- journalctl -u etcd
-
+40- samba server 
+41- windows sshd install
+42- sh array
+43- reverse outpu, (fist line -> last line)
 1) about  sed command
    - transfer variable using ""
      # a=bbbbb; sed  "s/xx/$a/g" test.txt  
@@ -87,9 +90,13 @@
 3) how to cancel "set -x"
 #  set +x
 
-4) get the date time string
-DATE=`date +%m%d%H%M%S`
-ROT_DATE=`date +%Y%m%d%H%M%S`
+4) date 
+  1. get the date time string
+     DATE=`date +%m%d%H%M%S`
+     ROT_DATE=`date +%Y%m%d%H%M%S`
+  2. change date and time
+    # date -s 6/30/2018
+
 
 5) special symbol($ , ||:)
 # ./test 1 2 3
@@ -459,3 +466,62 @@ if can't situation:
 
 39- journalctl -u etcd
     research specified service by -u;
+
+40- samba server
+   1) install package
+     # yum install expect*
+     # yum install samba*
+     # yum install telnet*
+     # rpm qa | grep expect
+      expect-5.45-18.56.x86_64
+     # rpm qa | grep samba
+      yast2-samba-server-3.1.16-19.5.noarch
+      libsamba-util0-4.4.2-29.3.x86_64
+      samba-client-4.4.2-29.3.x86_64
+      samba-4.4.2-29.3.x86_64
+      samba-libs-4.4.2-29.3.x86_64
+     # rpm qa | grep telnet
+      telnet-1.2-165.63.x86_64
+  2) change config
+   # vim /ect/samba/smb.conf
+    [users]
+            comment = All users
+            path =/home/Benchmark/Benchmarks_20171108/15-iometer
+            read only = No
+            inherit acls = Yes
+            veto files = /aquota.user/groups/shares/
+   # smbpasswd -a root
+    New SMB password:
+    Retype new SMB password:
+   # systemctl start smb
+  3) test at local host
+   # smbclient -L \\127.0.0.1 -U root
+     Enter root's password:
+     Domain=[SAMBA] OS=[Windows 6.1] Server=[Samba 4.4.4]
+     .. 
+
+41- windows sshd install
+  1) install git bash
+  2) 
+    # vim /etc/ssh/sshd_config
+     ...
+     UsePrivilegeSeparation no
+  3) 
+    # ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+    # ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
+    # ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key
+    # ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
+
+
+42- sh array
+   EX:
+    for lin in "1 2 3"
+    do 
+    	array=($lin)
+    	echo ${array[2]}
+    done
+43- reverse outpu, (fist line -> last line)
+  has 3 method 
+  # tac test_result
+  # awk '{a[NR]=$0}END{for(i=NR;i>0;i--) print a[i]}' test_result
+  # sed '1!G;h;$!d' test_result

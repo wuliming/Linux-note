@@ -7,9 +7,15 @@
 7- x86_energy_perf_policy
 1. S/C/P state
  1) C state
+   get the driver type, default is intel driver
+  # cpupower idle-info  
+    CPUidle driver: intel_idle
+
  *  view method
  # cpupower info
  # turbostat
+
+ get the cstat status
  # grep . /sys/devices/system/cpu/cpu*/cpuidle/state*/*
  * setting method
  - BIOS
@@ -21,21 +27,30 @@
  - echo  1 > /sys/devices/system/cpu/cpuN/cpuidle/stateN/disable
 
  2) P state
- * governor
-  - performance
-  - powersave
-  - ondemand
-  - userspace
-  - conservative
-
- * instructions of governor
-  # cpupower frequency-info
-   available cpufreq governors: performance powersave
-  # grep . /sys/devices/system/cpu/cpufreq/policyN/*
-
- * set method
-  # cpupower frequency-set -g performance
-  # echo powersave > /sys/devices/system/cpu/cpufreq/policyN/scaling_governor
+    * get the diriver default is intel driver
+     # cpupower frequency-info
+       analyzing CPU 0:
+         driver: acpi-cpufreq
+    * get the gouvernor list
+      # cpupower frequency-info
+       ...
+       available cpufreq governors: ondemand performance
+ 
+    * governor
+     - performance
+     - powersave
+     - ondemand
+     - userspace
+     - conservative
+   
+    * instructions of governor
+     # cpupower frequency-info
+      available cpufreq governors: performance powersave
+     # grep . /sys/devices/system/cpu/cpufreq/policyN/*
+   
+    * set method
+     # cpupower frequency-set -g performance
+     # echo powersave > /sys/devices/system/cpu/cpufreq/policyN/scaling_governor
 
 2. driver
  * idle driver
@@ -43,6 +58,11 @@
    add "processor.max_cstate=0" to grub
   - acpi_idle driver
    add "intel_idle.max_ctstate=0" to grub
+
+ * set driver
+   - default is intel_pstat ( from sandy bridge on, will use intel_pstat default)
+   - add intel_pstate=disable as a kernel parameter you'll 
+     use acpi_cpufreq driver
  
  * freq driver
   intel_pstate supported governor
