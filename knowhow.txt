@@ -41,6 +41,9 @@
 41- windows sshd install
 42- sh array
 43- reverse outpu, (fist line -> last line)
+44- hacker operation
+45- VNC
+46- seq
 1) about  sed command
    - transfer variable using ""
      # a=bbbbb; sed  "s/xx/$a/g" test.txt  
@@ -402,6 +405,8 @@ if can't situation:
   # useradd mockbuild -g mockbuild
  2. NOKey
   # rpm -ivh   *.rpm --nosignature
+ 3. install more older rpm package
+  # rpm -ivh --oldpackage kernel-default-4.4.73-5.1.x86_64.rpm
 
 31) SElinux
  1. getenforce
@@ -525,3 +530,21 @@ if can't situation:
   # tac test_result
   # awk '{a[NR]=$0}END{for(i=NR;i>0;i--) print a[i]}' test_result
   # sed '1!G;h;$!d' test_result
+
+44- hacker operation
+  1) !v last command which fist letter is 'v'
+
+45- VNC
+  kill vnc
+  # vncserver -kill :1
+
+46- seq
+  set the increment to 2, print from 2 to 12
+  # seq 0 2 12
+  set the separate by -s, default is blank
+  # seq -s" " 1 10
+  set format
+  # seq -f "str%03g" 9 11
+    str009
+    str010
+    str011
