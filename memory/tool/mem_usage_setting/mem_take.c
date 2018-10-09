@@ -20,12 +20,21 @@ int main(int argc, char *argv[]) {
 	loop = (int) (nSizeInChar/1024);
         size = 1048576;
         break;
-        default:
+        case 3:
+	loop = (int) (nSizeInChar/1024/2);
+        size = 1048576 * 2;
+        break;
+        case 4:
+	loop = (int) (nSizeInChar/1024/4);
+        size = 1048576 * 4;
+        break;
+        case 5:
 	loop = (int) (nSizeInChar/1024/1024);
         size = 1073741824;
         break;
         }
 	printf("loop times is : %d\n", loop);
+	printf("allocate size is : %d Byte\n", size);
 	
 	//char *pMemData[loop];
 	long i=0;

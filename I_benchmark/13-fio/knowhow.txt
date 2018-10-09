@@ -40,6 +40,40 @@
    # cd fio   
    # make
    # make install
+  * option
+   bsrange=512-2048 //The size range of the data block, from 512bytes to 2048 bytes
+   ioengine=libaio //Specify the io engine
+   serspace_reap //With libaio, improve the harvest speed of asynchronous io
+   rw=randrw //mix random to write io, default read and write ratio 5:5
+   Rwmixwrite=20 //Write 20% in mixed read and write mode
+   Time_based //In the runtime stress test cycle, if the specified amount of data is tested, repeat the test.
+   Runtime=180 //In 180 seconds, the stress test will terminate
+   Direct=1 //Set unbuffered io
+   Group_reporting // If the multitasking parameter numjobs is set, replace each job report with each set of reports
+   Randrepeat=0 //Set the generated random number to be non-repeatable
+   Norandommap
+   Ramp_time=6
+   Iodepth=16
+   Iodepth_batch=8
+   Iodepth_low=8
+   Iodepth_batch_complete=8
+   Exitall //A job is completed, it stops all
+   Filename=/dev/mapper/cachedev //File name for stress test
+   Numjobs=1 //The default number of jobs, which is the number of concurrent, the default is 1
+   Size=200G //The total io size of this job
+   Refill_buffers // repeatedly fill io buffer after each commit
+   Overwrite=1 //Set file can be overwritten
+   sync=1 //Set asynchronous io
+   fsync=1 //A io synchronizes data
+   Invalidate=1 //Failed buffer-cache before starting io
+   Directory=/your_dir // prefix of the fielname parameter value
+   Thinktime=600 //wait 600 seconds before releasing io
+   Thinktime_spin=200 //time spent cpu, remaining time of thinktime sleep
+   Thinktime_blocks=2 //Number of blocks posted before thinktime
+
+   Bssplit=4k/30:8k/40:16k/30 // random read 4k files account for 30%, 8k for 40%, 16k for 30%
+   Rwmixread=70 //read 70%
+
  
 3. report
  -latency

@@ -7,10 +7,10 @@
    1) # tar -xzv linux-4.16
    2) clean source directory
       # make mrproper
-   3) make menuconfig then save and exit
+   3) install needed package
+      #  yum install -y ncurses-devel openssl-devel.x86_64 bison flex
+   4) make menuconfig then save and exit
       # make menuconfig
-   4) install needed package
-      #  yum install -y ncurses-devel openssl-devel.x86_64
    
    5) can increse the compiling speed with -j(cores)
       # make -j2

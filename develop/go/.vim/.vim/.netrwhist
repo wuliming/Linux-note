@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/qf/companypro/SNSGZ/wufafa_2015/server/tags/release_1.2.0/common'
+let g:netrw_dirhist_2='/home/qf/companypro/SNSGZ/wufafa_2015/server/trunk/src/base/radix/redis'
+let g:netrw_dirhist_3='/home/qf/backup/redisORM/src/redisorm'
+let g:netrw_dirhist_4='/home/qf/backup/redisORM/src'
+let g:netrw_dirhist_5='/home/qf/backup/redisORM/src/rpcclient'
+let g:netrw_dirhist_6='/home/qf/companypro/SNSGZ/wufafa_2015/server/tags/release_1.3.0/src/scene'
+let g:netrw_dirhist_7='/home/qf/companypro/SNSGZ/wufafa_2015/server/trunk/src/test'
+let g:netrw_dirhist_8='/home/qf/workspace/gitPro/beego/example'

@@ -1,0 +1,7 @@
+1. cpu usage is not accurate
+
+
+
+1. cpu usage is not accurate
+   - multi process sheduled in a cpu timer interrupt
+     http://www.ilinuxkernel.com/files/Linux_CPU_Usage_Analysis.pdf

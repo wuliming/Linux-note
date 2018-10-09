@@ -1,0 +1,21 @@
+#! /usr/bin/env stap
+global start, intervals
+
+probe $1 { start[tid()] = gettimeofday_us() }
+probe $1.return
+{
+  t = gettimeofday_us()
+  old_t = start[tid()]
+  if (old_t) intervals <<< t - old_t
+  delete start[tid()]
+}
+
+probe timer.ms($2)
+{
+    if (@count(intervals) > 0)
+    {
+        printf("%-25s:\n min:%dus avg:%dus max:%dus count:%d \n", tz_ctime(gettimeofday_s()),
+             @min(intervals), @avg(intervals), @max(intervals), @count(intervals))
+        print(@hist_log(intervals));
+    }
+}

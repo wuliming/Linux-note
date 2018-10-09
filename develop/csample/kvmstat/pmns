@@ -1,0 +1,59 @@
+/*
+ * Metrics for kvmstat PMDA
+ *
+ * Copyright (c) 2018 Fujitsu
+ * 
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 2 of the License, or (at your
+ * option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * for more details.
+ */
+
+root {
+    kvmstat
+}
+
+
+kvmstat {
+    trace       260:*:*
+    efer_reload	260:0:0
+    exits	260:0:1
+    fpu_reload	260:0:2
+    halt_attempted_poll	260:0:3
+    halt_exits	260:0:4
+    halt_successful_poll	260:0:5
+    halt_wakeup	260:0:6
+    host_state_reload	260:0:7
+    hypercalls	260:0:8
+    insn_emulation	260:0:9
+    insn_emulation_fail	260:0:10
+    invlpg	260:0:11
+    io_exits	260:0:12
+    irq_exits	260:0:13
+    irq_injections	260:0:14
+    irq_window	260:0:15
+    largepages	260:0:16
+    mmio_exits	260:0:17
+    mmu_cache_miss	260:0:18
+    mmu_flooded	260:0:19
+    mmu_pde_zapped	260:0:20
+    mmu_pte_updated	260:0:21
+    mmu_pte_write	260:0:22
+    mmu_recycled	260:0:23
+    mmu_shadow_zapped	260:0:24
+    mmu_unsync	260:0:25
+    nmi_injections	260:0:26
+    nmi_window	260:0:27
+    pf_fixed	260:0:28
+    pf_guest	260:0:29
+    remote_tlb_flush	260:0:30
+    request_irq	260:0:31
+    signal_exits	260:0:32
+    tlb_flush	260:0:33
+}                       
+                        

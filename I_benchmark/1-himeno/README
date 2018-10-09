@@ -1,4 +1,6 @@
-# small : 33,33,65		3.78	MB
+
+# MIMAX=17 MJMAX=17 MKMAX=33	1	MB
+# ssmall : 33,33,65		3.78	MB
 # small : 65,65,129		29.11	MB
 # midium: 129,129,257		228.40	MB
 # large : 257,257,513		1809.55	MB

@@ -1,0 +1,36 @@
+1. concept
+
+1. concept  https://www.binss.me/blog/An-overview-of-the-virtualization-of-x86/
+ * CPU virtual
+  1)  VMM == hypervisor
+    - run at ring 0, guest OS run at ring 1
+      for it's not at ring0, so guest OS will
+      generate a exception(trap) when run Privilege-command.
+      the trap will be cached by VMM
+    - when VT-x technology appear, don't need to get the Privilege-command and the 17 senstive-cmd
+  2) VT-x (support virtual from hardware)
+    - VMX Root Operation mode
+      VMM run at this mode 
+    - VMX non-root operfation mode 
+      Guest OS run at this mode's ring0
+      APP run at this mode's ring3
+    - process flow using VT-x
+      CPU get hte non-root-ring0's CMD
+	-> VM-Exit to root-mode's VMM
+		-> after VMM's operation VM-Entry
+    - VMCS
+      store the vcpu's MSR-stat, so don't need transfer
+      the MSR-stat to memory when VM-exit/entry.
+  * memory virtual
+   1) address mapping
+    - VA(virtual address) --> PA(physic address) --> MA(machine address) 
+    - VA(virtual address) --> SPT(shadow page table)  --> MA(machine address) 
+      for primary MMU and x86-CR3 can't support 2 level address mapping. 
+      but SPT will reduce performance
+   2) EPT (Intel Extended Page Table)
+    - store the PA-MA at EPT
+    - store poiter at EPT pointer
+    VA --by CR3 --> PA -- by EPT pointer --> EPT --> MA
+
+  * IO virtual
+   1) VT-d 

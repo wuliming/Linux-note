@@ -1,0 +1,28 @@
+1. L1TF (L1 Terminal Fault)
+
+
+
+1. L1TF (L1 Terminal Fault)
+   attacker can bypass memory access security controls
+   to read the L1-Cache data.
+   Resolution is as follow
+   1) Page Table Inversion
+   2) Flush L1 Data Cache
+      /sys/module/kvm_intel/parameters/vmentry_l1d_flush
+      or
+      modify grub parameter 
+      kvm-intel.vmentry_l1d_flush=cond <- default
+      https://www.suse.com/zh-cn/support/kb/doc/?id=7023077
+
+   3) off SMT
+     #cat /sys/devices/system/cpu/smt/active
+      0/1
+     #cat /sys/devices/system/cpu/smt/control
+      on/off/forceoff/notsupported
+  
+   install method
+   1) install kernel but don't install debuginfo 
+   2) switch kerenl
+   3) install microcode_ctl
+
+   uninstall

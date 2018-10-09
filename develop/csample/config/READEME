@@ -1,0 +1,33 @@
+use autoconf to create Makefile
+ref1: 
+     https://blog.csdn.net/commshare/article/details/39964797
+ref2: 
+     http://mij.oltrelinux.com/devel/autoconf-automake/
+
+  1) create config.ac file
+   # autoscan
+   # vim configure.scanf  <-  AM_INIT_AUTOMAKE shoud added.
+     ...
+     AC_INIT(kvm_trace, 1.0, wulm.fnst@cn.fujitsu.com)
+     AM_INIT_AUTOMAKE
+     ...
+     AC_CONFIG_FILES(Makefile)
+     ...
+   # mv configure.scanf configure.ac
+  2) vim Makefile.am
+     CFLAGS = --pedantic -Wall -std=c99 -O2
+     LDFLAGS =
+     AUTOMAKE_OPTIONS=foreign
+     bin_PROGRAMS = kvm			
+     kvm_SOURCES = kvm_trace.c
+  3) launch aclocal, it will create autom4te.com directory.
+   # aclocal
+
+  4) # autoheader
+  5) launch autoconf, it will create config file
+   # autoconf
+   # ls config
+  6) automake --add-missing
+  7) ./configure 
+  8) make
+

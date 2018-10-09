@@ -2,6 +2,9 @@ https://github.com/brendangregg/perf-tools
 
 1- summary
 2- usage method
+3- event
+
+
 
 1. summary
   - from kernel 2.6.31 start to support perf tools(since RHEL6)
@@ -12,8 +15,17 @@ https://github.com/brendangregg/perf-tools
    # perf stat ls
    specify the CPU NO.
    # perf stat -C 0
+   specify some event for monitor L1TF L1 cache-miss and TLB-miss
+   # perf stat -e L1-dcache-load-misses -e L1-dcache-loads -e L1-dcache-store-misses -e L1-icache-load-misses -e dTLB-load-misses -e dTLB-loads -e dTLB-load-misses -e dTLB-loads -e dTLB-store-misses -e dTLB-stores -e iTLB-load-misses -e iTLB-loads -p 28190 -- sleep 10
+  
+
 
   3) perf record
+    -d  will output the L1 and LLC(L3) info
+    -d:          detailed events, L1 and LLC data cache
+    -d -d:     more detailed events, dTLB and iTLB events
+    -d -d -d:     very detailed events, adding prefetch events
+
     -a  all cpu
     -C  specify cpu  -C 4
     -p  specify PID
@@ -25,4 +37,8 @@ https://github.com/brendangregg/perf-tools
    # perf timechart record -T 
    # perf timechart -w 1900
    # perf timechart -w 1800 -o output_io.svg
- 
+
+3. event
+   - http://qcd.phys.cmu.edu/QCDcluster/intel/vtune/reference/DLTB_Load_Misses_Retired.htm
+  instruction translation lookaside buffer (ITLB) # if iTLB-load-misses > iTLB-load ,that is not right 
+  data translation lookaside buffer (DTLB) 

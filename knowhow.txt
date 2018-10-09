@@ -12,7 +12,7 @@
 12- decompress the src package
 13- comm  
 14- calculation
-15- yum repolist
+15- yum 
 16- vim & less 
 17- split (cut\tr .etc)
 18- decompress
@@ -44,6 +44,7 @@
 44- hacker operation
 45- VNC
 46- seq
+
 1) about  sed command
    - transfer variable using ""
      # a=bbbbb; sed  "s/xx/$a/g" test.txt  
@@ -217,8 +218,12 @@ if can't situation:
   - sum calculation
   # cat num.txt | awk "{ sum += $1 } END { printf "%.2f\n",sum }"
 
-14) how to install package specifying the repolist
+14) yum
+  how to install package specifying the repolist
   # yum --disablerepo="*" --enablerepo="rhel7.3" install kernel-devel
+
+  get hte dependencies package list
+  # yum deplist pcp-system-tools
 
 15) how to see thread infomation of process
   # ps -T -p 3171
@@ -535,7 +540,9 @@ if can't situation:
   1) !v last command which fist letter is 'v'
 
 45- VNC
-  kill vnc
+  1) install vnc
+    # yum -y install vnc *vnc-server*
+  2) 2) kill vnc
   # vncserver -kill :1
 
 46- seq

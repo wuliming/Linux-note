@@ -7,6 +7,7 @@ https://zh.wikipedia.org/wiki/Intel_Xeon%E8%99%95%E7%90%86%E5%99%A8%E5%88%97%E8%
 4- cpupower 
 5- turbostat
 6- pcm
+7- cpu time http://www.ilinuxkernel.com/files/Linux_CPU_Usage_Analysis.pdf
 1. S/C/P state
  1) C state
  *  view method
@@ -86,4 +87,6 @@ https://zh.wikipedia.org/wiki/Intel_Xeon%E8%99%95%E7%90%86%E5%99%A8%E5%88%97%E8%
    2) FREQ=Avg_MHz/TSC_MHz
    Date	Time	        EXEC	IPC	FREQ	AFREQ	L3MISS	L2MISS	L3HIT	L2HIT	L3MPI	L2MPI	READ	WRITE	INST	ACYC
    2018/4/12	44:44.8	0.138	0.265	0.521	0.521	0.041	0.064	0.36	0.622	2.32E-05	3.63E-05	0.00343	0.00109	1.76E+03	6.65E+03
+
+7- cpu time
 

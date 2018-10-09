@@ -1,8 +1,28 @@
 1-IPC and  CPI
-
+2- RTC TSC PIT jiffies 
+3- numactl
 
 2. IPC & CPI
   IPC = 1/CPI
   1) CPI < 1(IPC > 1)  CPU load  CPI > 1 (IPC < 1) Memory load
   
-  
+2- RTC TSC PIT jiffies
+  1) RTC  Real Time Clock
+     - irq 8
+     - 2HZ~8192HZ
+  2) TSC  Time stamp Clock
+     - rdtsc can read MSR
+
+  3) PTI Program Time Timer
+     - IO port 0x40~0x43
+     - irq 0
+     - 1ms -> tick
+  4) jiffies
+     - counter HZ will increase at 1 second
+  # getconf CLK_TCK
+   100
+  # grep ^CONFIG_HZ /boot/config-`uname -r`
+   CONFIG_HZ_250=y
+   CONFIG_HZ=250
+
+3- numactl

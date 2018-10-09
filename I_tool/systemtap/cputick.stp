@@ -1,0 +1,42 @@
+#!/usr/bin/stap
+
+probe kernel.function("account_user_time")
+{
+        print(gettimeofday_us())
+        printf("\tuser\tcpu%d\t%s\t%s\tPID=%d\tTID=%d\tPPID=%d\t%d\n",
+                cpu(),probefunc(),execname(),pid(),tid(),ppid(),$cputime)
+}
+probe kernel.function("account_guest_time")
+{
+        print(gettimeofday_us())
+        printf("\tguest\tcpu%d\t%s\t%s\tPID=%d\tTID=%d\tPPID=%d\t%d\n",
+                cpu(),probefunc(),execname(),pid(),tid(),ppid(),$cputime)
+}
+probe kernel.function("account_system_time")
+{
+        print(gettimeofday_us())
+        printf("\tsystem\tcpu%d\t%s\t%s\tPID=%d\tTID=%d\tPPID=%d\t%d\n",
+                cpu(),probefunc(),execname(),pid(),tid(),ppid(),$cputime)
+}
+probe kernel.function("account_steal_time")
+{
+        print(gettimeofday_us())
+        printf("\tsteal\tcpu%d\t%s\t%s\tPID=%d\tTID=%d\tPPID=%d\t%d\n",
+                cpu(),probefunc(),execname(),pid(),tid(),ppid(),$cputime)
+}
+probe kernel.function("account_idle_time")
+{
+        print(gettimeofday_us())
+        printf("\tidle\tcpu%d\t%s\t%s\tPID=%d\tTID=%d\tPPID=%d\t%d\n",
+                cpu(),probefunc(),execname(),pid(),tid(),ppid(),$cputime)
+}
+
+probe timer.ms(10000) # after 10 seconds
+{
+	    exit ()
+}
+
+probe end
+{
+	    log("end to probe")
+}

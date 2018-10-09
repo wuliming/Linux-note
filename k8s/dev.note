@@ -1,0 +1,27 @@
+1. sig
+2. k8s architectural 
+3. code architectural
+3. code architectural
+
+1. sig	: special interset group
+   PR	: Pull requests
+2. k8s architectural
+   it has 2 parts
+   1) master
+    - apis
+    - scheduler
+    - controller manager
+   2) agent
+    - kubelet
+      it's used to manage container,image,store etc.
+    - proxy
+3. code architectural
+   include 4 parts mainly
+   1) pkg
+     - api
+     
+   2) cmd
+     start program, it'w approved at pkg
+   3) plugin
+     kube-schedule and other plugins
+   4) test

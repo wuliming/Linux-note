@@ -15,6 +15,7 @@
  
   2) block	(physical_block_size)
     - basic unit for VFS and file system
+    - most generally block size is 4KB = 8 sectors
     - generally 512/1024/2048/4096 Byte 
       # cat /sys/block/sda/queue/physical_block_size
       4096
@@ -29,7 +30,16 @@
      # mount /dev/sde1 /FIO
      # blockdev --getbsz /dev/sde1
        2048
-
+  3) inode
+    - generally 1file <-> 1 inode. multi mapping when ln
+    - used by store the file metadata 
+    - stat command cat get inode NO. infomation
+    - "df -i" cat get used inodes can free
+    - "dumpe2fs -h /dev/sde1"  get fs information
+    - "ls -i /etc" cat get inode NO.
+    - when file include special character, you can delete inode.
+      # find ./ -inum 69239404 -exec rm -irf {} \;
+   
 
   3) segment
   4) page cache

@@ -12,16 +12,50 @@ http://linuxperf.com/?p=142
 
 
 2. THP
+  - https://access.redhat.com/solutions/46111
+  - impact
+    https://alexandrnikitin.github.io/blog/transparent-hugepages-measuring-the-performance-impact/
   - RHEL7 
+   2MB pages
+   purpose: reduce TLB miss
    1) default 
    # grep . /sys/kernel/mm/transparent_hugepage/*
     /sys/kernel/mm/transparent_hugepage/defrag:[always] madvise never
     /sys/kernel/mm/transparent_hugepage/enabled:[always] madvise never
+   - defrag 
+     compact memory to make more hugepages available.
+   - get the wide system-wide THP usage
+    # grep AnonHugePages /proc/meminfo
+    # egrep 'trans|thp' /proc/vmstat
+   - monitor which process is using THP
+    # grep -e AnonHugePages  /proc/*/smaps | awk  '{ if($2>4) print $0} ' |  awk -F "/"  '{print $0; system("ps -fp " $3)} '
+
 
    2) tuning
     when /proc/buddyinfo last 2 columns is not enough, maybe excute
     the compaction. so may be slowdown the performance.
     so can improve the performance by  off the THP funcion.
+
+   3) test result(s8 cpu:20  memory:128G  RHEL7.6)
+     - himeno(large)  
+       MFLOPS:
+        THP_on/THP_off = 1.05
+       TLBMiss:  
+        ON						OFF
+        12,204              page-faults                |         3,197,713      page-faults         
+        94,485,716,891      dTLB-loads                 |    73,614,330,149      dTLB-loads              
+             1,741,841      dTLB-load-misses           |       102,719,923      dTLB-load-misses        
+                   358      iTLB-loads                 |               274      iTLB-loads              
+                95,756      iTLB-load-misses           |         2,054,782      iTLB-load-misses        
+     - specjbb_2005  <- Java Business Benchmark
+       1) 2jvm/1warehouse
+         THP_on/THP_off = 98658/75713 = 1.30
+       2) 2jvm/8warehouse
+         THP_on/THP_off = 668492/569894 = 1.17
+       3) 2jvm/56warehouse
+         THP_on/THP_off = 249467/226165 = 1.10
+     - tpcc(20 agent)
+       THP_on/THP_off = 112.7/104.2 = 1.08   <- tps 
     
 5. hugePage
   1) search the process which anonhugepage > 4  

@@ -1,0 +1,16 @@
+1. Error starting domain: Requested operation is not valid: network 'default' is not active
+
+
+
+1. Error starting domain: Requested operation is not valid: network 'default' is not active
+   in SLES12sp4 when restart os, this error occured.
+   RESOLUTION:
+   # virsh net-list --all
+      Name                 State      Autostart     Persistent
+     ----------------------------------------------------------
+      default              inactive   no            yes
+   # virsh net-start default
+     Network default started
+
+
+

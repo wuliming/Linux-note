@@ -2,3 +2,9 @@
 2-
 3- ref
   1) https://www.cnblogs.com/LubinLew/p/cpu_affinity.html
+
+1- summary
+ 1) Each processor core has its own L1 and L2 caches.  They aren't shared.
+ 2) The L3 cache is shared among all processor cores on the same processor socket.
+ 3) Nothing is shared not even back-end RAM between processor cores on different processor sockets.
+ 4) there's multiple different network interfaces, and each is local to a specific NUMA node.
